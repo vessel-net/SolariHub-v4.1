@@ -1,5 +1,5 @@
 {
-  "name": "@./backend",
+  "name": "backend",
   "version": "0.0.1",
   "private": true,
   "nx": {
@@ -12,15 +12,15 @@
           "build"
         ],
         "options": {
-          "buildTarget": "@./backend:build",
+          "buildTarget": "backend:build",
           "runBuildTargetDependencies": false
         },
         "configurations": {
           "development": {
-            "buildTarget": "@./backend:build:development"
+            "buildTarget": "backend:build:development"
           },
           "production": {
-            "buildTarget": "@./backend:build:production"
+            "buildTarget": "backend:build:production"
           }
         }
       },

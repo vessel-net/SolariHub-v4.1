@@ -1,5 +1,5 @@
 export default {
-  displayName: '@./api',
+  displayName: 'backend',
   preset: '../jest.preset.js',
   testEnvironment: 'node',
   transform: {
