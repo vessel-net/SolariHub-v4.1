@@ -11,7 +11,7 @@ module.exports = {
   plugins: {
     tailwindcss: {
       // @ts-expect-error TS(2304): Cannot find name '__dirname'.
-      config: join(__dirname, 'tailwind.config.js'),
+      config: join(__dirname, 'tailwind.config.ts'),
     },
     autoprefixer: {},
   },

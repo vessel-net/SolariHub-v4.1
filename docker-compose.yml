@@ -1,21 +1,21 @@
 version: "3.8"
 
 services:
-  api:
-    container_name: solarihub-api
+  backend:
+    container_name: solarihub-backend
     build:
       context: .
-      dockerfile: Dockerfile.api
+      dockerfile: Dockerfile.backend
     ports:
       - "4000:4000"
     environment:
       NODE_ENV: production
 
-  web:
-    container_name: solarihub-web
+  frontend:
+    container_name: solarihub-frontend
     build:
       context: .
-      dockerfile: Dockerfile.web
+      dockerfile: Dockerfile.frontend
     ports:
       - "3000:3000"
     environment:

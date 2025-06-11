@@ -1,19 +1,9 @@
 {
-  "extends": "../tsconfig.base.json",
+  "extends": "../../tsconfig.base.json",
   "compilerOptions": {
     "outDir": "./out-tsc/vitest",
-    "types": [
-      "vitest/globals",
-      "vitest/importMeta",
-      "vite/client",
-      "node",
-      "vitest",
-      "@nx/react/typings/cssmodule.d.ts",
-      "@nx/react/typings/image.d.ts"
-    ],
-    "jsx": "react-jsx",
-    "module": "esnext",
-    "moduleResolution": "bundler"
+    "types": ["vitest/globals", "vitest/importMeta", "vite/client", "node", "vitest"],
+    "forceConsistentCasingInFileNames": true
   },
   "include": [
     "vite.config.ts",
@@ -32,7 +22,7 @@
   ],
   "references": [
     {
-      "path": "./tsconfig.app.json"
+      "path": "./tsconfig.lib.json"
     }
   ]
 }

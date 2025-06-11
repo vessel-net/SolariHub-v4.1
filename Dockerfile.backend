@@ -5,13 +5,10 @@ WORKDIR /app
 COPY package*.json ./
 COPY tsconfig.base.json ./
 COPY nx.json ./
-COPY web ./web
+COPY apps/backend ./apps/backend
 COPY libs ./libs
-COPY types ./types
 
 RUN npm install
-RUN npx nx build web
+RUN npx nx build backend
 
-EXPOSE 3000
-
-CMD ["npx", "vite", "preview", "--host", "--port", "3000"] 
+CMD ["node", "dist/backend/main.js"] 

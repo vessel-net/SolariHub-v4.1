@@ -2,14 +2,14 @@
   "version": 2,
   "builds": [
     {
-      "src": "web/vite.config.ts",
+      "src": "apps/frontend/vite.config.ts",
       "use": "@vercel/node"
     }
   ],
   "rewrites": [
     {
       "source": "/(.*)",
-      "destination": "/web/index.html"
+      "destination": "/apps/frontend/index.html"
     }
   ]
 }

@@ -1,9 +1,9 @@
 services:
   - type: web
-    name: solarihub-api
+    name: solarihub-backend
     runtime: node
-    buildCommand: npx nx build api
-    startCommand: node dist/api/main.js
+    buildCommand: npx nx build backend
+    startCommand: node dist/backend/main.js
     envVars:
       - key: NODE_ENV
         value: production
