@@ -2,5 +2,19 @@
   "extends": "./tsconfig.base.json",
   "compileOnSave": false,
   "files": [],
-  "references": []
+  "include": ["apps", "libs", "types"],
+  "references": [
+    {
+      "path": "./web-e2e"
+    },
+    {
+      "path": "./web"
+    },
+    {
+      "path": "./api"
+    },
+    {
+      "path": "./types"
+    }
+  ]
 }

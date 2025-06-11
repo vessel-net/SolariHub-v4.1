@@ -1,0 +1,17 @@
+FROM node:20-alpine
+
+WORKDIR /app
+
+COPY package*.json ./
+COPY tsconfig.base.json ./
+COPY nx.json ./
+COPY web ./web
+COPY libs ./libs
+COPY types ./types
+
+RUN npm install
+RUN npx nx build web
+
+EXPOSE 3000
+
+CMD ["npx", "vite", "preview", "--host", "--port", "3000"] 
