@@ -1,0 +1,12 @@
+services:
+  - type: web
+    name: solarihub-api
+    runtime: node
+    buildCommand: npx nx build api
+    startCommand: node dist/api/main.js
+    envVars:
+      - key: NODE_ENV
+        value: production
+      - key: PORT
+        value: 4000
+    autoDeploy: true 

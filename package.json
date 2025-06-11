@@ -6,7 +6,9 @@
     "lint": "nx lint",
     "format": "nx format:write",
     "format:check": "nx format:check",
-    "watch:chokidar": "ts-node tools/watchers/chokidar-watcher.ts"
+    "watch:chokidar": "ts-node tools/watchers/chokidar-watcher.ts",
+    "deploy:web": "npx vercel --prod",
+    "deploy:api": "echo 'Deploy via Render Dashboard or Git integration'"
   },
   "private": true,
   "devDependencies": {
