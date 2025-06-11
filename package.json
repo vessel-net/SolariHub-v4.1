@@ -1,6 +1,6 @@
 {
-  "name": "@./source",
-  "version": "0.0.0",
+  "name": "solarihub-v4.1",
+  "version": "1.0.0",
   "license": "MIT",
   "scripts": {
     "lint": "nx lint",
@@ -8,7 +8,12 @@
     "format:check": "nx format:check",
     "watch:chokidar": "ts-node tools/watchers/chokidar-watcher.ts",
     "deploy:web": "npx vercel --prod",
-    "deploy:api": "echo 'Deploy via Render Dashboard or Git integration'"
+    "deploy:api": "echo 'Deploy via Render Dashboard or Git integration'",
+    "build": "nx build",
+    "test": "nx test",
+    "nx": "nx",
+    "start": "nx serve",
+    "e2e": "nx e2e"
   },
   "private": true,
   "devDependencies": {
