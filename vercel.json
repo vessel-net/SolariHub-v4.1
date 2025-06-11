@@ -1,15 +1,10 @@
 {
-  "version": 2,
-  "builds": [
-    {
-      "src": "apps/frontend/vite.config.ts",
-      "use": "@vercel/node"
-    }
-  ],
+  "buildCommand": "npx nx build frontend",
+  "outputDirectory": "apps/frontend/dist",
   "rewrites": [
     {
       "source": "/(.*)",
-      "destination": "/apps/frontend/index.html"
+      "destination": "/index.html"
     }
   ]
 }
