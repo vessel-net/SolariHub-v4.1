@@ -1,4 +1,4 @@
-# 🚀 SolariHub v4.1 Deployment Guide
+ 🚀 SolariHub v4.1 Deployment Guide
 
 This guide covers deploying SolariHub to Vercel (frontend) and Render (backend).
 
