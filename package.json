@@ -85,10 +85,8 @@
     "yargs": "^18.0.0"
   },
   "workspaces": [
-    "packages/*",
-    "web",
-    "api",
-    "types"
+    "apps/*",
+    "libs/*"
   ],
   "dependencies": {
     "express": "^4.21.2",
