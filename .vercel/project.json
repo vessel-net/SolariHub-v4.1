@@ -1,9 +1,0 @@
-{
-  "projectId": "REPLACE_WITH_PROJECT_ID",
-  "orgId": "REPLACE_WITH_ORG_ID",
-  "settings": {
-    "framework": "other",
-    "buildCommand": "npx nx build frontend",
-    "outputDirectory": "apps/frontend/dist"
-  }
-}
