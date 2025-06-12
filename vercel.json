@@ -1,6 +1,8 @@
 {
-  "buildCommand": "cd apps/frontend && npm install && npm run build",
-  "outputDirectory": "apps/frontend/dist",
+  "buildCommand": "npm run build",
+  "outputDirectory": "dist",
+  "installCommand": "npm install",
+  "rootDirectory": "apps/frontend",
   "rewrites": [
     {
       "source": "/(.*)",
