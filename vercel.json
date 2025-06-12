@@ -1,7 +1,6 @@
 {
-  "installCommand": "npm ci --prefer-offline --no-audit --no-fund",
-  "buildCommand": "npx nx build frontend --skip-nx-cache",
-  "outputDirectory": "dist/apps/frontend",
+  "buildCommand": "cd apps/frontend && npm install && npm run build",
+  "outputDirectory": "apps/frontend/dist",
   "rewrites": [
     {
       "source": "/(.*)",
