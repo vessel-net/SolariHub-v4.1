@@ -28,287 +28,229 @@
  *     • 🏷️ Types: {type1}, {type2}, ...
  */
 
-import { Project, Node } from 'ts-morph';
-import * as fs from 'fs';
-import * as path from 'path';
+import { Project, SourceFile } from 'ts-morph';
+import { writeFileSync } from 'fs';
+import { join } from 'path';
 
-// Directories to analyze
-const ANALYZE_DIRECTORIES = ['apps/', 'libs/', 'types/'];
+export interface TypeAnalysis {
+  fileName: string;
+  exports: string[];
+  imports: string[];
+  interfaces: string[];
+  types: string[];
+  functions: string[];
+  classes: string[];
+  errors: string[];
+}
 
-// Patterns to ignore
-const IGNORE_PATTERNS = [
-  '**/node_modules/**',
-  '**/dist/**',
-  '**/build/**',
-  '**/.nx/**',
-  '**/coverage/**',
-  '**/*.spec.ts',
-  '**/*.test.ts',
-  '**/*.spec.tsx',
-  '**/*.test.tsx',
-];
+export class TsMorphAnalyzer {
+  private project: Project;
+  private workspaceRoot: string;
 
-// Colors for terminal output
-const colors = {
-  reset: '\x1b[0m',
-  bright: '\x1b[1m',
-  green: '\x1b[32m',
-  blue: '\x1b[34m',
-  yellow: '\x1b[33m',
-  red: '\x1b[31m',
-  cyan: '\x1b[36m',
-  magenta: '\x1b[35m',
+  constructor(workspaceRoot: string = process.cwd()) {
+    this.workspaceRoot = workspaceRoot;
+    this.project = new Project({
+      tsConfigFilePath: join(workspaceRoot, 'tsconfig.base.json'),
+      skipAddingFilesFromTsConfig: false,
+    });
+  }
+
+  /**
+   * Analyze all TypeScript files in the workspace
+   */
+  public analyzeWorkspace(): TypeAnalysis[] {
+    const sourceFiles = this.project.getSourceFiles();
+    return sourceFiles.map(file => this.analyzeFile(file));
+  }
+
+  /**
+   * Analyze a specific TypeScript file
+   */
+  public analyzeFile(sourceFile: SourceFile): TypeAnalysis {
+    const analysis: TypeAnalysis = {
+      fileName: sourceFile.getFilePath(),
+      exports: [],
+      imports: [],
+      interfaces: [],
+      types: [],
+      functions: [],
+      classes: [],
+      errors: []
+    };
+
+    try {
+      // Extract imports
+      sourceFile.getImportDeclarations().forEach(importDecl => {
+        analysis.imports.push(importDecl.getModuleSpecifierValue());
+      });
+
+      // Extract exports
+      sourceFile.getExportDeclarations().forEach(exportDecl => {
+        const moduleSpecifier = exportDecl.getModuleSpecifierValue();
+        if (moduleSpecifier) {
+          analysis.exports.push(moduleSpecifier);
+        }
+      });
+
+      // Extract interfaces
+      sourceFile.getInterfaces().forEach(interfaceDecl => {
+        analysis.interfaces.push(interfaceDecl.getName());
+      });
+
+      // Extract type aliases
+      sourceFile.getTypeAliases().forEach(typeAlias => {
+        analysis.types.push(typeAlias.getName());
+      });
+
+      // Extract functions
+      sourceFile.getFunctions().forEach(func => {
+        const name = func.getName();
+        if (name) analysis.functions.push(name);
+      });
+
+      // Extract classes
+      sourceFile.getClasses().forEach(cls => {
+        analysis.classes.push(cls.getName() || 'Anonymous');
+      });
+
+    } catch (error) {
+      analysis.errors.push(error instanceof Error ? error.message : String(error));
+    }
+
+    return analysis;
+  }
+
+  /**
+   * Generate type-safe scaffolding for new modules
+   */
+  public generateScaffold(moduleName: string, moduleType: 'component' | 'service' | 'lib'): void {
+    const scaffoldPath = join(this.workspaceRoot, 'scaffolds', `${moduleName}-${moduleType}.ts`);
+    
+    let scaffoldContent = '';
+    
+    switch (moduleType) {
+      case 'component':
+        scaffoldContent = this.generateComponentScaffold(moduleName);
+        break;
+      case 'service':
+        scaffoldContent = this.generateServiceScaffold(moduleName);
+        break;
+      case 'lib':
+        scaffoldContent = this.generateLibScaffold(moduleName);
+        break;
+    }
+
+    writeFileSync(scaffoldPath, scaffoldContent);
+    console.log(`✅ Generated ${moduleType} scaffold: ${scaffoldPath}`);
+  }
+
+  private generateComponentScaffold(name: string): string {
+    return `import React from 'react';
+
+export interface ${name}Props {
+  // Define props here
+}
+
+export const ${name}: React.FC<${name}Props> = (props) => {
+  return (
+    <div>
+      <h1>${name} Component</h1>
+      {/* Add component logic here */}
+    </div>
+  );
 };
 
-interface ExportAnalysis {
-  name: string;
-  type: 'function' | 'class' | 'interface' | 'type' | 'enum' | 'constant' | 'variable' | 'unknown';
-  isDefault: boolean;
+export default ${name};
+`;
+  }
+
+  private generateServiceScaffold(name: string): string {
+    return `export class ${name}Service {
+  constructor() {
+    // Initialize service
+  }
+
+  // Add service methods here
+  public async initialize(): Promise<void> {
+    // Service initialization logic
+  }
 }
 
-interface FileAnalysis {
-  filePath: string;
-  exports: ExportAnalysis[];
-  hasDefaultExport: boolean;
-  exportTypes: string[];
+export const ${name.toLowerCase()}Service = new ${name}Service();
+`;
+  }
+
+  private generateLibScaffold(name: string): string {
+    return `export interface ${name}Config {
+  // Define configuration interface
 }
 
-/**
- * Determines the type of an exported symbol
- */
-function getExportType(node: Node): ExportAnalysis['type'] {
-  if (
-    Node.isFunctionDeclaration(node) ||
-    Node.isFunctionExpression(node) ||
-    Node.isArrowFunction(node)
-  ) {
-    return 'function';
-  }
-  if (Node.isClassDeclaration(node)) {
-    return 'class';
-  }
-  if (Node.isInterfaceDeclaration(node)) {
-    return 'interface';
-  }
-  if (Node.isTypeAliasDeclaration(node)) {
-    return 'type';
-  }
-  if (Node.isEnumDeclaration(node)) {
-    return 'enum';
-  }
-  if (Node.isVariableDeclaration(node)) {
-    const initializer = node.getInitializer();
-    if (initializer) {
-      if (Node.isFunctionExpression(initializer) || Node.isArrowFunction(initializer)) {
-        return 'function';
-      }
-      if (Node.isClassExpression(initializer)) {
-        return 'class';
-      }
-    }
-    return 'constant';
-  }
-  if (Node.isVariableStatement(node)) {
-    return 'variable';
+export class ${name} {
+  private config: ${name}Config;
+
+  constructor(config: ${name}Config) {
+    this.config = config;
   }
 
-  return 'unknown';
+  // Add library methods here
 }
 
-/**
- * Analyzes a single TypeScript file for exports
- */
-function analyzeFile(filePath: string, project: Project): FileAnalysis | null {
-  try {
-    const sourceFile = project.addSourceFileAtPath(filePath);
-    const exports: ExportAnalysis[] = [];
-    let hasDefaultExport = false;
+export * from './${name.toLowerCase()}.types';
+`;
+  }
 
-    // Get all exported functions, classes, interfaces, etc.
-    const exportedDeclarations = sourceFile.getExportedDeclarations();
+  /**
+   * Check type safety across the workspace
+   */
+  public checkTypeSafety(): { errors: string[]; warnings: string[] } {
+    const diagnostics = this.project.getPreEmitDiagnostics();
+    const errors: string[] = [];
+    const warnings: string[] = [];
 
-    // Check for default export
-    const defaultExportSymbol = sourceFile.getDefaultExportSymbol();
-    if (defaultExportSymbol) {
-      hasDefaultExport = true;
-      const defaultDeclarations = defaultExportSymbol.getDeclarations();
-      if (defaultDeclarations.length > 0) {
-        const declaration = defaultDeclarations[0];
-        exports.push({
-          name: 'default',
-          type: getExportType(declaration),
-          isDefault: true,
-        });
+    diagnostics.forEach(diagnostic => {
+      const message = diagnostic.getMessageText();
+      const file = diagnostic.getSourceFile()?.getFilePath() || 'Unknown';
+      const line = diagnostic.getLineNumber();
+      
+      const fullMessage = `${file}:${line} - ${message}`;
+      
+      if (diagnostic.getCategory() === 1) { // Error
+        errors.push(fullMessage);
+      } else if (diagnostic.getCategory() === 0) { // Warning
+        warnings.push(fullMessage);
       }
-    }
-
-    // Analyze named exports
-    exportedDeclarations.forEach((declarations, name) => {
-      if (name === 'default') return; // Skip default exports (already handled)
-
-      declarations.forEach((declaration) => {
-        exports.push({
-          name,
-          type: getExportType(declaration),
-          isDefault: false,
-        });
-      });
     });
 
-    // Get unique export types
-    const exportTypes = [...new Set(exports.map((exp) => exp.type))].filter(
-      (type) => type !== 'unknown'
-    );
+    return { errors, warnings };
+  }
 
-    return {
-      filePath: path.relative(process.cwd(), filePath),
-      exports: exports.filter((exp) => exp.name !== 'default' || exp.isDefault),
-      hasDefaultExport,
-      exportTypes,
+  /**
+   * Generate type report for SolariMonitor
+   */
+  public generateTypeReport(): void {
+    const analysis = this.analyzeWorkspace();
+    const typeSafety = this.checkTypeSafety();
+    
+    const report = {
+      timestamp: new Date().toISOString(),
+      totalFiles: analysis.length,
+      totalInterfaces: analysis.reduce((sum, file) => sum + file.interfaces.length, 0),
+      totalTypes: analysis.reduce((sum, file) => sum + file.types.length, 0),
+      totalFunctions: analysis.reduce((sum, file) => sum + file.functions.length, 0),
+      totalClasses: analysis.reduce((sum, file) => sum + file.classes.length, 0),
+      errors: typeSafety.errors,
+      warnings: typeSafety.warnings,
+      fileAnalysis: analysis
     };
-  } catch (error) {
-    console.error(`${colors.red}❌ Error analyzing ${filePath}: ${error}${colors.reset}`);
-    return null;
+
+    const reportPath = join(this.workspaceRoot, 'reports', 'type-analysis.json');
+    writeFileSync(reportPath, JSON.stringify(report, null, 2));
+    console.log(`📊 Type analysis report generated: ${reportPath}`);
   }
-}
-
-/**
- * Recursively finds all TypeScript files in a directory
- */
-function findTypeScriptFiles(dir: string): string[] {
-  const files: string[] = [];
-
-  if (!fs.existsSync(dir)) {
-    return files;
-  }
-
-  const entries = fs.readdirSync(dir, { withFileTypes: true });
-
-  for (const entry of entries) {
-    const fullPath = path.join(dir, entry.name);
-
-    // Skip ignored patterns
-    if (
-      IGNORE_PATTERNS.some((pattern) => {
-        const globPattern = pattern.replace(/\*\*/g, '').replace(/\*/g, '');
-        return fullPath.includes(globPattern.replace(/\//g, path.sep));
-      })
-    ) {
-      continue;
-    }
-
-    if (entry.isDirectory()) {
-      files.push(...findTypeScriptFiles(fullPath));
-    } else if (entry.isFile() && (entry.name.endsWith('.ts') || entry.name.endsWith('.tsx'))) {
-      // Skip test files
-      if (!entry.name.includes('.spec.') && !entry.name.includes('.test.')) {
-        files.push(fullPath);
-      }
-    }
-  }
-
-  return files;
-}
-
-/**
- * Logs the analysis results for a file
- */
-function logFileAnalysis(analysis: FileAnalysis): void {
-  console.log(
-    `${colors.bright}[analysis]${colors.reset} ${colors.cyan}${analysis.filePath}${colors.reset}`
-  );
-
-  // Log exports
-  if (analysis.exports.length > 0) {
-    const namedExports = analysis.exports.filter((exp) => !exp.isDefault);
-    if (namedExports.length > 0) {
-      const exportNames = namedExports.map((exp) => exp.name).join(', ');
-      console.log(`\t• ${colors.green}✅ Exports${colors.reset}: ${exportNames}`);
-    } else {
-      console.log(`\t• ${colors.yellow}⚠️  Exports${colors.reset}: none`);
-    }
-  } else {
-    console.log(`\t• ${colors.yellow}⚠️  Exports${colors.reset}: none`);
-  }
-
-  // Log default export
-  if (analysis.hasDefaultExport) {
-    console.log(`\t• ${colors.green}✅ Default export${colors.reset}: found`);
-  } else {
-    console.log(`\t• ${colors.red}❌ Default export${colors.reset}: not found`);
-  }
-
-  // Log export types
-  if (analysis.exportTypes.length > 0) {
-    const typesList = analysis.exportTypes.join(', ');
-    console.log(`\t• ${colors.magenta}🏷️  Types${colors.reset}: ${typesList}`);
-  } else {
-    console.log(`\t• ${colors.yellow}🏷️  Types${colors.reset}: none`);
-  }
-
-  console.log(); // Empty line for readability
-}
-
-/**
- * Main analyzer function
- */
-function runAnalysis(): void {
-  console.log(`${colors.bright}${colors.blue}🔍 Starting TypeScript analysis...${colors.reset}\n`);
-
-  // Initialize ts-morph project
-  const project = new Project({
-    tsConfigFilePath: 'tsconfig.json',
-    skipAddingFilesFromTsConfig: true,
-  });
-
-  let totalFiles = 0;
-  let totalExports = 0;
-  let filesWithDefaultExport = 0;
-
-  // Analyze each directory
-  for (const dir of ANALYZE_DIRECTORIES) {
-    if (!fs.existsSync(dir)) {
-      console.log(`${colors.yellow}⚠️  Directory ${dir} not found, skipping...${colors.reset}`);
-      continue;
-    }
-
-    console.log(`${colors.cyan}📁 Analyzing directory: ${dir}${colors.reset}`);
-    const files = findTypeScriptFiles(dir);
-
-    if (files.length === 0) {
-      console.log(`${colors.yellow}  No TypeScript files found in ${dir}${colors.reset}\n`);
-      continue;
-    }
-
-    for (const file of files) {
-      const analysis = analyzeFile(file, project);
-      if (analysis) {
-        logFileAnalysis(analysis);
-        totalFiles++;
-        totalExports += analysis.exports.filter((exp) => !exp.isDefault).length;
-        if (analysis.hasDefaultExport) {
-          filesWithDefaultExport++;
-        }
-      }
-    }
-  }
-
-  // Summary
-  console.log(`${colors.bright}${colors.green}📊 Analysis Summary:${colors.reset}`);
-  console.log(`  • Total files analyzed: ${colors.cyan}${totalFiles}${colors.reset}`);
-  console.log(`  • Total exports found: ${colors.cyan}${totalExports}${colors.reset}`);
-  console.log(
-    `  • Files with default export: ${colors.cyan}${filesWithDefaultExport}${colors.reset}`
-  );
-  console.log(
-    `  • Files without default export: ${colors.cyan}${totalFiles - filesWithDefaultExport}${colors.reset}`
-  );
 }
 
 // Run the analysis if this script is executed directly
 if (require.main === module) {
-  runAnalysis();
+  const analyzer = new TsMorphAnalyzer();
+  analyzer.generateTypeReport();
 }
-
-export { runAnalysis, analyzeFile };
-export type { FileAnalysis, ExportAnalysis };

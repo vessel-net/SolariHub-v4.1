@@ -27,131 +27,269 @@
  */
 
 import chokidar from 'chokidar';
+import { join } from 'path';
+import { TsMorphAnalyzer } from '../analyzers/ts-morph-analyzer';
 
-// Directories to watch
-const WATCH_DIRECTORIES = ['devspecs/', 'apps/', 'libs/', 'types/'];
-
-// Colors for terminal output
-const colors = {
-  reset: '\x1b[0m',
-  bright: '\x1b[1m',
-  green: '\x1b[32m',
-  blue: '\x1b[34m',
-  yellow: '\x1b[33m',
-  red: '\x1b[31m',
-  cyan: '\x1b[36m',
-};
-
-/**
- * Formats and logs file change events
- */
-function logChange(event: string, path: string): void {
-  const timestamp = new Date().toISOString();
-  const relativePath = path.replace(process.cwd() + '/', '');
-
-  // Color-code different event types
-  let eventColor = colors.blue;
-  let eventLabel = 'Changed';
-
-  switch (event) {
-    case 'add':
-      eventColor = colors.green;
-      eventLabel = 'Added';
-      break;
-    case 'change':
-      eventColor = colors.blue;
-      eventLabel = 'Changed';
-      break;
-    case 'unlink':
-      eventColor = colors.red;
-      eventLabel = 'Removed';
-      break;
-    case 'addDir':
-      eventColor = colors.cyan;
-      eventLabel = 'Directory Added';
-      break;
-    case 'unlinkDir':
-      eventColor = colors.yellow;
-      eventLabel = 'Directory Removed';
-      break;
-  }
-
-  // Format: [watch] EventType: filepath @ timestamp
-  console.log(
-    `${colors.bright}[watch]${colors.reset} ` +
-      `${eventColor}${eventLabel}${colors.reset}: ` +
-      `${relativePath} @ ${colors.cyan}${timestamp}${colors.reset}`
-  );
-
-  // Optional success indicator for file changes
-  if (event === 'change' || event === 'add') {
-    console.log(
-      `${colors.green}✅ Detected change: ${relativePath.split('/').pop()}${colors.reset}`
-    );
-  }
+export interface WatcherConfig {
+  paths: string[];
+  ignored?: string[];
+  persistent?: boolean;
+  ignoreInitial?: boolean;
+  followSymlinks?: boolean;
+  cwd?: string;
+  depth?: number;
 }
 
-/**
- * Initialize and start the file watcher
- */
-function startWatcher(): void {
-  console.log(`${colors.bright}${colors.blue}🔍 Starting Chokidar file watcher...${colors.reset}`);
-  console.log(`${colors.cyan}Watching directories:${colors.reset}`);
+export interface FileChangeEvent {
+  type: 'add' | 'change' | 'unlink' | 'addDir' | 'unlinkDir';
+  path: string;
+  timestamp: string;
+}
 
-  WATCH_DIRECTORIES.forEach((dir) => {
-    console.log(`  • ${dir}`);
-  });
+export type FileChangeEventType = FileChangeEvent['type'];
 
-  console.log(`${colors.yellow}Press Ctrl+C to stop watching${colors.reset}\n`);
+export class ChokidarWatcher {
+  private watcher: chokidar.FSWatcher | null = null;
+  private analyzer: TsMorphAnalyzer;
+  private config: WatcherConfig;
+  private eventCallbacks: Map<string, Function[]> = new Map();
 
-  // Initialize chokidar watcher
-  const watcher = chokidar.watch(WATCH_DIRECTORIES, {
-    ignored: [
+  constructor(config: WatcherConfig, workspaceRoot: string = process.cwd()) {
+    this.config = config;
+    this.analyzer = new TsMorphAnalyzer(workspaceRoot);
+    this.initializeEventCallbacks();
+  }
+
+  private initializeEventCallbacks(): void {
+    this.eventCallbacks.set('add', []);
+    this.eventCallbacks.set('change', []);
+    this.eventCallbacks.set('unlink', []);
+    this.eventCallbacks.set('addDir', []);
+    this.eventCallbacks.set('unlinkDir', []);
+  }
+
+  /**
+   * Start watching files
+   */
+  public start(): void {
+    if (this.watcher) {
+      console.log('⚠️ Watcher is already running');
+      return;
+    }
+
+    const defaultIgnored = [
       '**/node_modules/**',
-      '**/.git/**',
       '**/dist/**',
       '**/build/**',
       '**/.nx/**',
       '**/coverage/**',
+      '**/.git/**',
+      '**/tmp/**',
       '**/*.log',
-    ],
-    ignoreInitial: false,
-    persistent: true,
-    awaitWriteFinish: {
-      stabilityThreshold: 100,
-      pollInterval: 100,
-    },
-  });
+      '**/.DS_Store'
+    ];
 
-  // Register event handlers
-  watcher
-    .on('add', (path) => logChange('add', path))
-    .on('change', (path) => logChange('change', path))
-    .on('unlink', (path) => logChange('unlink', path))
-    .on('addDir', (path) => logChange('addDir', path))
-    .on('unlinkDir', (path) => logChange('unlinkDir', path))
-    .on('error', (error) => {
-      console.error(`${colors.red}❌ Watcher error: ${error}${colors.reset}`);
-    })
-    .on('ready', () => {
-      console.log(
-        `${colors.green}✅ File watcher ready and monitoring changes...${colors.reset}\n`
-      );
-    });
+    const watchOptions = {
+      ignored: [...defaultIgnored, ...(this.config.ignored || [])],
+      persistent: this.config.persistent ?? true,
+      ignoreInitial: this.config.ignoreInitial ?? true,
+      followSymlinks: this.config.followSymlinks ?? false,
+      cwd: this.config.cwd,
+      depth: this.config.depth
+    };
 
-  // Handle graceful shutdown
-  process.on('SIGINT', () => {
-    console.log(`\n${colors.yellow}🛑 Stopping file watcher...${colors.reset}`);
-    watcher.close().then(() => {
-      console.log(`${colors.green}✅ File watcher stopped successfully${colors.reset}`);
-      process.exit(0);
-    });
-  });
+    this.watcher = chokidar.watch(this.config.paths, watchOptions);
+
+    // Set up event listeners
+    this.watcher
+      .on('add', (path) => this.handleFileEvent('add', path))
+      .on('change', (path) => this.handleFileEvent('change', path))
+      .on('unlink', (path) => this.handleFileEvent('unlink', path))
+      .on('addDir', (path) => this.handleFileEvent('addDir', path))
+      .on('unlinkDir', (path) => this.handleFileEvent('unlinkDir', path))
+      .on('error', (error) => this.handleError(error))
+      .on('ready', () => this.handleReady());
+
+    console.log('👀 File watcher started successfully');
+    console.log(`📁 Watching paths: ${this.config.paths.join(', ')}`);
+  }
+
+  /**
+   * Stop watching files
+   */
+  public async stop(): Promise<void> {
+    if (!this.watcher) {
+      console.log('⚠️ Watcher is not running');
+      return;
+    }
+
+    await this.watcher.close();
+    this.watcher = null;
+    console.log('🛑 File watcher stopped');
+  }
+
+  /**
+   * Add event callback
+   */
+  public on(event: FileChangeEventType, callback: (event: FileChangeEvent) => void): void {
+    const callbacks = this.eventCallbacks.get(event);
+    if (callbacks) {
+      callbacks.push(callback);
+    }
+  }
+
+  /**
+   * Handle file system events
+   */
+  private handleFileEvent(type: FileChangeEvent['type'], path: string): void {
+    const event: FileChangeEvent = {
+      type,
+      path,
+      timestamp: new Date().toISOString()
+    };
+
+    console.log(`📝 ${type.toUpperCase()}: ${path}`);
+
+    // Execute callbacks
+    const callbacks = this.eventCallbacks.get(type);
+    if (callbacks) {
+      callbacks.forEach(callback => {
+        try {
+          callback(event);
+        } catch (error) {
+          console.error(`❌ Error in ${type} callback:`, error);
+        }
+      });
+    }
+
+    // Handle TypeScript files specifically
+    if (path.endsWith('.ts') || path.endsWith('.tsx')) {
+      this.handleTypeScriptChange(event);
+    }
+
+    // Handle package.json changes
+    if (path.endsWith('package.json')) {
+      this.handlePackageJsonChange(event);
+    }
+
+    // Handle config file changes
+    if (this.isConfigFile(path)) {
+      this.handleConfigChange(event);
+    }
+  }
+
+  /**
+   * Handle TypeScript file changes
+   */
+  private handleTypeScriptChange(event: FileChangeEvent): void {
+    console.log(`🔍 TypeScript file ${event.type}: ${event.path}`);
+    
+    if (event.type === 'change' || event.type === 'add') {
+      // Trigger type analysis
+      setTimeout(() => {
+        try {
+          this.analyzer.generateTypeReport();
+          console.log('📊 Type analysis updated');
+        } catch (error) {
+          console.error('❌ Error updating type analysis:', error);
+        }
+      }, 1000); // Debounce to avoid too frequent updates
+    }
+  }
+
+  /**
+   * Handle package.json changes
+   */
+  private handlePackageJsonChange(event: FileChangeEvent): void {
+    console.log(`📦 Package.json ${event.type}: ${event.path}`);
+    
+    if (event.type === 'change') {
+      console.log('🔄 Dependencies may have changed, consider running npm install');
+      // Could trigger dependency analysis here
+    }
+  }
+
+  /**
+   * Handle configuration file changes
+   */
+  private handleConfigChange(event: FileChangeEvent): void {
+    console.log(`⚙️ Config file ${event.type}: ${event.path}`);
+    
+    if (event.type === 'change') {
+      console.log('🔄 Configuration changed, consider restarting relevant services');
+    }
+  }
+
+  /**
+   * Handle watcher errors
+   */
+  private handleError(error: Error): void {
+    console.error('❌ Watcher error:', error);
+  }
+
+  /**
+   * Handle watcher ready state
+   */
+  private handleReady(): void {
+    console.log('✅ File watcher is ready and monitoring changes');
+  }
+
+  /**
+   * Check if file is a configuration file
+   */
+  private isConfigFile(path: string): boolean {
+    const configFiles = [
+      'tsconfig.json',
+      'tsconfig.base.json',
+      'nx.json',
+      'project.json',
+      'jest.config.ts',
+      'jest.config.js',
+      'vite.config.ts',
+      'webpack.config.ts',
+      'eslint.config.mjs',
+      '.eslintrc.json',
+      '.prettierrc',
+      'vitest.config.ts'
+    ];
+
+    return configFiles.some(config => path.endsWith(config));
+  }
+
+  /**
+   * Get current watcher status
+   */
+  public getStatus(): { isRunning: boolean; watchedPaths: string[] } {
+    return {
+      isRunning: this.watcher !== null,
+      watchedPaths: this.watcher ? this.watcher.getWatched() as any : []
+    };
+  }
 }
 
-// Start the watcher if this script is run directly
+// CLI usage
 if (require.main === module) {
-  startWatcher();
-}
+  const watcher = new ChokidarWatcher({
+    paths: ['apps/**', 'libs/**', 'tools/**'],
+    ignored: ['**/*.spec.ts', '**/*.test.ts'],
+    ignoreInitial: true
+  });
 
-export { startWatcher, logChange };
+  // Add custom event handlers
+  watcher.on('change', (event) => {
+    console.log(`📈 SolariMonitor: File changed - ${event.path}`);
+  });
+
+  watcher.on('add', (event) => {
+    console.log(`📈 SolariMonitor: New file added - ${event.path}`);
+  });
+
+  watcher.start();
+
+  // Graceful shutdown
+  process.on('SIGINT', async () => {
+    console.log('\n🛑 Shutting down watcher...');
+    await watcher.stop();
+    process.exit(0);
+  });
+}

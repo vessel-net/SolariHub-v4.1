@@ -40,4 +40,39 @@ services:
       - key: SENTRY_DSN
         sync: false
     healthCheckPath: /api
+    autoDeploy: true
+
+  # SolariHub Frontend Application (Docker)
+  - type: web
+    name: solarihub-frontend-app
+    runtime: docker
+    dockerfilePath: ./deployment/docker/Dockerfile.frontend
+    plan: starter
+    region: frankfurt
+    buildFilter:
+      paths:
+        - apps/frontend/**
+        - libs/**
+        - deployment/**
+        - package*.json
+        - nx.json
+        - tsconfig.base.json
+    domains:
+      - app.solarihub.net
+    envVars:
+      - key: NODE_ENV
+        value: production
+      - key: PORT
+        value: 3000
+      - key: VITE_API_URL
+        value: https://api.app.solarihub.net
+      - key: VITE_APP_URL
+        value: https://app.solarihub.net
+      - key: VITE_ENODE_CLIENT_ID
+        sync: false
+      - key: VITE_RECAPTCHA_SITE_KEY
+        sync: false
+      - key: VITE_SENTRY_DSN
+        sync: false
+    healthCheckPath: /
     autoDeploy: true 
