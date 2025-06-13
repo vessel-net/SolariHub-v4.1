@@ -1,7 +1,7 @@
 {
-  "buildCommand": "cd ../.. && npx nx build frontend",
+  "buildCommand": "../../scripts/deploy-vercel.sh",
   "outputDirectory": "../../dist/apps/frontend",
-  "installCommand": "cd ../.. && npm install",
+  "installCommand": "echo 'Install handled by build script'",
   "env": {
     "VITE_API_URL": "https://solarihub-backend.onrender.com"
   },

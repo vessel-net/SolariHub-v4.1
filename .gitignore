@@ -50,3 +50,6 @@ test-output
 # Deployment platforms
 .render/
 .vercel/
+
+# Deployment artifacts
+package.dev.json

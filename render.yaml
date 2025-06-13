@@ -3,7 +3,7 @@ services:
   - type: web
     name: solarihub-backend
     runtime: node
-    buildCommand: npm install && npm run build
+    buildCommand: ./scripts/deploy-render.sh
     startCommand: npm run start
     envVars:
       - key: NODE_ENV
