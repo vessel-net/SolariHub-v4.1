@@ -25,7 +25,7 @@ cat > package.json << 'EOF'
     "react": "19.0.0",
     "react-dom": "19.0.0",
     "typescript": "5.7.2",
-    "vite": "6.0.0",
+    "vite": "5.4.10",
     "@vitejs/plugin-react": "4.2.0",
     "tailwindcss": "3.4.3",
     "autoprefixer": "10.4.13",
