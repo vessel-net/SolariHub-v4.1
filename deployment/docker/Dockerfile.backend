@@ -2,6 +2,12 @@
 FROM node:20-alpine AS base
 WORKDIR /app
 
+# Install npm packages with timeout optimizations
+RUN npm config set registry https://registry.npmjs.org/ && \
+    npm config set fetch-retries 5 && \
+    npm config set fetch-retry-factor 2 && \
+    npm config set fetch-timeout 300000
+
 # Copy package files
 COPY package*.json ./
 COPY nx.json ./
@@ -10,29 +16,30 @@ COPY tsconfig.base.json ./
 # Copy entire workspace (Nx needs full context)
 COPY . .
 
-# Install all dependencies (needed for Nx build)
-RUN npm ci
+# Install dependencies with timeout handling
+RUN npm install --no-fund --no-audit --prefer-offline || \
+    (sleep 30 && npm install --no-fund --no-audit) || \
+    (sleep 60 && npm install --no-fund --no-audit --legacy-peer-deps)
 
 # Build the backend with Nx
-RUN npx nx build backend
+RUN npx nx build backend --prod
 
 # Production stage
 FROM node:20-alpine AS production
 WORKDIR /app
 
-# Copy built application and its dependencies
-COPY --from=base /app/apps/backend/dist ./
-COPY --from=base /app/node_modules ./node_modules
+# Install only essential production dependencies
+RUN npm install express cors helmet morgan compression dotenv bcryptjs jsonwebtoken mongoose multer nodemailer --no-fund --no-audit
 
-# Install only production dependencies for runtime
-RUN npm ci --only=production
+# Copy built application
+COPY --from=base /app/dist/apps/backend/ ./
 
 # Expose port
 EXPOSE 4000
 
 # Health check
 HEALTHCHECK --interval=30s --timeout=3s --start-period=5s --retries=3 \
-  CMD node -e "require('http').get('http://localhost:4000/api', (res) => { process.exit(res.statusCode === 200 ? 0 : 1) })"
+  CMD node -e "require('http').get('http://localhost:4000/api/health', (res) => { process.exit(res.statusCode === 200 ? 0 : 1) })"
 
 # Start the application
 CMD ["node", "main.js"] 
