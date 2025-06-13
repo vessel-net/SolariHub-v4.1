@@ -12,7 +12,8 @@ cat > package.json << 'EOF'
     "start": "node apps/backend/dist/main.js"
   },
   "dependencies": {
-    "express": "4.21.2"
+    "express": "4.21.2",
+    "tslib": "2.3.0"
   }
 }
 EOF

@@ -34,8 +34,8 @@ cat > package.json << 'EOF'
 }
 EOF
 
-# Generate package-lock.json and install minimal dependencies
-npm install --prefer-offline --no-audit --progress=false
+# Generate package-lock.json and install minimal dependencies with legacy peer deps
+npm install --prefer-offline --no-audit --progress=false --legacy-peer-deps
 
 # Build the frontend
 npx nx build frontend
