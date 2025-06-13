@@ -1,12 +1,15 @@
 services:
+  # Backend API Service (Node.js)
   - type: web
     name: solarihub-backend
     runtime: node
-    buildCommand: npx nx build backend
-    startCommand: node dist/backend/main.js
+    buildCommand: npm run build
+    startCommand: npm run start
     envVars:
       - key: NODE_ENV
         value: production
       - key: PORT
         value: 4000
+      - key: FRONTEND_URL
+        value: https://solarihub-frontend.vercel.app
     autoDeploy: true 
