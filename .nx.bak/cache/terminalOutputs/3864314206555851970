@@ -1,0 +1,8 @@
+> webpack-cli build --node-env=production
+
+(node:54856) ExperimentalWarning: Type Stripping is an experimental feature and might change at any time
+(Use `node --trace-warnings ...` to show where the warning was created)
+[33mtsconfig-paths-webpack-plugin: Found no baseUrl in tsconfig.json, not applying tsconfig-paths-webpack-plugin[39m
+[33mtsconfig-paths-webpack-plugin: Found no baseUrl in tsconfig.json, not applying tsconfig-paths-webpack-plugin[39m
+chunk (runtime: main) [1m[32mmain.js[39m[22m (main) 828 bytes [1m[33m[entry][39m[22m [1m[32m[rendered][39m[22m
+webpack compiled [1m[32msuccessfully[39m[22m (1ed83f48e2b7edb5)

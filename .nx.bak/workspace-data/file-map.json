@@ -1,0 +1,393 @@
+{
+  "version": "6.0",
+  "nxVersion": "21.1.3",
+  "pathMappings": {},
+  "nxJsonPlugins": [],
+  "fileMap": {
+    "nonProjectFiles": [
+      {
+        "file": ".github/workflows/ci.yml",
+        "hash": "318148318667364299"
+      },
+      {
+        "file": ".gitignore",
+        "hash": "15850289331823800167"
+      },
+      {
+        "file": ".husky/pre-commit",
+        "hash": "14560539503199505322"
+      },
+      {
+        "file": ".lintstagedrc.json",
+        "hash": "16992239721340309417"
+      },
+      {
+        "file": ".npmrc",
+        "hash": "8182412778758016815"
+      },
+      {
+        "file": ".prettierignore",
+        "hash": "3909554547261706975"
+      },
+      {
+        "file": ".prettierrc",
+        "hash": "1310275006663674956"
+      },
+      {
+        "file": ".vercelignore",
+        "hash": "9718824638014657460"
+      },
+      {
+        "file": "Dockerfile.frontend",
+        "hash": "7804589688548345660"
+      },
+      {
+        "file": "README.md",
+        "hash": "3297397082108886390"
+      },
+      {
+        "file": "devspecs/Implementation/solarihub-mvp.md",
+        "hash": "3927234802388690063"
+      },
+      {
+        "file": "devspecs/deploy/check-root-package-json.md",
+        "hash": "3376730319297910888"
+      },
+      {
+        "file": "devspecs/deploy/deployment.md",
+        "hash": "11011280632639868318"
+      },
+      {
+        "file": "devspecs/deploy/fix-vercel-config.md",
+        "hash": "16943013800056656707"
+      },
+      {
+        "file": "devspecs/deploy/vercel-render.md",
+        "hash": "1413865377646980775"
+      },
+      {
+        "file": "devspecs/docker/set-docker.md",
+        "hash": "6385406613055143718"
+      },
+      {
+        "file": "devspecs/toolchain/husky-lintstaged.md",
+        "hash": "56229270172896777"
+      },
+      {
+        "file": "devspecs/toolchain/realign-frontend-backend.md",
+        "hash": "17402213148452576432"
+      },
+      {
+        "file": "eslint.config.mjs",
+        "hash": "10024436704894247549"
+      },
+      {
+        "file": "jest.config.ts",
+        "hash": "6870352021923392442"
+      },
+      {
+        "file": "jest.preset.js",
+        "hash": "9430166341120122740"
+      },
+      {
+        "file": "nx.json.bak",
+        "hash": "12506769307546817699"
+      },
+      {
+        "file": "package-lock.json",
+        "hash": "8903247301292455801"
+      },
+      {
+        "file": "package.json",
+        "hash": "3375133827901490295"
+      },
+      {
+        "file": "packages/.gitkeep",
+        "hash": "3244421341483603138"
+      },
+      {
+        "file": "render.yaml",
+        "hash": "13663551038698129632"
+      },
+      {
+        "file": "tools/analyzers/ts-morph-analyzer.ts",
+        "hash": "15142437521850737642"
+      },
+      {
+        "file": "tools/watchers/chokidar-watcher.ts",
+        "hash": "9618434688235859616"
+      },
+      {
+        "file": "tsconfig.base.json",
+        "hash": "8900268571896142108"
+      },
+      {
+        "file": "tsconfig.json",
+        "hash": "10232287566638170023"
+      },
+      {
+        "file": "vercel.json",
+        "hash": "13590974533415760813"
+      },
+      {
+        "file": "vitest.workspace.ts",
+        "hash": "14594439412287490675"
+      }
+    ],
+    "projectFileMap": {
+      "frontend": [
+        {
+          "file": "apps/frontend/eslint.config.mjs",
+          "hash": "6286113312110665026",
+          "deps": [
+            "npm:@nx/eslint-plugin"
+          ]
+        },
+        {
+          "file": "apps/frontend/index.html",
+          "hash": "10230306946906184829"
+        },
+        {
+          "file": "apps/frontend/package.json",
+          "hash": "8731675297055147816",
+          "deps": [
+            "npm:@nx/vite",
+            "npm:@nx/react",
+            "npm:@vitejs/plugin-react",
+            "npm:vite",
+            "npm:typescript",
+            "npm:jiti",
+            "npm:postcss",
+            "npm:tailwindcss",
+            "npm:autoprefixer",
+            "npm:react",
+            "npm:react-dom"
+          ]
+        },
+        {
+          "file": "apps/frontend/postcss.config.ts",
+          "hash": "17504331818937890935"
+        },
+        {
+          "file": "apps/frontend/project.json",
+          "hash": "2013498767443015118"
+        },
+        {
+          "file": "apps/frontend/public/favicon.ico",
+          "hash": "9303420814833116677"
+        },
+        {
+          "file": "apps/frontend/src/app/app.spec.tsx",
+          "hash": "5183088558952963996",
+          "deps": [
+            "npm:@testing-library/react"
+          ]
+        },
+        {
+          "file": "apps/frontend/src/app/app.tsx",
+          "hash": "9598088391757195800"
+        },
+        {
+          "file": "apps/frontend/src/app/nx-welcome.tsx",
+          "hash": "16514912488836271675"
+        },
+        {
+          "file": "apps/frontend/src/assets/.gitkeep",
+          "hash": "3244421341483603138"
+        },
+        {
+          "file": "apps/frontend/src/main.tsx",
+          "hash": "14127905160735918417",
+          "deps": [
+            "npm:react",
+            "npm:react-dom"
+          ]
+        },
+        {
+          "file": "apps/frontend/src/styles.css",
+          "hash": "9540575453073076294"
+        },
+        {
+          "file": "apps/frontend/tailwind.config.ts",
+          "hash": "12881591356195971002",
+          "deps": [
+            "npm:@nx/react"
+          ]
+        },
+        {
+          "file": "apps/frontend/tsconfig.app.json",
+          "hash": "7620335015025228085"
+        },
+        {
+          "file": "apps/frontend/tsconfig.json",
+          "hash": "9240132813632071828"
+        },
+        {
+          "file": "apps/frontend/tsconfig.spec.json",
+          "hash": "5535593306512760996"
+        },
+        {
+          "file": "apps/frontend/vercel.json",
+          "hash": "8048319065501701331"
+        },
+        {
+          "file": "apps/frontend/vite.config.ts",
+          "hash": "10851157623812040454",
+          "deps": [
+            "npm:vite",
+            "npm:@vitejs/plugin-react"
+          ]
+        }
+      ],
+      "frontend-e2e": [
+        {
+          "file": "apps/frontend-e2e/eslint.config.mjs",
+          "hash": "9406519109376614868",
+          "deps": [
+            "npm:eslint-plugin-playwright"
+          ]
+        },
+        {
+          "file": "apps/frontend-e2e/package.json",
+          "hash": "6030006495378055709"
+        },
+        {
+          "file": "apps/frontend-e2e/playwright.config.ts",
+          "hash": "11245559150346722795",
+          "deps": [
+            "npm:@playwright/test",
+            "npm:@nx/playwright",
+            "npm:@nx/devkit"
+          ]
+        },
+        {
+          "file": "apps/frontend-e2e/src/example.spec.ts",
+          "hash": "16019101014373124625",
+          "deps": [
+            "npm:@playwright/test"
+          ]
+        },
+        {
+          "file": "apps/frontend-e2e/tsconfig.json",
+          "hash": "15001458170383955177"
+        }
+      ],
+      "@solarihub/types": [
+        {
+          "file": "libs/types/README.md",
+          "hash": "4897450697455520334"
+        },
+        {
+          "file": "libs/types/eslint.config.mjs",
+          "hash": "1664939051453129111",
+          "deps": [
+            [
+              "npm:jsonc-eslint-parser",
+              "dynamic"
+            ]
+          ]
+        },
+        {
+          "file": "libs/types/package.json",
+          "hash": "13049989991412091572",
+          "deps": [
+            "npm:tslib"
+          ]
+        },
+        {
+          "file": "libs/types/src/index.ts",
+          "hash": "9616474743146201400"
+        },
+        {
+          "file": "libs/types/src/lib/types.spec.ts",
+          "hash": "9354891611907858840"
+        },
+        {
+          "file": "libs/types/src/lib/types.ts",
+          "hash": "5476929482655057349"
+        },
+        {
+          "file": "libs/types/tsconfig.json",
+          "hash": "12834038490315927699"
+        },
+        {
+          "file": "libs/types/tsconfig.lib.json",
+          "hash": "10900688111300916367"
+        },
+        {
+          "file": "libs/types/tsconfig.spec.json",
+          "hash": "10060730206704640043"
+        },
+        {
+          "file": "libs/types/vite.config.ts",
+          "hash": "4311354334625787840",
+          "deps": [
+            "npm:vite"
+          ]
+        }
+      ],
+      "backend": [
+        {
+          "file": "apps/backend/eslint.config.mjs",
+          "hash": "9036454466467975933"
+        },
+        {
+          "file": "apps/backend/jest.config.ts",
+          "hash": "18318639038245940468"
+        },
+        {
+          "file": "apps/backend/package.json",
+          "hash": "18433623403268474021",
+          "deps": [
+            "npm:@nx/webpack",
+            "npm:@nx/node",
+            "npm:@nx/js",
+            "npm:@types/express",
+            "npm:@types/node",
+            "npm:typescript",
+            "npm:webpack-cli",
+            "npm:ts-loader",
+            "npm:webpack",
+            "npm:ts-node",
+            "npm:express",
+            "npm:tslib"
+          ]
+        },
+        {
+          "file": "apps/backend/project.json",
+          "hash": "690120142656875346"
+        },
+        {
+          "file": "apps/backend/src/assets/.gitkeep",
+          "hash": "3244421341483603138"
+        },
+        {
+          "file": "apps/backend/src/main.ts",
+          "hash": "12937849036216155547",
+          "deps": [
+            "npm:express"
+          ]
+        },
+        {
+          "file": "apps/backend/tsconfig.app.json",
+          "hash": "14806075101840049041"
+        },
+        {
+          "file": "apps/backend/tsconfig.json",
+          "hash": "9214820933160915425"
+        },
+        {
+          "file": "apps/backend/tsconfig.spec.json",
+          "hash": "5922799321908026093"
+        },
+        {
+          "file": "apps/backend/webpack.config.js",
+          "hash": "2522962333249277604",
+          "deps": [
+            "npm:@nx/webpack"
+          ]
+        }
+      ]
+    }
+  }
+}

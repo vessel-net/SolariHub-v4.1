@@ -1,0 +1,22 @@
+services:
+  - type: web
+    name: solarihub-frontend
+    runtime: docker
+    dockerfilePath: ./deployment/docker/Dockerfile.frontend
+    region: frankfurt  # EU Central - same as your backend
+    plan: starter  # $7/month - upgrade to standard if needed
+    branch: main
+    repo: https://github.com/vessel-net/SolariHub-v4.1
+    buildCommand: ""  # Docker handles the build
+    startCommand: ""  # Docker handles the start
+    healthCheckPath: /
+    envVars:
+      - key: PORT
+        value: 80
+      - key: NODE_ENV
+        value: production
+    # Custom domain setup
+    domains:
+      - app.solarihub.net  # Your main frontend domain
+    # Auto-deploy on git push
+    autoDeploy: true 

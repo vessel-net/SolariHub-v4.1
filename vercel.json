@@ -1,7 +1,8 @@
 {
   "buildCommand": "echo 'Using pre-built files - no build needed'",
-  "outputDirectory": "../../dist/apps/frontend",
+  "outputDirectory": "dist/apps/frontend",
   "installCommand": "echo 'No install needed'",
+  "framework": null,
   "env": {
     "VITE_API_URL": "https://api.app.solarihub.net"
   },
@@ -11,4 +12,4 @@
       "destination": "/index.html"
     }
   ]
-}
+} 

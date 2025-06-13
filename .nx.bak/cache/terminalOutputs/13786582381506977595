@@ -1,0 +1,13 @@
+[33mtsconfig-paths-webpack-plugin: Found no baseUrl in tsconfig.json, not applying tsconfig-paths-webpack-plugin[39m
+[33mtsconfig-paths-webpack-plugin: Found no baseUrl in tsconfig.json, not applying tsconfig-paths-webpack-plugin[39m
+assets by status 36.5 KiB [emitted]
+  asset package-lock.json 35.5 KiB [emitted]
+  asset package.json 1.05 KiB [emitted]
+assets by status 2.24 KiB [compared for emit]
+  asset main.js 2.24 KiB [compared for emit] (name: main)
+  asset assets/.gitkeep 0 bytes [compared for emit] [from: apps/backend/src/assets/.gitkeep] [copied]
+./apps/backend/src/main.ts 702 bytes [built] [code generated]
+external "tslib" 42 bytes [built] [code generated]
+external "express" 42 bytes [built] [code generated]
+external "path" 42 bytes [built] [code generated]
+webpack 5.98.0 compiled successfully in 590 ms
