@@ -34,8 +34,8 @@ RUN npm install -g serve
 # Copy built application from builder stage
 COPY --from=builder /app/dist/ ./build/
 
-# Create server configuration for SPA
-RUN echo '{"rewrites": [{"source": "/**", "destination": "/index.html"}]}' > serve.json
+# Create server configuration for SPA inside the build directory
+RUN echo '{"rewrites": [{"source": "/**", "destination": "/index.html"}]}' > ./build/serve.json
 
 # Expose port
 EXPOSE 3000
@@ -45,4 +45,4 @@ HEALTHCHECK --interval=30s --timeout=3s --start-period=5s --retries=3 \
   CMD wget --no-verbose --tries=1 --spider http://localhost:3000/ || exit 1
 
 # Start the application
-CMD ["serve", "-s", "build", "-p", "3000", "--config", "serve.json"] 
+CMD ["serve", "-s", "build", "-p", "3000"] 
