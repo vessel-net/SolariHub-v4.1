@@ -1,15 +1,36 @@
-# Simple static file server for pre-built frontend
-FROM node:20-alpine
+# Frontend build for Render (v2)
+FROM node:20-alpine AS builder
+WORKDIR /app
 
+# Copy package.json first for dependency installation
+COPY apps/frontend/package.json ./package.json
+
+# Install dependencies from package.json
+RUN npm install
+
+# Copy frontend source files
+COPY apps/frontend/vite.config.ts ./
+COPY apps/frontend/tsconfig*.json ./
+COPY apps/frontend/tailwind.config.ts ./
+COPY apps/frontend/postcss.config.ts ./
+COPY apps/frontend/index.html ./
+COPY apps/frontend/src/ ./src/
+COPY apps/frontend/public/ ./public/
+
+# Build the frontend
+RUN npm run build
+
+# Production stage
+FROM node:20-alpine
 WORKDIR /app
 
 # Install serve for static file serving
 RUN npm install -g serve
 
-# Copy the pre-built frontend application
-COPY apps/frontend/dist/ ./build/
+# Copy built application from builder stage
+COPY --from=builder /app/dist/ ./build/
 
-# Create a simple server configuration for SPA
+# Create server configuration for SPA
 RUN echo '{"rewrites": [{"source": "/**", "destination": "/index.html"}]}' > serve.json
 
 # Expose port
