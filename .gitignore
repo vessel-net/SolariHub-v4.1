@@ -2,6 +2,7 @@
 
 # compiled output
 dist
+!apps/backend/dist
 tmp
 out-tsc
 

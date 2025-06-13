@@ -1,18 +1,29 @@
 #!/bin/bash
 set -e
 
-echo "🚀 Starting optimized Render deployment..."
+echo "🚀 Starting ULTRA-FAST Render deployment..."
 
-# Backup original package.json
-cp package.json package.dev.json
+# Create minimal package.json with only runtime dependency
+cat > package.json << 'EOF'
+{
+  "name": "solarihub-backend",
+  "version": "1.0.0",
+  "scripts": {
+    "start": "node apps/backend/dist/main.js"
+  },
+  "dependencies": {
+    "express": "4.21.2"
+  }
+}
+EOF
 
-# Use production package.json with minimal dependencies
-cp package.production.json package.json
+# Install only express (1 package)
+npm install --production --no-audit --progress=false
 
-# Generate package-lock.json and install minimal dependencies
-npm install --prefer-offline --no-audit --progress=false
+# Copy pre-built files (these should already exist from local build)
+if [ ! -f "apps/backend/dist/main.js" ]; then
+    echo "❌ Backend not built! Run 'npm run build' locally first"
+    exit 1
+fi
 
-# Build the backend
-npx nx build backend
-
-echo "✅ Render deployment build completed!" 
+echo "✅ Render deployment completed - using pre-built backend!" 
