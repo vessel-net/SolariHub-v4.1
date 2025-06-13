@@ -1,0 +1,38 @@
+# Multi-stage build for Nx monorepo backend
+FROM node:20-alpine AS base
+WORKDIR /app
+
+# Copy package files
+COPY package*.json ./
+COPY nx.json ./
+COPY tsconfig.base.json ./
+
+# Copy entire workspace (Nx needs full context)
+COPY . .
+
+# Install all dependencies (needed for Nx build)
+RUN npm ci
+
+# Build the backend with Nx
+RUN npx nx build backend
+
+# Production stage
+FROM node:20-alpine AS production
+WORKDIR /app
+
+# Copy built application and its dependencies
+COPY --from=base /app/apps/backend/dist ./
+COPY --from=base /app/node_modules ./node_modules
+
+# Install only production dependencies for runtime
+RUN npm ci --only=production
+
+# Expose port
+EXPOSE 4000
+
+# Health check
+HEALTHCHECK --interval=30s --timeout=3s --start-period=5s --retries=3 \
+  CMD node -e "require('http').get('http://localhost:4000/api', (res) => { process.exit(res.statusCode === 200 ? 0 : 1) })"
+
+# Start the application
+CMD ["node", "main.js"] 

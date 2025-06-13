@@ -1,10 +1,9 @@
 services:
-  # Backend API Service (Node.js)
+  # Backend API Service (Docker)
   - type: web
     name: solarihub-backend
-    runtime: node
-    buildCommand: ./scripts/deploy-render-simple.sh
-    startCommand: npm run start
+    runtime: docker
+    dockerfilePath: ./deployment/docker/Dockerfile.backend
     envVars:
       - key: NODE_ENV
         value: production
