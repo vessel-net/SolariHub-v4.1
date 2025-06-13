@@ -1,14 +1,43 @@
 services:
-  # Backend API Service (Docker)
+  # SolariHub Backend API Service (Docker)
   - type: web
-    name: solarihub-backend
+    name: solarihub-backend-api
     runtime: docker
     dockerfilePath: ./deployment/docker/Dockerfile.backend
+    plan: starter
+    region: frankfurt
+    buildFilter:
+      paths:
+        - apps/backend/**
+        - libs/**
+        - deployment/**
+        - package*.json
+        - nx.json
+        - tsconfig.base.json
+    domains:
+      - api.app.solarihub.net
     envVars:
       - key: NODE_ENV
         value: production
       - key: PORT
         value: 4000
       - key: FRONTEND_URL
-        value: https://solarihub-frontend.vercel.app
+        value: https://app.solarihub.net
+      - key: FROM_EMAIL
+        value: no-reply@solarihub.net
+      - key: ENODE_CLIENT_SECRET
+        sync: false
+      - key: JWT_SECRET
+        sync: false
+      - key: MONGODB_URI
+        sync: false
+      - key: PINATA_JWT
+        sync: false
+      - key: RECAPTCHA_SECRET_KEY
+        sync: false
+      - key: SENDGRID_API_KEY
+        sync: false
+      - key: SENTRY_DSN
+        sync: false
+    healthCheckPath: /api
     autoDeploy: true 

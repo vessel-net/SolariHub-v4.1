@@ -1,9 +1,9 @@
 {
-  "buildCommand": "../../scripts/deploy-vercel.sh",
+  "buildCommand": "echo 'Using pre-built files - no build needed'",
   "outputDirectory": "../../dist/apps/frontend",
-  "installCommand": "echo 'Install handled by build script'",
+  "installCommand": "echo 'No install needed'",
   "env": {
-    "VITE_API_URL": "https://solarihub-backend.onrender.com"
+    "VITE_API_URL": "https://api.app.solarihub.net"
   },
   "rewrites": [
     {
