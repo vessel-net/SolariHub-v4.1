@@ -3,7 +3,7 @@
   "version": "1.0.0",
   "license": "MIT",
   "scripts": {
-    "build": "nx build backend",
+    "build": "npx nx build backend",
     "test": "nx test",
     "nx": "nx",
     "start": "node apps/backend/dist/main.js",
