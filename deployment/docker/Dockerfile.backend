@@ -1,10 +1,13 @@
-# Simple production Dockerfile for pre-built backend
+# Production Dockerfile for pre-built backend
 FROM node:20-alpine
 
 WORKDIR /app
 
-# Install only the essential runtime dependencies directly
-RUN npm install express cors helmet morgan compression dotenv bcryptjs jsonwebtoken mongoose multer nodemailer --production --no-fund --no-audit
+# Copy runtime dependencies file
+COPY deployment/docker/package.runtime.json ./package.json
+
+# Install only the actual runtime dependencies
+RUN npm install --production --no-fund --no-audit
 
 # Copy the pre-built backend application 
 COPY apps/backend/dist/main.js ./

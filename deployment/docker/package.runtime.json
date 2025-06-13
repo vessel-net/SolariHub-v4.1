@@ -1,0 +1,10 @@
+{
+  "name": "backend-runtime",
+  "version": "1.0.0",
+  "description": "Runtime dependencies for the built SolariHub backend",
+  "main": "main.js",
+  "dependencies": {
+    "express": "^4.21.2",
+    "tslib": "^2.3.0"
+  }
+} 
