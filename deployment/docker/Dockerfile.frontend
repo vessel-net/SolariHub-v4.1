@@ -8,6 +8,10 @@ COPY apps/frontend/package.json ./package.json
 # Install dependencies from package.json
 RUN npm install
 
+# Create directory structure and copy workspace base TypeScript config
+RUN mkdir -p ../..
+COPY tsconfig.base.json ../../tsconfig.base.json
+
 # Copy frontend source files
 COPY apps/frontend/vite.config.ts ./
 COPY apps/frontend/tsconfig*.json ./
