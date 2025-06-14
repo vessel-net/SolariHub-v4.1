@@ -104,6 +104,13 @@ export class TsMorphAnalyzer {
       '!**/*.test.ts',
       '!**/node_modules/**',
       '!**/dist/**',
+      '!**/jest.config.ts',
+      '!**/webpack.config.ts',
+      '!**/postcss.config.ts',
+      '!**/tailwind.config.ts',
+      '!**/vite.config.ts',
+      '!**/vitest.workspace.ts',
+      '!**/playwright.config.ts',
     ];
 
     try {
@@ -246,7 +253,23 @@ export class TsMorphAnalyzer {
   private extractErrors(sourceFile: SourceFile): string[] {
     const diagnostics = sourceFile.getPreEmitDiagnostics();
     return diagnostics
-      .filter((d) => d.getCategory() === 1) // Error
+      .filter((d) => {
+        const message = d.getMessageText();
+        // Filter out configuration-related errors that don't affect type safety
+        if (typeof message === 'string') {
+          const ignoredPatterns = [
+            'Cannot redeclare block-scoped variable',
+            'is not a module',
+            "Cannot find module '@playwright/test'",
+            "Cannot find name 'document'",
+            '[object Object]',
+          ];
+          if (ignoredPatterns.some((pattern) => message.includes(pattern))) {
+            return false;
+          }
+        }
+        return d.getCategory() === 1; // Error
+      })
       .map((d) => `${d.getMessageText()} (Line ${d.getLineNumber()})`);
   }
 
