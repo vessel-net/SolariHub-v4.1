@@ -13,12 +13,12 @@ const envSchema = Joi.object({
   // Database Configuration
   POSTGRES_HOST: Joi.string().default('localhost'),
   POSTGRES_PORT: Joi.number().positive().default(5432),
-  POSTGRES_DB: Joi.string().required(),
-  POSTGRES_USER: Joi.string().required(),
-  POSTGRES_PASSWORD: Joi.string().required(),
+  POSTGRES_DB: Joi.string().default('solarihub'),
+  POSTGRES_USER: Joi.string().default('solarihub_user'),
+  POSTGRES_PASSWORD: Joi.string().default('temp_password'),
 
   // MongoDB Configuration
-  MONGODB_URI: Joi.string().required(),
+  MONGODB_URI: Joi.string().default('mongodb://localhost:27017/solarihub'),
 
   // Redis Configuration
   REDIS_HOST: Joi.string().default('localhost'),

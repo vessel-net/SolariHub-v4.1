@@ -61,7 +61,7 @@ services:
           name: solarihub-postgres
           property: password
       - key: MONGODB_URI
-        sync: false
+        value: "mongodb://dummy:27017/solarihub"
       - key: REDIS_HOST
         fromDatabase:
           name: solarihub-redis
