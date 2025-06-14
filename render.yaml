@@ -41,23 +41,39 @@ services:
       - key: MAX_REQUEST_SIZE
         value: "10mb"
       - key: POSTGRES_HOST
-        sync: false
+        fromDatabase:
+          name: solarihub-postgres
+          property: host
       - key: POSTGRES_PORT
-        value: "5432"
+        fromDatabase:
+          name: solarihub-postgres
+          property: port
       - key: POSTGRES_DB
-        sync: false
+        fromDatabase:
+          name: solarihub-postgres
+          property: database
       - key: POSTGRES_USER
-        sync: false
+        fromDatabase:
+          name: solarihub-postgres
+          property: user
       - key: POSTGRES_PASSWORD
-        sync: false
+        fromDatabase:
+          name: solarihub-postgres
+          property: password
       - key: MONGODB_URI
         sync: false
       - key: REDIS_HOST
-        sync: false
+        fromDatabase:
+          name: solarihub-redis
+          property: host
       - key: REDIS_PORT
-        value: "6379"
+        fromDatabase:
+          name: solarihub-redis
+          property: port
       - key: REDIS_PASSWORD
-        sync: false
+        fromDatabase:
+          name: solarihub-redis
+          property: password
 
   # SolariHub Frontend Application (Docker)
   - type: web
