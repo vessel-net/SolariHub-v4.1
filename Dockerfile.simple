@@ -1,0 +1,58 @@
+# Simplified Dockerfile for SolariHub Backend
+# Direct approach - no multi-stage build complexity
+
+FROM node:20-alpine
+
+# Install curl for health check
+RUN apk --no-cache add curl
+
+WORKDIR /app
+
+# Copy package files first for better caching
+COPY package*.json ./
+COPY nx.json ./
+COPY tsconfig*.json ./
+
+# Copy all source code
+COPY apps/ ./apps/
+COPY libs/ ./libs/
+COPY tools/ ./tools/
+
+# Install ALL dependencies (dev + production)
+RUN npm ci
+
+# Build the backend application
+RUN npx nx build backend --prod
+
+# Move built files to app root
+RUN cp -r apps/backend/dist/* .
+
+# Install production dependencies for the specific modules we need
+# This ensures CORS and other runtime deps are available
+RUN npm install --save cors@^2.8.5 express@^4.21.2 helmet@^7.2.0 compression@^1.8.0 morgan@^1.10.0 express-rate-limit@^7.5.0 dotenv@^16.5.0 joi@^17.13.3 pg@^8.16.0 mongoose@^8.15.2 redis@^4.7.1 winston@^3.17.0 bcryptjs@^2.4.3 jsonwebtoken@^9.0.2 uuid@^9.0.1
+
+# Verify CORS module is installed
+RUN echo "=== Verifying CORS installation ===" && ls -la node_modules/cors/
+
+# Create non-root user
+RUN addgroup -g 1001 -S nodejs && \
+    adduser -S backend -u 1001
+
+# Change ownership
+RUN chown -R backend:nodejs /app
+
+# Switch to non-root user
+USER backend
+
+# Final verification
+RUN echo "=== Final verification ===" && ls -la node_modules/cors/
+
+# Health check
+HEALTHCHECK --interval=30s --timeout=3s --start-period=5s --retries=3 \
+  CMD curl -f http://localhost:10000/api/health/ping || exit 1
+
+# Expose port
+EXPOSE 10000
+
+# Start the application
+CMD ["node", "main.js"] 
