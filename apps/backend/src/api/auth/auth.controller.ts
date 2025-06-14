@@ -145,21 +145,23 @@ export const changePassword = catchAsync(async (req: Request, res: Response): Pr
   });
 });
 
-export const requestPasswordReset = catchAsync(async (req: Request, res: Response): Promise<void> => {
-  const { email } = req.body;
+export const requestPasswordReset = catchAsync(
+  async (req: Request, res: Response): Promise<void> => {
+    const { email } = req.body;
 
-  if (!email) {
-    throw new ValidationError('Email is required');
+    if (!email) {
+      throw new ValidationError('Email is required');
+    }
+
+    await authService.requestPasswordReset(email, req.ip);
+
+    // Always return success for security reasons (don't reveal if email exists)
+    res.status(200).json({
+      success: true,
+      message: 'If an account with that email exists, a password reset link has been sent',
+    });
   }
-
-  await authService.requestPasswordReset(email, req.ip);
-
-  // Always return success for security reasons (don't reveal if email exists)
-  res.status(200).json({
-    success: true,
-    message: 'If an account with that email exists, a password reset link has been sent',
-  });
-});
+);
 
 export const resetPassword = catchAsync(async (req: Request, res: Response): Promise<void> => {
   const { token, newPassword } = req.body;
@@ -226,4 +228,4 @@ export const getActiveSessions = catchAsync(async (req: Request, res: Response):
       activeSessions: sessionCount,
     },
   });
-}); 
+});

@@ -33,4 +33,4 @@ router.post('/logout', logout);
 router.post('/logout-all', logoutAll);
 router.post('/change-password', requireJSON, rateLimitByUser(5, 60), changePassword);
 
-export default router; 
+export default router;

@@ -36,6 +36,7 @@ export class AuthService {
   private readonly ACCESS_TOKEN_EXPIRES_IN = config.jwt.expiresIn;
   private readonly REFRESH_TOKEN_EXPIRES_IN = config.jwt.refreshExpiresIn;
 
+  // eslint-disable-next-line @typescript-eslint/no-empty-function
   private constructor() {}
 
   public static getInstance(): AuthService {
@@ -51,7 +52,7 @@ export class AuthService {
       const tokens = await this.generateTokens(user);
 
       logAuth('register', user.id, user.email, ip, true);
-      
+
       logger.info('User registered successfully', {
         userId: user.id,
         email: user.email,
@@ -96,7 +97,7 @@ export class AuthService {
       const tokens = await this.generateTokens(user);
 
       logAuth('login', user.id, email, ip, true);
-      
+
       logger.info('User logged in successfully', {
         userId: user.id,
         email: user.email,
@@ -105,7 +106,7 @@ export class AuthService {
       });
 
       // Remove password hash from response
-      const { password_hash, ...userWithoutPassword } = user;
+      const { password_hash: _password_hash, ...userWithoutPassword } = user;
 
       return {
         user: userWithoutPassword,
@@ -123,7 +124,7 @@ export class AuthService {
     try {
       // Verify refresh token
       const decoded = jwt.verify(refreshToken, this.JWT_SECRET) as TokenPayload;
-      
+
       // Check if refresh token exists in Redis
       const storedToken = await redisClient.get(`refresh_token:${decoded.userId}`);
       if (!storedToken || storedToken !== refreshToken) {
@@ -140,7 +141,7 @@ export class AuthService {
       const tokens = await this.generateTokens(user);
 
       logAuth('refresh_token', user.id, user.email, ip, true);
-      
+
       logger.info('Token refreshed successfully', {
         userId: user.id,
         email: user.email,
@@ -163,7 +164,7 @@ export class AuthService {
 
       const user = await userService.getUserById(userId);
       logAuth('logout', userId, user?.email, ip, true);
-      
+
       logger.info('User logged out successfully', {
         userId,
         ip,
@@ -184,7 +185,7 @@ export class AuthService {
 
       const user = await userService.getUserById(userId);
       logAuth('logout_all', userId, user?.email, ip, true);
-      
+
       logger.info('User logged out from all devices', {
         userId,
         devicesCount: keys.length,
@@ -199,7 +200,7 @@ export class AuthService {
   public async verifyToken(token: string): Promise<TokenPayload> {
     try {
       const decoded = jwt.verify(token, this.JWT_SECRET) as TokenPayload;
-      
+
       // Check if user still exists
       const user = await userService.getUserById(decoded.userId);
       if (!user) {
@@ -215,16 +216,21 @@ export class AuthService {
     }
   }
 
-  public async changePassword(userId: string, currentPassword: string, newPassword: string, ip?: string): Promise<void> {
+  public async changePassword(
+    userId: string,
+    currentPassword: string,
+    newPassword: string,
+    ip?: string
+  ): Promise<void> {
     try {
       await userService.changePassword(userId, currentPassword, newPassword);
-      
+
       // Logout from all devices for security
       await this.logoutAll(userId, ip);
 
       const user = await userService.getUserById(userId);
       logAuth('change_password', userId, user?.email, ip, true);
-      
+
       logger.info('Password changed successfully', {
         userId,
         ip,
@@ -247,12 +253,12 @@ export class AuthService {
 
       // Generate reset token
       const resetToken = this.generateResetToken(user.id);
-      
+
       // Store reset token in Redis with 1 hour expiration
       await redisClient.setEx(`password_reset:${user.id}`, 3600, resetToken);
 
       logAuth('password_reset_request', user.id, email, ip, true);
-      
+
       logger.info('Password reset requested', {
         userId: user.id,
         email,
@@ -271,7 +277,7 @@ export class AuthService {
     try {
       // Verify reset token
       const decoded = jwt.verify(token, this.JWT_SECRET) as { userId: string; type: string };
-      
+
       if (decoded.type !== 'password_reset') {
         throw new AuthenticationError('Invalid reset token');
       }
@@ -284,16 +290,16 @@ export class AuthService {
 
       // Change password
       await userModel.changePassword(decoded.userId, newPassword);
-      
+
       // Remove reset token
       await redisClient.del(`password_reset:${decoded.userId}`);
-      
+
       // Logout from all devices
       await this.logoutAll(decoded.userId, ip);
 
       const user = await userService.getUserById(decoded.userId);
       logAuth('password_reset', decoded.userId, user?.email, ip, true);
-      
+
       logger.info('Password reset successfully', {
         userId: decoded.userId,
         ip,
@@ -336,11 +342,7 @@ export class AuthService {
   }
 
   private generateResetToken(userId: string): string {
-    return jwt.sign(
-      { userId, type: 'password_reset' },
-      this.JWT_SECRET,
-      { expiresIn: '1h' }
-    );
+    return jwt.sign({ userId, type: 'password_reset' }, this.JWT_SECRET, { expiresIn: '1h' });
   }
 
   private getExpiryInSeconds(expiresIn: string): number {
@@ -387,4 +389,4 @@ export class AuthService {
   }
 }
 
-export const authService = AuthService.getInstance(); 
+export const authService = AuthService.getInstance();

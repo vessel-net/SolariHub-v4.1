@@ -14,11 +14,11 @@ import rateLimit from 'express-rate-limit';
 import { config } from './config/environment';
 import { databaseService } from './services/database.service';
 import { logger, morganStream, morganFormat } from './utils/logger';
-import { 
-  globalErrorHandler, 
-  notFoundHandler, 
+import {
+  globalErrorHandler,
+  notFoundHandler,
   setupProcessHandlers,
-  gracefulShutdown 
+  gracefulShutdown,
 } from './utils/errors';
 
 // Routes
@@ -42,20 +42,24 @@ class SolariHubServer {
 
   private initializeMiddleware(): void {
     // Security middleware
-    this.app.use(helmet({
-      contentSecurityPolicy: config.isProduction,
-      crossOriginEmbedderPolicy: config.isProduction,
-    }));
+    this.app.use(
+      helmet({
+        contentSecurityPolicy: config.isProduction,
+        crossOriginEmbedderPolicy: config.isProduction,
+      })
+    );
 
     // CORS configuration
-    this.app.use(cors({
-      origin: config.isProduction 
-        ? [config.frontendUrl, 'https://solarihub.com', 'https://www.solarihub.com']
-        : true,
-      credentials: true,
-      methods: ['GET', 'POST', 'PUT', 'DELETE', 'PATCH', 'OPTIONS'],
-      allowedHeaders: ['Content-Type', 'Authorization', 'X-API-Key', 'X-Requested-With'],
-    }));
+    this.app.use(
+      cors({
+        origin: config.isProduction
+          ? [config.frontendUrl, 'https://solarihub.com', 'https://www.solarihub.com']
+          : true,
+        credentials: true,
+        methods: ['GET', 'POST', 'PUT', 'DELETE', 'PATCH', 'OPTIONS'],
+        allowedHeaders: ['Content-Type', 'Authorization', 'X-API-Key', 'X-Requested-With'],
+      })
+    );
 
     // Rate limiting
     const rateLimiter = rateLimit({
@@ -75,16 +79,18 @@ class SolariHubServer {
     this.app.use(rateLimiter);
 
     // Body parsing middleware
-    this.app.use(express.json({ 
-      limit: '10mb',
-      verify: (req, res, buf) => {
-        try {
-          JSON.parse(buf.toString());
-        } catch (e) {
-          throw new Error('Invalid JSON');
-        }
-      }
-    }));
+    this.app.use(
+      express.json({
+        limit: '10mb',
+        verify: (req, res, buf) => {
+          try {
+            JSON.parse(buf.toString());
+          } catch {
+            throw new Error('Invalid JSON');
+          }
+        },
+      })
+    );
     this.app.use(express.urlencoded({ extended: true, limit: '10mb' }));
 
     // Compression
@@ -233,7 +239,6 @@ class SolariHubServer {
 
       // Setup process error handlers
       setupProcessHandlers();
-
     } catch (error) {
       logger.error('Failed to start server:', error);
       process.exit(1);
@@ -242,16 +247,16 @@ class SolariHubServer {
 
   public async stop(): Promise<void> {
     logger.info('Shutting down SolariHub API...');
-    
+
     try {
       // Close database connections
       await databaseService.shutdown();
-      
+
       // Close HTTP server
       if (this.server) {
         this.server.close();
       }
-      
+
       logger.info('SolariHub API shutdown completed');
     } catch (error) {
       logger.error('Error during shutdown:', error);

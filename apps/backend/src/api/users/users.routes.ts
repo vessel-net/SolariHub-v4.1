@@ -45,4 +45,4 @@ router.put('/:id/profile', requireOwnershipOrAdmin, requireJSON, updateUserProfi
 router.delete('/:id', requireAdmin, deleteUser);
 router.post('/:id/verify-email', requireAdmin, verifyUserEmail);
 
-export default router; 
+export default router;

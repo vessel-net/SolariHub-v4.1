@@ -127,7 +127,11 @@ export const closeDatabaseConnections = async (): Promise<void> => {
 };
 
 // Database health check
-export const checkDatabaseHealth = async (): Promise<{ postgres: boolean; mongodb: boolean; redis: boolean }> => {
+export const checkDatabaseHealth = async (): Promise<{
+  postgres: boolean;
+  mongodb: boolean;
+  redis: boolean;
+}> => {
   const health = {
     postgres: false,
     mongodb: false,
@@ -162,4 +166,4 @@ export const checkDatabaseHealth = async (): Promise<{ postgres: boolean; mongod
   }
 
   return health;
-}; 
+};

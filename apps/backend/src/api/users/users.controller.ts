@@ -8,7 +8,7 @@ export const getUser = catchAsync(async (req: Request, res: Response): Promise<v
   const { id } = req.params;
 
   const user = await userService.getUserWithProfile(id);
-  
+
   if (!user) {
     throw new NotFoundError('User not found');
   }
@@ -25,7 +25,7 @@ export const getCurrentUser = catchAsync(async (req: Request, res: Response): Pr
   const userId = req.userId!;
 
   const user = await userService.getUserWithProfile(userId);
-  
+
   if (!user) {
     throw new NotFoundError('User not found');
   }
@@ -106,22 +106,24 @@ export const updateUserProfile = catchAsync(async (req: Request, res: Response):
   });
 });
 
-export const updateCurrentUserProfile = catchAsync(async (req: Request, res: Response): Promise<void> => {
-  const userId = req.userId!;
-  const profileData: Partial<UserProfile> = req.body;
+export const updateCurrentUserProfile = catchAsync(
+  async (req: Request, res: Response): Promise<void> => {
+    const userId = req.userId!;
+    const profileData: Partial<UserProfile> = req.body;
 
-  await userService.updateUserProfile(userId, profileData);
+    await userService.updateUserProfile(userId, profileData);
 
-  logger.info('User self-updated profile', {
-    userId,
-    updatedFields: Object.keys(profileData),
-  });
+    logger.info('User self-updated profile', {
+      userId,
+      updatedFields: Object.keys(profileData),
+    });
 
-  res.status(200).json({
-    success: true,
-    message: 'Profile updated successfully',
-  });
-});
+    res.status(200).json({
+      success: true,
+      message: 'Profile updated successfully',
+    });
+  }
+);
 
 export const deleteUser = catchAsync(async (req: Request, res: Response): Promise<void> => {
   const { id } = req.params;
@@ -227,20 +229,22 @@ export const verifyUserEmail = catchAsync(async (req: Request, res: Response): P
   });
 });
 
-export const checkEmailAvailability = catchAsync(async (req: Request, res: Response): Promise<void> => {
-  const { email } = req.query;
+export const checkEmailAvailability = catchAsync(
+  async (req: Request, res: Response): Promise<void> => {
+    const { email } = req.query;
 
-  if (!email || typeof email !== 'string') {
-    throw new ValidationError('Email is required');
+    if (!email || typeof email !== 'string') {
+      throw new ValidationError('Email is required');
+    }
+
+    const isTaken = await userService.isEmailTaken(email);
+
+    res.status(200).json({
+      success: true,
+      data: {
+        email,
+        available: !isTaken,
+      },
+    });
   }
-
-  const isTaken = await userService.isEmailTaken(email);
-
-  res.status(200).json({
-    success: true,
-    data: {
-      email,
-      available: !isTaken,
-    },
-  });
-}); 
+);

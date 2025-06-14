@@ -5,16 +5,18 @@ import { AuthenticationError, AuthorizationError } from '../../utils/errors';
 import { logger } from '../../utils/logger';
 
 // Extend Express Request interface to include user
-declare global {
-  namespace Express {
-    interface Request {
-      user?: TokenPayload;
-      userId?: string;
-    }
+declare module 'express-serve-static-core' {
+  interface Request {
+    user?: TokenPayload;
+    userId?: string;
   }
 }
 
-export const authenticateToken = async (req: Request, res: Response, next: NextFunction): Promise<void> => {
+export const authenticateToken = async (
+  req: Request,
+  res: Response,
+  next: NextFunction
+): Promise<void> => {
   try {
     const authHeader = req.headers.authorization;
     const token = authHeader && authHeader.split(' ')[1]; // Bearer TOKEN
@@ -39,7 +41,11 @@ export const authenticateToken = async (req: Request, res: Response, next: NextF
   }
 };
 
-export const optionalAuth = async (req: Request, res: Response, next: NextFunction): Promise<void> => {
+export const optionalAuth = async (
+  req: Request,
+  res: Response,
+  next: NextFunction
+): Promise<void> => {
   try {
     const authHeader = req.headers.authorization;
     const token = authHeader && authHeader.split(' ')[1];
@@ -70,7 +76,7 @@ export const requireRole = (roles: string | string[]) => {
       }
 
       const requiredRoles = Array.isArray(roles) ? roles : [roles];
-      
+
       if (!requiredRoles.includes(req.user.role)) {
         throw new AuthorizationError(`Access denied. Required role: ${roles}`);
       }
@@ -100,14 +106,18 @@ export const requireLogistics = requireRole(['logistics', 'admin']);
 
 export const requireFinance = requireRole(['finance', 'admin']);
 
-export const requireOwnershipOrAdmin = async (req: Request, res: Response, next: NextFunction): Promise<void> => {
+export const requireOwnershipOrAdmin = async (
+  req: Request,
+  res: Response,
+  next: NextFunction
+): Promise<void> => {
   try {
     if (!req.user) {
       throw new AuthenticationError('Authentication required');
     }
 
     const resourceUserId = req.params.userId || req.params.id;
-    
+
     // Admin can access any resource
     if (req.user.role === 'admin') {
       return next();
@@ -131,7 +141,11 @@ export const requireOwnershipOrAdmin = async (req: Request, res: Response, next:
   }
 };
 
-export const checkEmailVerification = async (req: Request, res: Response, next: NextFunction): Promise<void> => {
+export const checkEmailVerification = async (
+  req: Request,
+  res: Response,
+  next: NextFunction
+): Promise<void> => {
   try {
     if (!req.user) {
       throw new AuthenticationError('Authentication required');
@@ -179,7 +193,7 @@ export const rateLimitByUser = (maxRequests: number, windowMinutes: number) => {
 
       if (userLimit.count >= maxRequests) {
         const resetTimeInSeconds = Math.ceil((userLimit.resetTime - now) / 1000);
-        
+
         logger.warn('Rate limit exceeded by user:', {
           userId: req.user?.userId,
           ip: req.ip,
@@ -214,7 +228,7 @@ export const logRequest = (req: Request, res: Response, next: NextFunction): voi
 
   res.on('finish', () => {
     const duration = Date.now() - start;
-    
+
     logger.info('Request completed', {
       method: req.method,
       url: req.url,
@@ -231,7 +245,7 @@ export const logRequest = (req: Request, res: Response, next: NextFunction): voi
 
 export const validateApiKey = (req: Request, res: Response, next: NextFunction): void => {
   const apiKey = req.headers['x-api-key'] as string;
-  
+
   if (!apiKey) {
     return next(new AuthenticationError('API key required'));
   }
@@ -245,10 +259,10 @@ export const validateApiKey = (req: Request, res: Response, next: NextFunction):
 export const extractRealIP = (req: Request, res: Response, next: NextFunction): void => {
   const forwarded = req.headers['x-forwarded-for'] as string;
   const realIP = forwarded ? forwarded.split(',')[0].trim() : req.connection.remoteAddress;
-  
+
   // Override req.ip with the real IP
   (req as any).ip = realIP;
-  
+
   next();
 };
 
@@ -256,13 +270,13 @@ export const extractRealIP = (req: Request, res: Response, next: NextFunction): 
 export const requireContentType = (contentType: string) => {
   return (req: Request, res: Response, next: NextFunction): void => {
     const requestContentType = req.headers['content-type'];
-    
+
     if (!requestContentType || !requestContentType.includes(contentType)) {
       return next(new Error(`Content-Type must be ${contentType}`));
     }
-    
+
     next();
   };
 };
 
-export const requireJSON = requireContentType('application/json'); 
+export const requireJSON = requireContentType('application/json');

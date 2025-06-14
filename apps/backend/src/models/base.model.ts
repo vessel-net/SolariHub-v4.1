@@ -34,19 +34,13 @@ export abstract class BaseModel {
 
   protected async findById(id: string): Promise<any | null> {
     const tableName = (this.constructor as any).tableName;
-    const result = await this.query(
-      `SELECT * FROM ${tableName} WHERE id = $1`,
-      [id]
-    );
+    const result = await this.query(`SELECT * FROM ${tableName} WHERE id = $1`, [id]);
     return result.rows[0] || null;
   }
 
   protected async findByField(field: string, value: any): Promise<any | null> {
     const tableName = (this.constructor as any).tableName;
-    const result = await this.query(
-      `SELECT * FROM ${tableName} WHERE ${field} = $1`,
-      [value]
-    );
+    const result = await this.query(`SELECT * FROM ${tableName} WHERE ${field} = $1`, [value]);
     return result.rows[0] || null;
   }
 
@@ -89,10 +83,8 @@ export abstract class BaseModel {
     const tableName = (this.constructor as any).tableName;
     const fields = Object.keys(data);
     const values = Object.values(data);
-    
-    const setClause = fields
-      .map((field, index) => `${field} = $${index + 2}`)
-      .join(', ');
+
+    const setClause = fields.map((field, index) => `${field} = $${index + 2}`).join(', ');
 
     const query = `
       UPDATE ${tableName}
@@ -107,19 +99,15 @@ export abstract class BaseModel {
 
   public async delete(id: string): Promise<boolean> {
     const tableName = (this.constructor as any).tableName;
-    const result = await this.query(
-      `DELETE FROM ${tableName} WHERE id = $1`,
-      [id]
-    );
+    const result = await this.query(`DELETE FROM ${tableName} WHERE id = $1`, [id]);
     return result.rowCount > 0;
   }
 
   public async exists(field: string, value: any): Promise<boolean> {
     const tableName = (this.constructor as any).tableName;
-    const result = await this.query(
-      `SELECT 1 FROM ${tableName} WHERE ${field} = $1 LIMIT 1`,
-      [value]
-    );
+    const result = await this.query(`SELECT 1 FROM ${tableName} WHERE ${field} = $1 LIMIT 1`, [
+      value,
+    ]);
     return result.rowCount > 0;
   }
 
@@ -139,4 +127,4 @@ export abstract class BaseModel {
     const result = await this.query(query, params);
     return parseInt(result.rows[0].count, 10);
   }
-} 
+}

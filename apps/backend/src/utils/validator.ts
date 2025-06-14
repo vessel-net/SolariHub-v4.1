@@ -22,11 +22,13 @@ export const userValidation = {
     firstName: commonSchemas.nonEmptyString.required(),
     lastName: commonSchemas.nonEmptyString.required(),
     role: Joi.string().valid('buyer', 'seller', 'logistics', 'finance').required(),
-    companyName: Joi.string().trim().when('role', {
-      is: Joi.valid('seller', 'logistics', 'finance'),
-      then: Joi.required(),
-      otherwise: Joi.optional(),
-    }),
+    companyName: Joi.string()
+      .trim()
+      .when('role', {
+        is: Joi.valid('seller', 'logistics', 'finance'),
+        then: Joi.required(),
+        otherwise: Joi.optional(),
+      }),
     phone: commonSchemas.phone.optional(),
     address: Joi.object({
       street: Joi.string().required(),
@@ -75,7 +77,9 @@ export const productValidation = {
     specifications: Joi.object().optional(),
     certifications: Joi.array().items(Joi.string()).optional(),
     carbonFootprint: Joi.number().positive().precision(2).optional(),
-    energyRating: Joi.string().valid('A+++', 'A++', 'A+', 'A', 'B', 'C', 'D', 'E', 'F', 'G').optional(),
+    energyRating: Joi.string()
+      .valid('A+++', 'A++', 'A+', 'A', 'B', 'C', 'D', 'E', 'F', 'G')
+      .optional(),
     images: Joi.array().items(Joi.string().uri()).max(10).optional(),
   }),
 
@@ -89,7 +93,9 @@ export const productValidation = {
     specifications: Joi.object().optional(),
     certifications: Joi.array().items(Joi.string()).optional(),
     carbonFootprint: Joi.number().positive().precision(2).optional(),
-    energyRating: Joi.string().valid('A+++', 'A++', 'A+', 'A', 'B', 'C', 'D', 'E', 'F', 'G').optional(),
+    energyRating: Joi.string()
+      .valid('A+++', 'A++', 'A+', 'A', 'B', 'C', 'D', 'E', 'F', 'G')
+      .optional(),
     images: Joi.array().items(Joi.string().uri()).max(10).optional(),
     status: Joi.string().valid('active', 'inactive', 'discontinued').optional(),
   }),
@@ -109,13 +115,16 @@ export const productValidation = {
 // Order validation schemas
 export const orderValidation = {
   create: Joi.object({
-    items: Joi.array().items(
-      Joi.object({
-        productId: commonSchemas.uuid.required(),
-        quantity: commonSchemas.positiveInteger.required(),
-        price: Joi.number().positive().precision(2).required(),
-      })
-    ).min(1).required(),
+    items: Joi.array()
+      .items(
+        Joi.object({
+          productId: commonSchemas.uuid.required(),
+          quantity: commonSchemas.positiveInteger.required(),
+          price: Joi.number().positive().precision(2).required(),
+        })
+      )
+      .min(1)
+      .required(),
     shippingAddress: Joi.object({
       street: Joi.string().required(),
       city: Joi.string().required(),
@@ -128,13 +137,18 @@ export const orderValidation = {
   }),
 
   updateStatus: Joi.object({
-    status: Joi.string().valid('pending', 'confirmed', 'processing', 'shipped', 'delivered', 'cancelled').required(),
+    status: Joi.string()
+      .valid('pending', 'confirmed', 'processing', 'shipped', 'delivered', 'cancelled')
+      .required(),
     notes: Joi.string().trim().optional(),
   }),
 };
 
 // Generic validation middleware factory
-export const validate = (schema: Joi.ObjectSchema, property: 'body' | 'query' | 'params' = 'body') => {
+export const validate = (
+  schema: Joi.ObjectSchema,
+  property: 'body' | 'query' | 'params' = 'body'
+) => {
   return (req: Request, res: Response, next: NextFunction) => {
     const { error, value } = schema.validate(req[property], {
       abortEarly: false,
@@ -146,7 +160,7 @@ export const validate = (schema: Joi.ObjectSchema, property: 'body' | 'query' | 
       const errorMessage = error.details
         .map((detail) => detail.message.replace(/"/g, ''))
         .join(', ');
-      
+
       throw new ValidationError(`Validation failed: ${errorMessage}`);
     }
 
@@ -171,13 +185,20 @@ export const validateOrderStatusUpdate = validate(orderValidation.updateStatus);
 
 // Parameter validation
 export const validateUUIDParam = (paramName: string) => {
-  return validate(Joi.object({
-    [paramName]: commonSchemas.uuid.required(),
-  }), 'params');
+  return validate(
+    Joi.object({
+      [paramName]: commonSchemas.uuid.required(),
+    }),
+    'params'
+  );
 };
 
 // Custom validation helpers
-export const validateFileUpload = (file: any, allowedTypes: string[], maxSize: number = 5 * 1024 * 1024) => {
+export const validateFileUpload = (
+  file: any,
+  allowedTypes: string[],
+  maxSize: number = 5 * 1024 * 1024
+) => {
   if (!file) {
     throw new ValidationError('File is required');
   }
@@ -196,23 +217,35 @@ export const validateImageUpload = (file: any) => {
 };
 
 export const validateDocumentUpload = (file: any) => {
-  validateFileUpload(file, ['application/pdf', 'application/msword', 'application/vnd.openxmlformats-officedocument.wordprocessingml.document'], 10 * 1024 * 1024);
+  validateFileUpload(
+    file,
+    [
+      'application/pdf',
+      'application/msword',
+      'application/vnd.openxmlformats-officedocument.wordprocessingml.document',
+    ],
+    10 * 1024 * 1024
+  );
 };
 
 // Array validation helper
-export const validateArray = (array: any[], itemSchema: Joi.Schema, options?: { min?: number; max?: number }) => {
+export const validateArray = (
+  array: any[],
+  itemSchema: Joi.Schema,
+  options?: { min?: number; max?: number }
+) => {
   const arraySchema = Joi.array().items(itemSchema);
-  
+
   if (options?.min) {
     arraySchema.min(options.min);
   }
-  
+
   if (options?.max) {
     arraySchema.max(options.max);
   }
 
   const { error } = arraySchema.validate(array);
-  
+
   if (error) {
     throw new ValidationError(`Array validation failed: ${error.message}`);
   }
@@ -229,10 +262,22 @@ export const sanitizeHtml = (html: string): string => {
 };
 
 // Rate limiting validation
-export const validateRateLimit = (req: Request): boolean => {
+export const validateRateLimit = (_req: Request): boolean => {
   // This would integrate with Redis to check rate limits
   // Implementation depends on your rate limiting strategy
   return true;
+};
+
+// Validation for phone number (international format)
+export const validatePhoneNumber = (value: string, _req?: Request): void => {
+  if (!value) return;
+
+  const phoneRegex = /^\+[1-9]\d{1,14}$/;
+  if (!phoneRegex.test(value)) {
+    throw new ValidationError(
+      'Invalid phone number format. Use international format (+1234567890)'
+    );
+  }
 };
 
 export default {
@@ -248,4 +293,5 @@ export default {
   validateArray,
   sanitizeString,
   sanitizeHtml,
-}; 
+  validatePhoneNumber,
+};

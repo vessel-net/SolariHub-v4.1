@@ -7,7 +7,7 @@ export class AppError extends Error {
   public readonly isOperational: boolean;
   public readonly code?: string;
 
-  constructor(message: string, statusCode: number = 500, isOperational: boolean = true, code?: string) {
+  constructor(message: string, statusCode = 500, isOperational = true, code?: string) {
     super(message);
     this.statusCode = statusCode;
     this.isOperational = isOperational;
@@ -19,49 +19,49 @@ export class AppError extends Error {
 }
 
 export class ValidationError extends AppError {
-  constructor(message: string = 'Validation failed') {
+  constructor(message = 'Validation failed') {
     super(message, 400, true, 'VALIDATION_ERROR');
   }
 }
 
 export class AuthenticationError extends AppError {
-  constructor(message: string = 'Authentication required') {
+  constructor(message = 'Authentication required') {
     super(message, 401, true, 'AUTHENTICATION_ERROR');
   }
 }
 
 export class AuthorizationError extends AppError {
-  constructor(message: string = 'Insufficient permissions') {
+  constructor(message = 'Insufficient permissions') {
     super(message, 403, true, 'AUTHORIZATION_ERROR');
   }
 }
 
 export class NotFoundError extends AppError {
-  constructor(message: string = 'Resource not found') {
+  constructor(message = 'Resource not found') {
     super(message, 404, true, 'NOT_FOUND_ERROR');
   }
 }
 
 export class ConflictError extends AppError {
-  constructor(message: string = 'Resource already exists') {
+  constructor(message = 'Resource already exists') {
     super(message, 409, true, 'CONFLICT_ERROR');
   }
 }
 
 export class RateLimitError extends AppError {
-  constructor(message: string = 'Too many requests') {
+  constructor(message = 'Too many requests') {
     super(message, 429, true, 'RATE_LIMIT_ERROR');
   }
 }
 
 export class DatabaseError extends AppError {
-  constructor(message: string = 'Database operation failed') {
+  constructor(message = 'Database operation failed') {
     super(message, 500, true, 'DATABASE_ERROR');
   }
 }
 
 export class ExternalServiceError extends AppError {
-  constructor(message: string = 'External service unavailable') {
+  constructor(message = 'External service unavailable') {
     super(message, 502, true, 'EXTERNAL_SERVICE_ERROR');
   }
 }
@@ -87,7 +87,7 @@ export const createErrorResponse = (
   details?: any
 ): ErrorResponse => {
   const isAppError = error instanceof AppError;
-  
+
   return {
     success: false,
     error: {
@@ -108,7 +108,7 @@ export const globalErrorHandler = (
   error: Error,
   req: Request,
   res: Response,
-  next: NextFunction
+  _next: NextFunction
 ): void => {
   let appError: AppError;
 
@@ -161,30 +161,30 @@ export const globalErrorHandler = (
   res.status(appError.statusCode).json(errorResponse);
 };
 
+// 404 handler for undefined routes
+export const notFoundHandler = (req: Request, res: Response, _next: NextFunction): void => {
+  const error = new NotFoundError(`Route ${req.originalUrl} not found`);
+  _next(error);
+};
+
 // Async error wrapper - catches async errors and passes to error handler
-export const catchAsync = (fn: Function) => {
+export const catchAsync = (fn: (...args: any[]) => Promise<any>) => {
   return (req: Request, res: Response, next: NextFunction) => {
     Promise.resolve(fn(req, res, next)).catch(next);
   };
-};
-
-// 404 handler for undefined routes
-export const notFoundHandler = (req: Request, res: Response, next: NextFunction): void => {
-  const error = new NotFoundError(`Route ${req.originalUrl} not found`);
-  next(error);
 };
 
 // Graceful shutdown handler
 export const gracefulShutdown = (server: any) => {
   return (signal: string) => {
     logger.info(`Received ${signal}. Starting graceful shutdown...`);
-    
+
     server.close((err: Error) => {
       if (err) {
         logger.error('Error during server shutdown:', err);
         process.exit(1);
       }
-      
+
       logger.info('Server closed successfully');
       process.exit(0);
     });
@@ -241,9 +241,11 @@ export const validatePassword = (password: string): void => {
   if (password.length < 8) {
     throw new ValidationError('Password must be at least 8 characters long');
   }
-  
+
   if (!/(?=.*[a-z])(?=.*[A-Z])(?=.*\d)/.test(password)) {
-    throw new ValidationError('Password must contain at least one uppercase letter, one lowercase letter, and one number');
+    throw new ValidationError(
+      'Password must contain at least one uppercase letter, one lowercase letter, and one number'
+    );
   }
 };
 
@@ -252,4 +254,4 @@ export const validateUUID = (id: string): void => {
   if (!uuidRegex.test(id)) {
     throw new ValidationError('Invalid ID format');
   }
-}; 
+};

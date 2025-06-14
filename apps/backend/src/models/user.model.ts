@@ -66,8 +66,9 @@ export class UserModel extends BaseModel {
 
   public async findWithProfile(id: string): Promise<UserWithProfile | null> {
     validateUUID(id);
-    
-    const result = await this.query(`
+
+    const result = await this.query(
+      `
       SELECT 
         u.*,
         p.first_name,
@@ -80,7 +81,9 @@ export class UserModel extends BaseModel {
       FROM auth.users u
       LEFT JOIN auth.user_profiles p ON u.id = p.user_id
       WHERE u.id = $1
-    `, [id]);
+    `,
+      [id]
+    );
 
     if (!result.rows[0]) {
       return null;
@@ -139,34 +142,39 @@ export class UserModel extends BaseModel {
       await client.query('BEGIN');
 
       // Create user
-      const userResult = await client.query(`
+      const userResult = await client.query(
+        `
         INSERT INTO auth.users (email, password_hash, role)
         VALUES ($1, $2, $3)
         RETURNING *
-      `, [email, password_hash, role]);
+      `,
+        [email, password_hash, role]
+      );
 
       const user = userResult.rows[0];
 
       // Create profile if provided
       if (profile) {
-        await client.query(`
+        await client.query(
+          `
           INSERT INTO auth.user_profiles (
             user_id, first_name, last_name, company_name, phone, address
           )
           VALUES ($1, $2, $3, $4, $5, $6)
-        `, [
-          user.id,
-          profile.first_name || null,
-          profile.last_name || null,
-          profile.company_name || null,
-          profile.phone || null,
-          profile.address ? JSON.stringify(profile.address) : null,
-        ]);
+        `,
+          [
+            user.id,
+            profile.first_name || null,
+            profile.last_name || null,
+            profile.company_name || null,
+            profile.phone || null,
+            profile.address ? JSON.stringify(profile.address) : null,
+          ]
+        );
       }
 
       await client.query('COMMIT');
       return user;
-
     } catch (error) {
       await client.query('ROLLBACK');
       throw error;
@@ -180,7 +188,7 @@ export class UserModel extends BaseModel {
 
     if (updateData.email) {
       validateEmail(updateData.email);
-      
+
       // Check if email is already taken by another user
       const existingUser = await this.findByEmail(updateData.email);
       if (existingUser && existingUser.id !== id) {
@@ -239,23 +247,32 @@ export class UserModel extends BaseModel {
     }
 
     // Check if profile exists
-    const profileExists = await this.query(`
+    const profileExists = await this.query(
+      `
       SELECT 1 FROM auth.user_profiles WHERE user_id = $1
-    `, [userId]);
+    `,
+      [userId]
+    );
 
     if (profileExists.rowCount === 0) {
       // Create new profile
-      await this.query(`
-        INSERT INTO auth.user_profiles (user_id, ${fields.map(f => f.split(' = ')[0]).join(', ')})
+      await this.query(
+        `
+        INSERT INTO auth.user_profiles (user_id, ${fields.map((f) => f.split(' = ')[0]).join(', ')})
         VALUES ($1, ${fields.map((_, i) => `$${i + 2}`).join(', ')})
-      `, [userId, ...values]);
+      `,
+        [userId, ...values]
+      );
     } else {
       // Update existing profile
-      await this.query(`
+      await this.query(
+        `
         UPDATE auth.user_profiles
         SET ${fields.join(', ')}
         WHERE user_id = $1
-      `, [userId, ...values]);
+      `,
+        [userId, ...values]
+      );
     }
   }
 
@@ -268,31 +285,40 @@ export class UserModel extends BaseModel {
     validatePassword(newPassword);
 
     const password_hash = await bcrypt.hash(newPassword, config.security.bcryptRounds);
-    
-    await this.query(`
+
+    await this.query(
+      `
       UPDATE auth.users
       SET password_hash = $2, updated_at = CURRENT_TIMESTAMP
       WHERE id = $1
-    `, [userId, password_hash]);
+    `,
+      [userId, password_hash]
+    );
   }
 
   public async verifyEmail(userId: string): Promise<void> {
     validateUUID(userId);
-    
-    await this.query(`
+
+    await this.query(
+      `
       UPDATE auth.users
       SET email_verified = TRUE, updated_at = CURRENT_TIMESTAMP
       WHERE id = $1
-    `, [userId]);
+    `,
+      [userId]
+    );
   }
 
   public async findByRole(role: UserRole, limit = 50, offset = 0): Promise<User[]> {
-    const result = await this.query(`
+    const result = await this.query(
+      `
       SELECT * FROM auth.users
       WHERE role = $1
       ORDER BY created_at DESC
       LIMIT $2 OFFSET $3
-    `, [role, limit, offset]);
+    `,
+      [role, limit, offset]
+    );
 
     return result.rows;
   }
@@ -350,4 +376,4 @@ export class UserModel extends BaseModel {
   }
 }
 
-export const userModel = new UserModel(); 
+export const userModel = new UserModel();

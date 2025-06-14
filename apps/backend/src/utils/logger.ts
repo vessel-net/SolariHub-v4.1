@@ -26,19 +26,14 @@ winston.addColors(colors);
 const format = winston.format.combine(
   winston.format.timestamp({ format: 'YYYY-MM-DD HH:mm:ss:ms' }),
   winston.format.colorize({ all: true }),
-  winston.format.printf(
-    (info) => `${info.timestamp} ${info.level}: ${info.message}`,
-  ),
+  winston.format.printf((info) => `${info.timestamp} ${info.level}: ${info.message}`)
 );
 
 // Define different transport configurations
 const transports: winston.transport[] = [
   // Console transport for all environments
   new winston.transports.Console({
-    format: winston.format.combine(
-      winston.format.colorize(),
-      winston.format.simple(),
-    ),
+    format: winston.format.combine(winston.format.colorize(), winston.format.simple()),
   }),
 ];
 
@@ -55,7 +50,7 @@ if (config.nodeEnv !== 'test') {
       filename: 'logs/combined.log',
       maxsize: 5242880, // 5MB
       maxFiles: 5,
-    }),
+    })
   );
 }
 
@@ -82,13 +77,9 @@ export const morganFormat = config.isDevelopment
 
 // Log uncaught exceptions and unhandled rejections
 if (config.isProduction) {
-  logger.exceptions.handle(
-    new winston.transports.File({ filename: 'logs/exceptions.log' })
-  );
+  logger.exceptions.handle(new winston.transports.File({ filename: 'logs/exceptions.log' }));
 
-  logger.rejections.handle(
-    new winston.transports.File({ filename: 'logs/rejections.log' })
-  );
+  logger.rejections.handle(new winston.transports.File({ filename: 'logs/rejections.log' }));
 }
 
 // Helper functions for structured logging
@@ -132,7 +123,12 @@ export const logRequest = (req: any, res: any, message: string) => {
 };
 
 // Database operation logging
-export const logDatabaseOperation = (operation: string, table: string, duration?: number, meta?: any) => {
+export const logDatabaseOperation = (
+  operation: string,
+  table: string,
+  duration?: number,
+  meta?: any
+) => {
   logger.debug(`Database ${operation}`, {
     table,
     duration: duration ? `${duration}ms` : undefined,
@@ -141,7 +137,13 @@ export const logDatabaseOperation = (operation: string, table: string, duration?
 };
 
 // Authentication logging
-export const logAuth = (action: string, userId?: string, email?: string, ip?: string, success?: boolean) => {
+export const logAuth = (
+  action: string,
+  userId?: string,
+  email?: string,
+  ip?: string,
+  success?: boolean
+) => {
   logger.info(`Auth: ${action}`, {
     userId,
     email,
@@ -160,4 +162,4 @@ export const logPerformance = (operation: string, duration: number, meta?: any) 
   });
 };
 
-export default logger; 
+export default logger;

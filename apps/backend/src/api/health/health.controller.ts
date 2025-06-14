@@ -36,22 +36,23 @@ interface HealthStatus {
 
 export const getHealthStatus = catchAsync(async (req: Request, res: Response): Promise<void> => {
   const startTime = Date.now();
-  
+
   try {
     // Check database health
     const dbHealth = await databaseService.healthCheck();
-    
+
     // Check API health (if we got this far, API is working)
     const apiHealth = true;
-    
+
     // Get memory usage
     const memUsage = process.memoryUsage();
     const totalMemory = memUsage.heapTotal + memUsage.external + memUsage.arrayBuffers;
-    
+
     // Determine overall status
     const allServicesHealthy = dbHealth.postgres && dbHealth.mongodb && dbHealth.redis && apiHealth;
-    const someServicesHealthy = dbHealth.postgres || dbHealth.mongodb || dbHealth.redis || apiHealth;
-    
+    const someServicesHealthy =
+      dbHealth.postgres || dbHealth.mongodb || dbHealth.redis || apiHealth;
+
     let status: 'healthy' | 'unhealthy' | 'degraded';
     if (allServicesHealthy) {
       status = 'healthy';
@@ -60,7 +61,7 @@ export const getHealthStatus = catchAsync(async (req: Request, res: Response): P
     } else {
       status = 'unhealthy';
     }
-    
+
     const healthStatus: HealthStatus = {
       status,
       timestamp: new Date().toISOString(),
@@ -79,17 +80,17 @@ export const getHealthStatus = catchAsync(async (req: Request, res: Response): P
         },
       },
     };
-    
+
     const responseTime = Date.now() - startTime;
-    
+
     logger.debug('Health check completed', {
       status,
       responseTime: `${responseTime}ms`,
       services: healthStatus.services,
     });
-    
+
     const statusCode = status === 'healthy' ? 200 : status === 'degraded' ? 207 : 503;
-    
+
     res.status(statusCode).json({
       success: status !== 'unhealthy',
       data: healthStatus,
@@ -97,7 +98,7 @@ export const getHealthStatus = catchAsync(async (req: Request, res: Response): P
     });
   } catch (error) {
     logger.error('Health check failed:', error);
-    
+
     res.status(503).json({
       success: false,
       status: 'unhealthy',
@@ -112,9 +113,9 @@ export const getReadiness = catchAsync(async (req: Request, res: Response): Prom
   try {
     // Check if all critical services are ready
     const dbHealth = await databaseService.healthCheck();
-    
+
     const isReady = dbHealth.postgres && dbHealth.mongodb && dbHealth.redis;
-    
+
     if (isReady) {
       res.status(200).json({
         success: true,
@@ -133,7 +134,7 @@ export const getReadiness = catchAsync(async (req: Request, res: Response): Prom
     }
   } catch (error) {
     logger.error('Readiness check failed:', error);
-    
+
     res.status(503).json({
       success: false,
       status: 'not_ready',
@@ -155,7 +156,7 @@ export const getLiveness = catchAsync(async (req: Request, res: Response): Promi
     });
   } catch (error) {
     logger.error('Liveness check failed:', error);
-    
+
     res.status(503).json({
       success: false,
       status: 'not_alive',
@@ -169,10 +170,10 @@ export const getSystemInfo = catchAsync(async (req: Request, res: Response): Pro
   try {
     const memUsage = process.memoryUsage();
     const cpuUsage = process.cpuUsage();
-    
+
     // Get user stats for metrics
     const userStats = await userService.getUserStats();
-    
+
     const systemInfo = {
       application: {
         name: 'SolariHub Backend',
@@ -202,7 +203,7 @@ export const getSystemInfo = catchAsync(async (req: Request, res: Response): Pro
         users: userStats,
       },
     };
-    
+
     res.status(200).json({
       success: true,
       data: systemInfo,
@@ -210,7 +211,7 @@ export const getSystemInfo = catchAsync(async (req: Request, res: Response): Pro
     });
   } catch (error) {
     logger.error('System info retrieval failed:', error);
-    
+
     res.status(500).json({
       success: false,
       error: 'Failed to retrieve system information',
@@ -222,23 +223,23 @@ export const getSystemInfo = catchAsync(async (req: Request, res: Response): Pro
 export const getDatabaseStatus = catchAsync(async (req: Request, res: Response): Promise<void> => {
   try {
     const dbHealth = await databaseService.healthCheck();
-    
+
     // Additional database metrics
     const dbStatus = {
       health: dbHealth,
       connections: {
         postgres: {
           total: 10, // From pool config
-          idle: 0,   // Would need to implement this
+          idle: 0, // Would need to implement this
           active: 0, // Would need to implement this
         },
       },
       timestamp: new Date().toISOString(),
     };
-    
+
     const allHealthy = dbHealth.postgres && dbHealth.mongodb && dbHealth.redis;
     const statusCode = allHealthy ? 200 : 503;
-    
+
     res.status(statusCode).json({
       success: allHealthy,
       data: dbStatus,
@@ -246,7 +247,7 @@ export const getDatabaseStatus = catchAsync(async (req: Request, res: Response):
     });
   } catch (error) {
     logger.error('Database status check failed:', error);
-    
+
     res.status(503).json({
       success: false,
       error: 'Database status check failed',
@@ -257,11 +258,11 @@ export const getDatabaseStatus = catchAsync(async (req: Request, res: Response):
 
 export const ping = catchAsync(async (req: Request, res: Response): Promise<void> => {
   const startTime = Date.now();
-  
+
   res.status(200).json({
     success: true,
     message: 'pong',
     timestamp: new Date().toISOString(),
     responseTime: `${Date.now() - startTime}ms`,
   });
-}); 
+});

@@ -1,4 +1,9 @@
-import { postgresPool, initializeDatabases, closeDatabaseConnections, checkDatabaseHealth } from '../config/database';
+import {
+  postgresPool,
+  initializeDatabases,
+  closeDatabaseConnections,
+  checkDatabaseHealth,
+} from '../config/database';
 import { logger } from '../utils/logger';
 import { DatabaseError } from '../utils/errors';
 
@@ -6,6 +11,7 @@ export class DatabaseService {
   private static instance: DatabaseService;
   private isInitialized = false;
 
+  // eslint-disable-next-line @typescript-eslint/no-empty-function
   private constructor() {}
 
   public static getInstance(): DatabaseService {
@@ -59,4 +65,4 @@ export class DatabaseService {
   }
 }
 
-export const databaseService = DatabaseService.getInstance(); 
+export const databaseService = DatabaseService.getInstance();

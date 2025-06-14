@@ -21,4 +21,4 @@ router.get('/status', getHealthStatus);
 router.get('/system', requireAdmin, getSystemInfo);
 router.get('/database', requireAdmin, getDatabaseStatus);
 
-export default router; 
+export default router;

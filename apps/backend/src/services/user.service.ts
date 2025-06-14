@@ -1,10 +1,19 @@
-import { userModel, User, UserWithProfile, CreateUserData, UpdateUserData, UserRole, UserProfile } from '../models/user.model';
+import {
+  userModel,
+  User,
+  UserWithProfile,
+  CreateUserData,
+  UpdateUserData,
+  UserRole,
+  UserProfile,
+} from '../models/user.model';
 import { NotFoundError, ValidationError } from '../utils/errors';
 import { logger } from '../utils/logger';
 
 export class UserService {
   private static instance: UserService;
 
+  // eslint-disable-next-line @typescript-eslint/no-empty-function
   private constructor() {}
 
   public static getInstance(): UserService {
@@ -17,7 +26,7 @@ export class UserService {
   public async createUser(userData: CreateUserData): Promise<Omit<User, 'password_hash'>> {
     try {
       const user = await userModel.create(userData);
-      
+
       logger.info('User created successfully', {
         userId: user.id,
         email: user.email,
@@ -25,7 +34,7 @@ export class UserService {
       });
 
       // Return user without password hash
-      const { password_hash, ...userWithoutPassword } = user;
+      const { password_hash: _password_hash, ...userWithoutPassword } = user;
       return userWithoutPassword;
     } catch (error) {
       logger.error('Failed to create user:', error, {
@@ -39,12 +48,12 @@ export class UserService {
   public async getUserById(id: string): Promise<Omit<User, 'password_hash'> | null> {
     try {
       const user = await userModel.findById(id);
-      
+
       if (!user) {
         return null;
       }
 
-      const { password_hash, ...userWithoutPassword } = user;
+      const { password_hash: _password_hash, ...userWithoutPassword } = user;
       return userWithoutPassword;
     } catch (error) {
       logger.error('Failed to get user by ID:', error, { userId: id });
@@ -52,15 +61,17 @@ export class UserService {
     }
   }
 
-  public async getUserWithProfile(id: string): Promise<Omit<UserWithProfile, 'password_hash'> | null> {
+  public async getUserWithProfile(
+    id: string
+  ): Promise<Omit<UserWithProfile, 'password_hash'> | null> {
     try {
       const userWithProfile = await userModel.findWithProfile(id);
-      
+
       if (!userWithProfile) {
         return null;
       }
 
-      const { password_hash, ...userWithoutPassword } = userWithProfile;
+      const { password_hash: _password_hash, ...userWithoutPassword } = userWithProfile;
       return userWithoutPassword;
     } catch (error) {
       logger.error('Failed to get user with profile:', error, { userId: id });
@@ -77,7 +88,10 @@ export class UserService {
     }
   }
 
-  public async updateUser(id: string, updateData: UpdateUserData): Promise<Omit<User, 'password_hash'>> {
+  public async updateUser(
+    id: string,
+    updateData: UpdateUserData
+  ): Promise<Omit<User, 'password_hash'>> {
     try {
       const existingUser = await userModel.findById(id);
       if (!existingUser) {
@@ -85,13 +99,13 @@ export class UserService {
       }
 
       const updatedUser = await userModel.updateUser(id, updateData);
-      
+
       logger.info('User updated successfully', {
         userId: id,
         updatedFields: Object.keys(updateData),
       });
 
-      const { password_hash, ...userWithoutPassword } = updatedUser;
+      const { password_hash: _password_hash, ...userWithoutPassword } = updatedUser;
       return userWithoutPassword;
     } catch (error) {
       logger.error('Failed to update user:', error, { userId: id });
@@ -107,7 +121,7 @@ export class UserService {
       }
 
       await userModel.updateProfile(userId, profileData);
-      
+
       logger.info('User profile updated successfully', {
         userId,
         updatedFields: Object.keys(profileData),
@@ -118,7 +132,11 @@ export class UserService {
     }
   }
 
-  public async changePassword(userId: string, currentPassword: string, newPassword: string): Promise<void> {
+  public async changePassword(
+    userId: string,
+    currentPassword: string,
+    newPassword: string
+  ): Promise<void> {
     try {
       const user = await userModel.findById(userId);
       if (!user) {
@@ -126,13 +144,16 @@ export class UserService {
       }
 
       // Verify current password
-      const isCurrentPasswordValid = await userModel.verifyPassword(currentPassword, user.password_hash);
+      const isCurrentPasswordValid = await userModel.verifyPassword(
+        currentPassword,
+        user.password_hash
+      );
       if (!isCurrentPasswordValid) {
         throw new ValidationError('Current password is incorrect');
       }
 
       await userModel.changePassword(userId, newPassword);
-      
+
       logger.info('Password changed successfully', { userId });
     } catch (error) {
       logger.error('Failed to change password:', error, { userId });
@@ -148,7 +169,7 @@ export class UserService {
       }
 
       await userModel.verifyEmail(userId);
-      
+
       logger.info('User email verified successfully', { userId });
     } catch (error) {
       logger.error('Failed to verify user email:', error, { userId });
@@ -175,7 +196,11 @@ export class UserService {
     }
   }
 
-  public async getUsersByRole(role: UserRole, page = 1, limit = 50): Promise<{
+  public async getUsersByRole(
+    role: UserRole,
+    page = 1,
+    limit = 50
+  ): Promise<{
     users: Omit<User, 'password_hash'>[];
     pagination: {
       page: number;
@@ -190,7 +215,7 @@ export class UserService {
       const total = await userModel.count({ role });
 
       const usersWithoutPassword = users.map((user: any) => {
-        const { password_hash, ...userWithoutPassword } = user;
+        const { password_hash: _password_hash, ...userWithoutPassword } = user;
         return userWithoutPassword;
       });
 
@@ -223,7 +248,12 @@ export class UserService {
     }
   }
 
-  public async searchUsers(query: string, role?: UserRole, page = 1, limit = 50): Promise<{
+  public async searchUsers(
+    query: string,
+    role?: UserRole,
+    page = 1,
+    limit = 50
+  ): Promise<{
     users: Omit<User, 'password_hash'>[];
     pagination: {
       page: number;
@@ -244,9 +274,9 @@ export class UserService {
           p.company_name ILIKE $1
         )
       `;
-      
+
       const params: any[] = [`%${query}%`];
-      
+
       if (role) {
         searchQuery += ` AND u.role = $${params.length + 1}`;
         params.push(role);
@@ -269,9 +299,9 @@ export class UserService {
           p.company_name ILIKE $1
         )
       `;
-      
+
       const countParams: any[] = [`%${query}%`];
-      
+
       if (role) {
         countQuery += ` AND u.role = $${countParams.length + 1}`;
         countParams.push(role);
@@ -281,7 +311,7 @@ export class UserService {
       const total = parseInt(countResult.rows[0].count, 10);
 
       const usersWithoutPassword = users.map((user: any) => {
-        const { password_hash, ...userWithoutPassword } = user;
+        const { password_hash: _password_hash, ...userWithoutPassword } = user;
         return userWithoutPassword;
       });
 
@@ -303,7 +333,7 @@ export class UserService {
   public async isEmailTaken(email: string, excludeUserId?: string): Promise<boolean> {
     try {
       const existingUser = await userModel.findByEmail(email);
-      
+
       if (!existingUser) {
         return false;
       }
@@ -320,4 +350,4 @@ export class UserService {
   }
 }
 
-export const userService = UserService.getInstance(); 
+export const userService = UserService.getInstance();

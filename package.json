@@ -29,12 +29,17 @@
     "webpack-cli": "5.1.4"
   },
   "devDependencies": {
+    "@eslint/js": "^9.29.0",
+    "@nx/eslint-plugin": "^21.1.3",
     "@types/node": "^24.0.1",
     "chokidar": "^4.0.3",
     "commander": "^14.0.0",
+    "eslint-config-prettier": "^10.1.5",
+    "eslint-plugin-prettier": "^5.4.1",
     "ts-migrate": "^0.1.35",
     "ts-morph": "^26.0.0",
-    "ts-node": "^10.9.2"
+    "ts-node": "^10.9.2",
+    "typescript-eslint": "^8.34.0"
   },
   "bin": {
     "solari": "./tools/cli/solari-cli.ts"
