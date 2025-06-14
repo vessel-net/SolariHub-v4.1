@@ -54,3 +54,12 @@ test-output
 
 # Deployment artifacts
 package.dev.json
+
+# Environment variables
+.env
+.env.*
+!.env.example
+
+# Logs
+logs/
+*.log

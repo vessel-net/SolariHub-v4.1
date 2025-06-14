@@ -1,37 +1,249 @@
 version: '3.8'
 
 services:
-  backend:
-    build:
-      context: .
-      dockerfile: deployment/docker/Dockerfile.backend
-    ports:
-      - "4000:4000"
+  # PostgreSQL Database
+  postgres:
+    image: postgres:15-alpine
+    container_name: solarihub-postgres
+    restart: unless-stopped
     environment:
-      - NODE_ENV=development
-      - PORT=4000
+      POSTGRES_DB: solarihub_dev
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres_dev_password
+      POSTGRES_INITDB_ARGS: "--encoding=UTF-8"
+    ports:
+      - "5432:5432"
     volumes:
-      # Mount source for development (optional)
-      - ./apps/backend/src:/app/src
+      - postgres_data:/var/lib/postgresql/data
+      - ./database/init:/docker-entrypoint-initdb.d
     networks:
-      - solarihub
+      - solarihub-network
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U postgres"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
 
-  frontend:
-    build:
-      context: .
-      dockerfile: deployment/docker/Dockerfile.frontend
-    ports:
-      - "3000:3000"
+  # MongoDB Database
+  mongodb:
+    image: mongo:7-jammy
+    container_name: solarihub-mongodb
+    restart: unless-stopped
     environment:
-      - VITE_API_URL=http://backend:4000
-    depends_on:
-      - backend
+      MONGO_INITDB_ROOT_USERNAME: admin
+      MONGO_INITDB_ROOT_PASSWORD: mongodb_dev_password
+      MONGO_INITDB_DATABASE: solarihub_dev
+    ports:
+      - "27017:27017"
+    volumes:
+      - mongodb_data:/data/db
+      - ./database/mongo-init:/docker-entrypoint-initdb.d
     networks:
-      - solarihub
+      - solarihub-network
+    healthcheck:
+      test: ["CMD", "mongosh", "--eval", "db.adminCommand('ping')"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
 
+  # Redis Cache
+  redis:
+    image: redis:7-alpine
+    container_name: solarihub-redis
+    restart: unless-stopped
+    command: redis-server --appendonly yes --requirepass redis_dev_password
+    ports:
+      - "6379:6379"
+    volumes:
+      - redis_data:/data
+    networks:
+      - solarihub-network
+    healthcheck:
+      test: ["CMD", "redis-cli", "--raw", "incr", "ping"]
+      interval: 10s
+      timeout: 3s
+      retries: 5
+
+  # InfluxDB (Time Series Database for IoT data) - Phase 1
+  influxdb:
+    image: influxdb:2.7-alpine
+    container_name: solarihub-influxdb
+    restart: unless-stopped
+    environment:
+      DOCKER_INFLUXDB_INIT_MODE: setup
+      DOCKER_INFLUXDB_INIT_USERNAME: admin
+      DOCKER_INFLUXDB_INIT_PASSWORD: influxdb_dev_password
+      DOCKER_INFLUXDB_INIT_ORG: solarihub
+      DOCKER_INFLUXDB_INIT_BUCKET: energy_data
+      DOCKER_INFLUXDB_INIT_ADMIN_TOKEN: dev_admin_token_change_in_production
+    ports:
+      - "8086:8086"
+    volumes:
+      - influxdb_data:/var/lib/influxdb2
+    networks:
+      - solarihub-network
+    profiles:
+      - full
+    healthcheck:
+      test: ["CMD", "influx", "ping"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+  # Elasticsearch (Search Engine) - Phase 1
+  elasticsearch:
+    image: elasticsearch:8.11.0
+    container_name: solarihub-elasticsearch
+    restart: unless-stopped
+    environment:
+      - discovery.type=single-node
+      - xpack.security.enabled=false
+      - ES_JAVA_OPTS=-Xms512m -Xmx1g
+    ports:
+      - "9200:9200"
+      - "9300:9300"
+    volumes:
+      - elasticsearch_data:/usr/share/elasticsearch/data
+    networks:
+      - solarihub-network
+    profiles:
+      - full
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:9200"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+  # MQTT Broker (for IoT devices) - Phase 1
+  mosquitto:
+    image: eclipse-mosquitto:2.0
+    container_name: solarihub-mosquitto
+    restart: unless-stopped
+    ports:
+      - "1883:1883"
+      - "9001:9001"
+    volumes:
+      - mosquitto_data:/mosquitto/data
+      - mosquitto_logs:/mosquitto/log
+      - ./config/mosquitto:/mosquitto/config
+    networks:
+      - solarihub-network
+    profiles:
+      - full
+    healthcheck:
+      test: ["CMD", "mosquitto_pub", "-h", "localhost", "-t", "test", "-m", "test"]
+      interval: 10s
+      timeout: 5s
+      retries: 3
+
+  # pgAdmin (PostgreSQL Administration) - Development only
+  pgadmin:
+    image: dpage/pgadmin4:latest
+    container_name: solarihub-pgadmin
+    restart: unless-stopped
+    environment:
+      PGADMIN_DEFAULT_EMAIL: admin@solarihub.dev
+      PGADMIN_DEFAULT_PASSWORD: pgadmin_dev_password
+      PGADMIN_CONFIG_SERVER_MODE: 'False'
+    ports:
+      - "5050:80"
+    volumes:
+      - pgadmin_data:/var/lib/pgadmin
+    networks:
+      - solarihub-network
+    profiles:
+      - tools
+    depends_on:
+      - postgres
+
+  # Mongo Express (MongoDB Administration) - Development only
+  mongo-express:
+    image: mongo-express:latest
+    container_name: solarihub-mongo-express
+    restart: unless-stopped
+    environment:
+      ME_CONFIG_MONGODB_ADMINUSERNAME: admin
+      ME_CONFIG_MONGODB_ADMINPASSWORD: mongodb_dev_password
+      ME_CONFIG_MONGODB_URL: mongodb://admin:mongodb_dev_password@mongodb:27017/
+      ME_CONFIG_BASICAUTH_USERNAME: admin
+      ME_CONFIG_BASICAUTH_PASSWORD: mongoexpress_dev_password
+    ports:
+      - "8081:8081"
+    networks:
+      - solarihub-network
+    profiles:
+      - tools
+    depends_on:
+      - mongodb
+
+  # Redis Commander (Redis Administration) - Development only
+  redis-commander:
+    image: rediscommander/redis-commander:latest
+    container_name: solarihub-redis-commander
+    restart: unless-stopped
+    environment:
+      REDIS_HOSTS: local:redis:6379:0:redis_dev_password
+    ports:
+      - "8082:8081"
+    networks:
+      - solarihub-network
+    profiles:
+      - tools
+    depends_on:
+      - redis
+
+# Volumes for data persistence
+volumes:
+  postgres_data:
+    driver: local
+  mongodb_data:
+    driver: local
+  redis_data:
+    driver: local
+  influxdb_data:
+    driver: local
+  elasticsearch_data:
+    driver: local
+  mosquitto_data:
+    driver: local
+  mosquitto_logs:
+    driver: local
+  pgadmin_data:
+    driver: local
+
+# Networks
 networks:
-  solarihub:
+  solarihub-network:
     driver: bridge
 
-volumes:
-  node_modules: 
+# =======================================================================
+# Usage Instructions:
+# =======================================================================
+# 
+# Basic setup (PostgreSQL, MongoDB, Redis):
+# docker-compose -f docker-compose.dev.yml up -d
+# 
+# Full setup with all services:
+# docker-compose -f docker-compose.dev.yml --profile full up -d
+# 
+# With development tools:
+# docker-compose -f docker-compose.dev.yml --profile tools up -d
+# 
+# Stop all services:
+# docker-compose -f docker-compose.dev.yml down
+# 
+# Stop and remove volumes (WARNING: This deletes all data):
+# docker-compose -f docker-compose.dev.yml down -v
+# 
+# View logs:
+# docker-compose -f docker-compose.dev.yml logs -f [service_name]
+# 
+# =======================================================================
+# Access URLs (when running with tools profile):
+# =======================================================================
+# pgAdmin: http://localhost:5050
+# Mongo Express: http://localhost:8081
+# Redis Commander: http://localhost:8082
+# InfluxDB: http://localhost:8086
+# Elasticsearch: http://localhost:9200
+# ======================================================================= 
