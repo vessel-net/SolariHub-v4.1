@@ -1,0 +1,394 @@
+{
+  "timestamp": "2025-06-14T13:58:43.581Z",
+  "buildStatuses": [
+    {
+      "project": "backend",
+      "status": "success",
+      "timestamp": "2025-06-14T13:58:43.582Z",
+      "duration": 1928,
+      "errors": [],
+      "warnings": []
+    },
+    {
+      "project": "frontend",
+      "status": "success",
+      "timestamp": "2025-06-14T13:58:43.582Z",
+      "duration": 5609,
+      "errors": [],
+      "warnings": []
+    },
+    {
+      "project": "types",
+      "status": "success",
+      "timestamp": "2025-06-14T13:58:43.582Z",
+      "duration": 1666,
+      "errors": [],
+      "warnings": []
+    }
+  ],
+  "typeSafety": {
+    "totalFiles": 39,
+    "totalErrors": 366,
+    "totalWarnings": 0,
+    "coverage": 54,
+    "lastCheck": "2025-06-14T13:58:44.096Z",
+    "criticalIssues": [
+      "/Users/andy/SolariHub v4.1/apps/backend/webpack.config.ts:1 - Unused '@ts-expect-error' directive.",
+      "/Users/andy/SolariHub v4.1/apps/backend/webpack.config.ts:6 - Unused '@ts-expect-error' directive.",
+      "/Users/andy/SolariHub v4.1/apps/backend/webpack.config.ts:9 - Unused '@ts-expect-error' directive.",
+      "/Users/andy/SolariHub v4.1/apps/frontend-e2e/playwright.config.ts:1 - Cannot find module '@playwright/test' or its corresponding type declarations.",
+      "/Users/andy/SolariHub v4.1/apps/frontend-e2e/playwright.config.ts:2 - Cannot find module '@nx/playwright/preset' or its corresponding type declarations."
+    ]
+  },
+  "coverage": {
+    "percentage": 85,
+    "lines": {
+      "total": 1000,
+      "covered": 850
+    },
+    "functions": {
+      "total": 200,
+      "covered": 170
+    },
+    "branches": {
+      "total": 150,
+      "covered": 120
+    },
+    "statements": {
+      "total": 1200,
+      "covered": 1020
+    },
+    "lastRun": "2025-06-14T13:58:44.096Z"
+  },
+  "moduleStatuses": [
+    {
+      "name": "backend",
+      "type": "app",
+      "status": "ready",
+      "lastModified": "2025-06-14T13:58:44.097Z",
+      "exports": 0,
+      "imports": 14,
+      "dependencies": [
+        "express",
+        "cors",
+        "helmet",
+        "compression",
+        "morgan",
+        "express-rate-limit",
+        "./config/environment",
+        "./services/database.service",
+        "./utils/logger",
+        "./utils/errors",
+        "./api/health/health.routes",
+        "./api/auth/auth.routes",
+        "./api/users/users.routes",
+        "./api/middleware/auth.middleware"
+      ],
+      "issues": []
+    },
+    {
+      "name": "frontend",
+      "type": "app",
+      "status": "ready",
+      "lastModified": "2025-06-14T13:58:44.097Z",
+      "exports": 0,
+      "imports": 3,
+      "dependencies": ["react", "react-dom/client", "./app/app"],
+      "issues": []
+    },
+    {
+      "name": "frontend-e2e",
+      "type": "app",
+      "status": "ready",
+      "lastModified": "2025-06-14T13:58:44.097Z",
+      "exports": 0,
+      "imports": 1,
+      "dependencies": ["@playwright/test"],
+      "issues": []
+    },
+    {
+      "name": "types",
+      "type": "lib",
+      "status": "ready",
+      "lastModified": "2025-06-14T13:58:44.097Z",
+      "exports": 1,
+      "imports": 0,
+      "dependencies": [],
+      "issues": []
+    },
+    {
+      "name": "backend",
+      "type": "app",
+      "status": "ready",
+      "lastModified": "2025-06-14T13:58:44.097Z",
+      "exports": 0,
+      "imports": 5,
+      "dependencies": ["pg", "mongoose", "redis", "./environment", "../utils/logger"],
+      "issues": []
+    },
+    {
+      "name": "backend",
+      "type": "app",
+      "status": "ready",
+      "lastModified": "2025-06-14T13:58:44.097Z",
+      "exports": 0,
+      "imports": 2,
+      "dependencies": ["dotenv", "joi"],
+      "issues": []
+    },
+    {
+      "name": "backend",
+      "type": "app",
+      "status": "ready",
+      "lastModified": "2025-06-14T13:58:44.097Z",
+      "exports": 0,
+      "imports": 4,
+      "dependencies": ["pg", "../services/database.service", "../utils/errors", "../utils/logger"],
+      "issues": []
+    },
+    {
+      "name": "backend",
+      "type": "app",
+      "status": "ready",
+      "lastModified": "2025-06-14T13:58:44.097Z",
+      "exports": 0,
+      "imports": 5,
+      "dependencies": [
+        "bcryptjs",
+        "./base.model",
+        "../config/environment",
+        "../utils/errors",
+        "../utils/errors"
+      ],
+      "issues": []
+    },
+    {
+      "name": "backend",
+      "type": "app",
+      "status": "ready",
+      "lastModified": "2025-06-14T13:58:44.097Z",
+      "exports": 0,
+      "imports": 7,
+      "dependencies": [
+        "jsonwebtoken",
+        "../models/user.model",
+        "./user.service",
+        "../config/database",
+        "../config/environment",
+        "../utils/errors",
+        "../utils/logger"
+      ],
+      "issues": []
+    },
+    {
+      "name": "backend",
+      "type": "app",
+      "status": "ready",
+      "lastModified": "2025-06-14T13:58:44.097Z",
+      "exports": 0,
+      "imports": 3,
+      "dependencies": ["../config/database", "../utils/logger", "../utils/errors"],
+      "issues": []
+    },
+    {
+      "name": "backend",
+      "type": "app",
+      "status": "ready",
+      "lastModified": "2025-06-14T13:58:44.097Z",
+      "exports": 0,
+      "imports": 3,
+      "dependencies": ["../models/user.model", "../utils/errors", "../utils/logger"],
+      "issues": []
+    },
+    {
+      "name": "backend",
+      "type": "app",
+      "status": "ready",
+      "lastModified": "2025-06-14T13:58:44.097Z",
+      "exports": 0,
+      "imports": 2,
+      "dependencies": ["express", "./logger"],
+      "issues": []
+    },
+    {
+      "name": "backend",
+      "type": "app",
+      "status": "ready",
+      "lastModified": "2025-06-14T13:58:44.097Z",
+      "exports": 0,
+      "imports": 2,
+      "dependencies": ["winston", "../config/environment"],
+      "issues": []
+    },
+    {
+      "name": "backend",
+      "type": "app",
+      "status": "ready",
+      "lastModified": "2025-06-14T13:58:44.097Z",
+      "exports": 0,
+      "imports": 3,
+      "dependencies": ["joi", "express", "./errors"],
+      "issues": []
+    },
+    {
+      "name": "frontend",
+      "type": "app",
+      "status": "ready",
+      "lastModified": "2025-06-14T13:58:44.097Z",
+      "exports": 0,
+      "imports": 2,
+      "dependencies": ["@testing-library/react", "./app"],
+      "issues": []
+    },
+    {
+      "name": "frontend",
+      "type": "app",
+      "status": "ready",
+      "lastModified": "2025-06-14T13:58:44.097Z",
+      "exports": 0,
+      "imports": 1,
+      "dependencies": ["./nx-welcome"],
+      "issues": []
+    },
+    {
+      "name": "frontend",
+      "type": "app",
+      "status": "ready",
+      "lastModified": "2025-06-14T13:58:44.097Z",
+      "exports": 0,
+      "imports": 0,
+      "dependencies": [],
+      "issues": []
+    },
+    {
+      "name": "types",
+      "type": "lib",
+      "status": "ready",
+      "lastModified": "2025-06-14T13:58:44.097Z",
+      "exports": 0,
+      "imports": 1,
+      "dependencies": ["./types.js"],
+      "issues": []
+    },
+    {
+      "name": "types",
+      "type": "lib",
+      "status": "ready",
+      "lastModified": "2025-06-14T13:58:44.097Z",
+      "exports": 0,
+      "imports": 0,
+      "dependencies": [],
+      "issues": []
+    },
+    {
+      "name": "backend",
+      "type": "app",
+      "status": "ready",
+      "lastModified": "2025-06-14T13:58:44.097Z",
+      "exports": 0,
+      "imports": 5,
+      "dependencies": [
+        "express",
+        "../../services/auth.service",
+        "../../models/user.model",
+        "../../utils/errors",
+        "../../utils/logger"
+      ],
+      "issues": []
+    },
+    {
+      "name": "backend",
+      "type": "app",
+      "status": "ready",
+      "lastModified": "2025-06-14T13:58:44.097Z",
+      "exports": 0,
+      "imports": 3,
+      "dependencies": ["express", "./auth.controller", "../middleware/auth.middleware"],
+      "issues": []
+    },
+    {
+      "name": "backend",
+      "type": "app",
+      "status": "ready",
+      "lastModified": "2025-06-14T13:58:44.097Z",
+      "exports": 0,
+      "imports": 6,
+      "dependencies": [
+        "express",
+        "../../services/database.service",
+        "../../services/user.service",
+        "../../config/environment",
+        "../../utils/errors",
+        "../../utils/logger"
+      ],
+      "issues": []
+    },
+    {
+      "name": "backend",
+      "type": "app",
+      "status": "ready",
+      "lastModified": "2025-06-14T13:58:44.097Z",
+      "exports": 0,
+      "imports": 3,
+      "dependencies": ["express", "./health.controller", "../middleware/auth.middleware"],
+      "issues": []
+    },
+    {
+      "name": "backend",
+      "type": "app",
+      "status": "ready",
+      "lastModified": "2025-06-14T13:58:44.097Z",
+      "exports": 0,
+      "imports": 5,
+      "dependencies": [
+        "express",
+        "../../services/auth.service",
+        "../../services/user.service",
+        "../../utils/errors",
+        "../../utils/logger"
+      ],
+      "issues": []
+    },
+    {
+      "name": "backend",
+      "type": "app",
+      "status": "ready",
+      "lastModified": "2025-06-14T13:58:44.097Z",
+      "exports": 0,
+      "imports": 5,
+      "dependencies": [
+        "express",
+        "../../services/user.service",
+        "../../models/user.model",
+        "../../utils/errors",
+        "../../utils/logger"
+      ],
+      "issues": []
+    },
+    {
+      "name": "backend",
+      "type": "app",
+      "status": "ready",
+      "lastModified": "2025-06-14T13:58:44.097Z",
+      "exports": 0,
+      "imports": 3,
+      "dependencies": ["express", "./users.controller", "../middleware/auth.middleware"],
+      "issues": []
+    }
+  ],
+  "recentActivity": [
+    {
+      "type": "build",
+      "message": "Backend build completed successfully",
+      "timestamp": "2025-06-14T13:58:44.097Z",
+      "status": "success"
+    },
+    {
+      "type": "type-check",
+      "message": "Type analysis updated",
+      "timestamp": "2025-06-14T13:58:44.097Z",
+      "status": "info"
+    }
+  ],
+  "healthScore": 70
+}

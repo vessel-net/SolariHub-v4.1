@@ -26,8 +26,7 @@
  *   [watch] Removed: devspecs/api.md @ 2025-06-11T10:47:08Z
  */
 
-import chokidar from 'chokidar';
-import { join } from 'path';
+import * as chokidar from 'chokidar';
 import { TsMorphAnalyzer } from '../analyzers/ts-morph-analyzer';
 
 export interface WatcherConfig {
@@ -52,7 +51,7 @@ export class ChokidarWatcher {
   private watcher: chokidar.FSWatcher | null = null;
   private analyzer: TsMorphAnalyzer;
   private config: WatcherConfig;
-  private eventCallbacks: Map<string, Function[]> = new Map();
+  private eventCallbacks: Map<string, ((event: FileChangeEvent) => void)[]> = new Map();
 
   constructor(config: WatcherConfig, workspaceRoot: string = process.cwd()) {
     this.config = config;
@@ -86,7 +85,7 @@ export class ChokidarWatcher {
       '**/.git/**',
       '**/tmp/**',
       '**/*.log',
-      '**/.DS_Store'
+      '**/.DS_Store',
     ];
 
     const watchOptions = {
@@ -95,19 +94,19 @@ export class ChokidarWatcher {
       ignoreInitial: this.config.ignoreInitial ?? true,
       followSymlinks: this.config.followSymlinks ?? false,
       cwd: this.config.cwd,
-      depth: this.config.depth
+      depth: this.config.depth,
     };
 
     this.watcher = chokidar.watch(this.config.paths, watchOptions);
 
     // Set up event listeners
     this.watcher
-      .on('add', (path) => this.handleFileEvent('add', path))
-      .on('change', (path) => this.handleFileEvent('change', path))
-      .on('unlink', (path) => this.handleFileEvent('unlink', path))
-      .on('addDir', (path) => this.handleFileEvent('addDir', path))
-      .on('unlinkDir', (path) => this.handleFileEvent('unlinkDir', path))
-      .on('error', (error) => this.handleError(error))
+      .on('add', (path: string) => this.handleFileEvent('add', path))
+      .on('change', (path: string) => this.handleFileEvent('change', path))
+      .on('unlink', (path: string) => this.handleFileEvent('unlink', path))
+      .on('addDir', (path: string) => this.handleFileEvent('addDir', path))
+      .on('unlinkDir', (path: string) => this.handleFileEvent('unlinkDir', path))
+      .on('error', (error: unknown) => this.handleError(error as Error))
       .on('ready', () => this.handleReady());
 
     console.log('👀 File watcher started successfully');
@@ -145,7 +144,7 @@ export class ChokidarWatcher {
     const event: FileChangeEvent = {
       type,
       path,
-      timestamp: new Date().toISOString()
+      timestamp: new Date().toISOString(),
     };
 
     console.log(`📝 ${type.toUpperCase()}: ${path}`);
@@ -153,7 +152,7 @@ export class ChokidarWatcher {
     // Execute callbacks
     const callbacks = this.eventCallbacks.get(type);
     if (callbacks) {
-      callbacks.forEach(callback => {
+      callbacks.forEach((callback) => {
         try {
           callback(event);
         } catch (error) {
@@ -183,7 +182,7 @@ export class ChokidarWatcher {
    */
   private handleTypeScriptChange(event: FileChangeEvent): void {
     console.log(`🔍 TypeScript file ${event.type}: ${event.path}`);
-    
+
     if (event.type === 'change' || event.type === 'add') {
       // Trigger type analysis
       setTimeout(() => {
@@ -202,7 +201,7 @@ export class ChokidarWatcher {
    */
   private handlePackageJsonChange(event: FileChangeEvent): void {
     console.log(`📦 Package.json ${event.type}: ${event.path}`);
-    
+
     if (event.type === 'change') {
       console.log('🔄 Dependencies may have changed, consider running npm install');
       // Could trigger dependency analysis here
@@ -214,7 +213,7 @@ export class ChokidarWatcher {
    */
   private handleConfigChange(event: FileChangeEvent): void {
     console.log(`⚙️ Config file ${event.type}: ${event.path}`);
-    
+
     if (event.type === 'change') {
       console.log('🔄 Configuration changed, consider restarting relevant services');
     }
@@ -250,10 +249,10 @@ export class ChokidarWatcher {
       'eslint.config.mjs',
       '.eslintrc.json',
       '.prettierrc',
-      'vitest.config.ts'
+      'vitest.config.ts',
     ];
 
-    return configFiles.some(config => path.endsWith(config));
+    return configFiles.some((config) => path.endsWith(config));
   }
 
   /**
@@ -262,7 +261,7 @@ export class ChokidarWatcher {
   public getStatus(): { isRunning: boolean; watchedPaths: string[] } {
     return {
       isRunning: this.watcher !== null,
-      watchedPaths: this.watcher ? this.watcher.getWatched() as any : []
+      watchedPaths: this.watcher ? Object.keys(this.watcher.getWatched() || {}) : [],
     };
   }
 }
@@ -272,7 +271,7 @@ if (require.main === module) {
   const watcher = new ChokidarWatcher({
     paths: ['apps/**', 'libs/**', 'tools/**'],
     ignored: ['**/*.spec.ts', '**/*.test.ts'],
-    ignoreInitial: true
+    ignoreInitial: true,
   });
 
   // Add custom event handlers

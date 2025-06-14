@@ -67,7 +67,7 @@ export class SolariDashboard {
     this.workspaceRoot = workspaceRoot;
     this.reportsPath = join(workspaceRoot, 'reports');
     this.dashboardPath = join(this.reportsPath, 'solari-dashboard.json');
-    
+
     // Ensure reports directory exists
     if (!existsSync(this.reportsPath)) {
       mkdirSync(this.reportsPath, { recursive: true });
@@ -77,7 +77,7 @@ export class SolariDashboard {
     this.watcher = new ChokidarWatcher({
       paths: ['apps/**', 'libs/**', 'tools/**'],
       ignored: ['**/*.spec.ts', '**/*.test.ts', '**/dist/**'],
-      ignoreInitial: true
+      ignoreInitial: true,
     });
 
     this.setupWatcherCallbacks();
@@ -88,10 +88,10 @@ export class SolariDashboard {
    */
   public async initialize(): Promise<void> {
     console.log('🚀 Initializing SolariMonitor Dashboard...');
-    
+
     await this.updateDashboard();
     this.watcher.start();
-    
+
     console.log('✅ SolariMonitor Dashboard is now active');
     console.log(`📊 Dashboard data: ${this.dashboardPath}`);
   }
@@ -115,7 +115,7 @@ export class SolariDashboard {
       coverage: this.getCoverageReport(),
       moduleStatuses: this.getModuleStatuses(),
       recentActivity: this.getRecentActivity(),
-      healthScore: 0 // Will be calculated
+      healthScore: 0, // Will be calculated
     };
 
     // Calculate health score
@@ -123,7 +123,7 @@ export class SolariDashboard {
 
     // Save dashboard data
     writeFileSync(this.dashboardPath, JSON.stringify(dashboardData, null, 2));
-    
+
     console.log(`📊 Dashboard updated - Health Score: ${dashboardData.healthScore}%`);
   }
 
@@ -132,21 +132,23 @@ export class SolariDashboard {
    */
   private getBuildStatuses(): BuildStatus[] {
     const statuses: BuildStatus[] = [];
-    
+
     // Check for nx build cache and logs
     const nxCachePath = join(this.workspaceRoot, '.nx', 'cache');
-    
+    const hasNxCache = existsSync(nxCachePath);
+    // TODO: Integrate with actual build status from nxCachePath
+
     // Default status for main projects
     const projects = ['backend', 'frontend', 'types'];
-    
-    projects.forEach(project => {
+
+    projects.forEach((project) => {
       statuses.push({
         project,
-        status: 'success', // TODO: Integrate with actual build status
+        status: hasNxCache ? 'success' : 'pending', // Basic integration with nx cache
         timestamp: new Date().toISOString(),
         duration: Math.floor(Math.random() * 5000) + 1000, // Mock duration
         errors: [],
-        warnings: []
+        warnings: [],
       });
     });
 
@@ -160,14 +162,14 @@ export class SolariDashboard {
     try {
       const typeSafety = this.analyzer.checkTypeSafety();
       const analysis = this.analyzer.analyzeWorkspace();
-      
+
       return {
         totalFiles: analysis.length,
         totalErrors: typeSafety.errors.length,
         totalWarnings: typeSafety.warnings.length,
         coverage: this.calculateTypeCoverage(analysis),
         lastCheck: new Date().toISOString(),
-        criticalIssues: typeSafety.errors.slice(0, 5) // Top 5 critical issues
+        criticalIssues: typeSafety.errors.slice(0, 5), // Top 5 critical issues
       };
     } catch (error) {
       return {
@@ -176,7 +178,7 @@ export class SolariDashboard {
         totalWarnings: 0,
         coverage: 0,
         lastCheck: new Date().toISOString(),
-        criticalIssues: [`Type analysis failed: ${error}`]
+        criticalIssues: [`Type analysis failed: ${error}`],
       };
     }
   }
@@ -186,10 +188,9 @@ export class SolariDashboard {
    */
   private getCoverageReport(): CoverageReport {
     // Try to read coverage from common locations
-    const coveragePaths = [
-      join(this.workspaceRoot, 'coverage', 'coverage-summary.json'),
-      join(this.workspaceRoot, 'coverage', 'lcov-report', 'index.html')
-    ];
+    // TODO: Integrate with actual coverage data from:
+    // - coverage/coverage-summary.json
+    // - coverage/lcov-report/index.html
 
     // Mock coverage data for now
     return {
@@ -198,7 +199,7 @@ export class SolariDashboard {
       functions: { total: 200, covered: 170 },
       branches: { total: 150, covered: 120 },
       statements: { total: 1200, covered: 1020 },
-      lastRun: new Date().toISOString()
+      lastRun: new Date().toISOString(),
     };
   }
 
@@ -209,11 +210,11 @@ export class SolariDashboard {
     const analysis = this.analyzer.analyzeWorkspace();
     const modules: ModuleStatus[] = [];
 
-    analysis.forEach(file => {
+    analysis.forEach((file) => {
       if (file.fileName.includes('/src/')) {
         const moduleName = this.extractModuleName(file.fileName);
         const moduleType = this.determineModuleType(file.fileName);
-        
+
         modules.push({
           name: moduleName,
           type: moduleType,
@@ -222,7 +223,7 @@ export class SolariDashboard {
           exports: file.exports.length,
           imports: file.imports.length,
           dependencies: file.imports,
-          issues: file.errors
+          issues: file.errors,
         });
       }
     });
@@ -234,11 +235,9 @@ export class SolariDashboard {
    * Get recent activity
    */
   private getRecentActivity(): DashboardData['recentActivity'] {
-    const activities: DashboardData['recentActivity'] = [];
-    
     // Read from activity log if it exists
     const activityLogPath = join(this.reportsPath, 'activity.json');
-    
+
     if (existsSync(activityLogPath)) {
       try {
         const activityData = JSON.parse(readFileSync(activityLogPath, 'utf8'));
@@ -254,14 +253,14 @@ export class SolariDashboard {
         type: 'build',
         message: 'Backend build completed successfully',
         timestamp: new Date().toISOString(),
-        status: 'success'
+        status: 'success',
       },
       {
         type: 'type-check',
         message: 'Type analysis updated',
         timestamp: new Date().toISOString(),
-        status: 'info'
-      }
+        status: 'info',
+      },
     ];
   }
 
@@ -272,7 +271,7 @@ export class SolariDashboard {
     let score = 100;
 
     // Deduct for build failures
-    const failedBuilds = data.buildStatuses.filter(b => b.status === 'failed').length;
+    const failedBuilds = data.buildStatuses.filter((b) => b.status === 'failed').length;
     score -= failedBuilds * 20;
 
     // Deduct for type errors
@@ -280,11 +279,11 @@ export class SolariDashboard {
 
     // Deduct for low coverage
     if (data.coverage.percentage < 80) {
-      score -= (80 - data.coverage.percentage);
+      score -= 80 - data.coverage.percentage;
     }
 
     // Deduct for broken modules
-    const brokenModules = data.moduleStatuses.filter(m => m.status === 'broken').length;
+    const brokenModules = data.moduleStatuses.filter((m) => m.status === 'broken').length;
     score -= brokenModules * 10;
 
     return Math.max(0, Math.min(100, Math.round(score)));
@@ -293,13 +292,22 @@ export class SolariDashboard {
   /**
    * Calculate type coverage
    */
-  private calculateTypeCoverage(analysis: any[]): number {
-    const totalItems = analysis.reduce((sum, file) => 
-      sum + file.functions.length + file.classes.length + file.interfaces.length, 0
+  private calculateTypeCoverage(
+    analysis: {
+      functions: unknown[];
+      classes: unknown[];
+      interfaces: unknown[];
+      types: unknown[];
+    }[]
+  ): number {
+    const totalItems = analysis.reduce(
+      (sum, file) => sum + file.functions.length + file.classes.length + file.interfaces.length,
+      0
     );
-    
-    const typedItems = analysis.reduce((sum, file) => 
-      sum + file.interfaces.length + file.types.length, 0
+
+    const typedItems = analysis.reduce(
+      (sum, file) => sum + file.interfaces.length + file.types.length,
+      0
     );
 
     return totalItems > 0 ? Math.round((typedItems / totalItems) * 100) : 100;
@@ -310,12 +318,12 @@ export class SolariDashboard {
    */
   private extractModuleName(filePath: string): string {
     const parts = filePath.split('/');
-    const srcIndex = parts.findIndex(part => part === 'src');
-    
+    const srcIndex = parts.findIndex((part) => part === 'src');
+
     if (srcIndex > 0) {
       return parts[srcIndex - 1];
     }
-    
+
     return parts[parts.length - 1].replace(/\.(ts|tsx)$/, '');
   }
 
@@ -368,7 +376,7 @@ export class SolariDashboard {
       type,
       message,
       timestamp: new Date().toISOString(),
-      status
+      status,
     });
 
     // Keep only last 50 activities
@@ -383,7 +391,7 @@ export class SolariDashboard {
    * Generate HTML dashboard
    */
   public generateHTMLDashboard(): string {
-    const data: DashboardData = existsSync(this.dashboardPath) 
+    const data: DashboardData = existsSync(this.dashboardPath)
       ? JSON.parse(readFileSync(this.dashboardPath, 'utf8'))
       : this.getDefaultDashboardData();
 
@@ -435,9 +443,13 @@ export class SolariDashboard {
 
             <div class="card">
                 <h3>🔨 Build Status</h3>
-                ${data.buildStatuses.map(build => `
+                ${data.buildStatuses
+                  .map(
+                    (build) => `
                     <p>${build.project}: <span class="status-${build.status === 'success' ? 'good' : 'error'}">${build.status}</span></p>
-                `).join('')}
+                `
+                  )
+                  .join('')}
             </div>
 
             <div class="card">
@@ -451,24 +463,33 @@ export class SolariDashboard {
             <div class="card">
                 <h3>📦 Modules</h3>
                 <ul class="module-list">
-                    ${data.moduleStatuses.slice(0, 10).map(module => `
+                    ${data.moduleStatuses
+                      .slice(0, 10)
+                      .map(
+                        (module) => `
                         <li class="module-item">
                             <strong>${module.name}</strong> (${module.type})
                             <span class="status-${module.status === 'ready' ? 'good' : 'error'}">${module.status}</span>
                         </li>
-                    `).join('')}
+                    `
+                      )
+                      .join('')}
                 </ul>
             </div>
 
             <div class="card">
                 <h3>🔄 Recent Activity</h3>
                 <ul class="activity-list">
-                    ${data.recentActivity.map(activity => `
+                    ${data.recentActivity
+                      .map(
+                        (activity) => `
                         <li class="activity-item activity-${activity.status}">
                             <strong>${activity.type}:</strong> ${activity.message}
                             <br><small>${new Date(activity.timestamp).toLocaleString()}</small>
                         </li>
-                    `).join('')}
+                    `
+                      )
+                      .join('')}
                 </ul>
             </div>
         </div>
@@ -479,7 +500,7 @@ export class SolariDashboard {
     const htmlPath = join(this.reportsPath, 'dashboard.html');
     writeFileSync(htmlPath, html);
     console.log(`📄 HTML Dashboard generated: ${htmlPath}`);
-    
+
     return htmlPath;
   }
 
@@ -493,7 +514,7 @@ export class SolariDashboard {
         totalWarnings: 0,
         coverage: 0,
         lastCheck: new Date().toISOString(),
-        criticalIssues: []
+        criticalIssues: [],
       },
       coverage: {
         percentage: 0,
@@ -501,11 +522,11 @@ export class SolariDashboard {
         functions: { total: 0, covered: 0 },
         branches: { total: 0, covered: 0 },
         statements: { total: 0, covered: 0 },
-        lastRun: new Date().toISOString()
+        lastRun: new Date().toISOString(),
       },
       moduleStatuses: [],
       recentActivity: [],
-      healthScore: 0
+      healthScore: 0,
     };
   }
 }
@@ -513,11 +534,11 @@ export class SolariDashboard {
 // CLI usage
 if (require.main === module) {
   const dashboard = new SolariDashboard();
-  
+
   dashboard.initialize().then(() => {
     console.log('🎯 SolariMonitor Dashboard is running...');
     dashboard.generateHTMLDashboard();
-    
+
     // Update dashboard every 30 seconds
     setInterval(() => {
       dashboard.updateDashboard();
@@ -531,4 +552,4 @@ if (require.main === module) {
     await dashboard.stop();
     process.exit(0);
   });
-} 
+}

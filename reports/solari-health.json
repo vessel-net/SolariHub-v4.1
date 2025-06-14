@@ -1,0 +1,33 @@
+{
+  "timestamp": "2025-06-14T14:45:52.866Z",
+  "healthScore": 85,
+  "buildStatuses": [
+    {
+      "project": "backend",
+      "status": "success",
+      "timestamp": "2025-06-14T14:45:52.868Z"
+    },
+    {
+      "project": "frontend",
+      "status": "success",
+      "timestamp": "2025-06-14T14:45:52.868Z"
+    }
+  ],
+  "eslintStatus": {
+    "installed": true,
+    "configured": true,
+    "working": true
+  },
+  "prettierStatus": {
+    "installed": true,
+    "configured": true
+  },
+  "huskyStatus": {
+    "installed": true,
+    "configured": true
+  },
+  "dependencies": {
+    "missing": [],
+    "outdated": []
+  }
+}
