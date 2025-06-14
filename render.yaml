@@ -1,18 +1,20 @@
 services:
-  # SolariHub Backend API Service (Node.js)
+  # SolariHub Backend API Service (Docker with Runtime Dependencies)
   - type: web
     name: solarihub-backend
-    runtime: node
+    runtime: docker
+    dockerfilePath: ./Dockerfile
     plan: starter
     region: oregon
-    buildCommand: npm install && npm run build
-    startCommand: npm start
     buildFilter:
       paths:
         - apps/backend/**
+        - libs/**
+        - tools/**
         - package*.json
         - nx.json
         - tsconfig*.json
+        - Dockerfile
     healthCheckPath: /api/health/ping
     autoDeploy: true
     envVars:

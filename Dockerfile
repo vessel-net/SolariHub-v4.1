@@ -1,64 +1,59 @@
-# Multi-stage build for scalable dependency management
-# Stage 1: Build environment with all dependencies
-FROM node:18-alpine AS builder
+# Multi-stage Dockerfile for SolariHub Backend
+# Solves "Cannot find module" errors by using extracted runtime dependencies
 
-# Set working directory
+# Stage 1: Build the application
+FROM node:20-alpine as builder
+
 WORKDIR /app
 
-# Copy workspace files for dependency installation
+# Copy package files
 COPY package*.json ./
-COPY apps/backend/package.json ./apps/backend/
 COPY nx.json ./
 COPY tsconfig*.json ./
 
-# Install all dependencies (including dev dependencies for build)
-RUN npm ci --include=dev
-
 # Copy source code
-COPY . .
+COPY apps/ ./apps/
+COPY libs/ ./libs/
+COPY tools/ ./tools/
 
-# Build the application
-RUN npm run build
+# Install all dependencies (including dev dependencies for build)
+RUN npm ci
+
+# Build the backend application
+RUN npx nx build backend --prod
 
 # Extract runtime dependencies
-RUN npm run extract-deps
+WORKDIR /app/apps/backend
+RUN node extract-runtime-deps.js
 
-# Stage 2: Production environment with only runtime dependencies
-FROM node:18-alpine AS production
+# Stage 2: Production runtime
+FROM node:20-alpine as production
 
-# Install dumb-init for proper signal handling
-RUN apk add --no-cache dumb-init
+WORKDIR /app
 
-# Create app user for security
+# Copy the built application from builder stage
+COPY --from=builder /app/apps/backend/dist/ ./
+
+# Copy the extracted runtime package.json
+COPY --from=builder /app/apps/backend/package.runtime.json ./package.json
+
+# Install ONLY the runtime dependencies needed by main.js
+RUN npm install --production --silent
+
+# Create non-root user for security
 RUN addgroup -g 1001 -S nodejs && \
     adduser -S backend -u 1001
 
-# Set working directory
-WORKDIR /app
-
-# Copy the runtime package.json from builder stage
-COPY --from=builder /app/package.runtime.json ./package.json
-
-# Install only production runtime dependencies
-RUN npm ci --only=production && \
-    npm cache clean --force
-
-# Copy the built application
-COPY --from=builder /app/apps/backend/dist/main.js ./main.js
-
-# Copy environment template (optional)
-COPY --from=builder /app/apps/backend/.env.example ./.env.example
-
-# Change ownership to app user
+# Change ownership of the app directory
 RUN chown -R backend:nodejs /app
 USER backend
 
-# Expose port
-EXPOSE $PORT
-
 # Health check
-HEALTH --interval=30s --timeout=3s --start-period=5s --retries=3 \
-  CMD node -e "http.get('http://localhost:${PORT:-3000}/api/health/ping', (res) => process.exit(res.statusCode === 200 ? 0 : 1))"
+HEALTHCHECK --interval=30s --timeout=3s --start-period=5s --retries=3 \
+  CMD curl -f http://localhost:3000/health || exit 1
 
-# Start the application with proper signal handling
-CMD ["dumb-init", "node", "main.js"] 
+# Expose port
+EXPOSE 3000
+
+# Start the application
+CMD ["node", "main.js"] 

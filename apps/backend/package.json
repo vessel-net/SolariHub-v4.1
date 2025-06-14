@@ -36,6 +36,12 @@
     "typescript": "~5.7.2",
     "webpack-cli": "^5.1.4"
   },
+  "scripts": {
+    "build": "nx build backend --prod",
+    "extract-deps": "node extract-runtime-deps.js",
+    "build:render": "npm run build && npm run extract-deps",
+    "start": "node dist/main.js"
+  },
   "nx": {
     "targets": {
       "serve": {
