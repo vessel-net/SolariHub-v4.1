@@ -3,7 +3,7 @@ services:
   - type: web
     name: solarihub-backend
     runtime: docker
-    dockerfilePath: ./Dockerfile
+    dockerfilePath: ./Dockerfile.simple
     plan: starter
     region: oregon
     buildFilter:
@@ -14,7 +14,7 @@ services:
         - package*.json
         - nx.json
         - tsconfig*.json
-        - Dockerfile
+        - Dockerfile.simple
     healthCheckPath: /api/health/ping
     autoDeploy: true
     envVars:
