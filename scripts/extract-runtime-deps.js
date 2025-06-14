@@ -116,13 +116,28 @@ function extractRuntimeDependencies() {
       });
 
     // Create runtime dependencies object
-    const runtimeDependencies = {};
+    let runtimeDependencies = {};
     foundModules.forEach((dep) => {
       runtimeDependencies[dep] = allDependencies[dep];
     });
 
     // Add essential dependencies that might not be detected but are needed
-    const essentialDeps = ['express', 'compression', 'helmet', 'cors', 'dotenv'];
+    const essentialDeps = [
+      'express',
+      'compression',
+      'helmet',
+      'cors',
+      'dotenv',
+      'bcryptjs',
+      'jsonwebtoken',
+      'mongoose',
+      'pg',
+      'redis',
+      'winston',
+      'joi',
+      'morgan',
+      'express-rate-limit',
+    ];
     essentialDeps.forEach((dep) => {
       if (allDependencies[dep] && !runtimeDependencies[dep]) {
         console.log(`⚡ Adding essential dependency: ${dep}`);
@@ -130,11 +145,15 @@ function extractRuntimeDependencies() {
       }
     });
 
+    // Manually add critical dependencies that may be missed
+    runtimeDependencies = addManualDependencies(runtimeDependencies, allDependencies);
+
     // Create the runtime package.json
     const runtimePackage = {
       name: 'solarihub-runtime',
       version: '1.0.0',
       private: true,
+      main: 'main.js',
       dependencies: runtimeDependencies,
       engines: {
         node: '>=18.0.0',
@@ -173,6 +192,12 @@ function addManualDependencies(dependencies, backendDependencies) {
     uuid: 'uuid',
     'express-rate-limit': 'express-rate-limit',
     morgan: 'morgan',
+    cors: 'cors',
+    compression: 'compression',
+    helmet: 'helmet',
+    dotenv: 'dotenv',
+    express: 'express',
+    tslib: 'tslib',
   };
 
   Object.entries(manualMappings).forEach(([key, value]) => {
