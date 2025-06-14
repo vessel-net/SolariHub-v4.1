@@ -1,43 +1,43 @@
 {
-  "timestamp": "2025-06-14T15:46:01.265Z",
+  "timestamp": "2025-06-14T15:57:13.771Z",
   "buildStatuses": [
     {
       "project": "backend",
       "status": "success",
-      "timestamp": "2025-06-14T15:46:01.266Z",
-      "duration": 3776,
+      "timestamp": "2025-06-14T15:57:13.772Z",
+      "duration": 3676,
       "errors": [],
       "warnings": []
     },
     {
       "project": "frontend",
       "status": "success",
-      "timestamp": "2025-06-14T15:46:01.266Z",
-      "duration": 5495,
+      "timestamp": "2025-06-14T15:57:13.772Z",
+      "duration": 5563,
       "errors": [],
       "warnings": []
     },
     {
       "project": "types",
       "status": "success",
-      "timestamp": "2025-06-14T15:46:01.266Z",
-      "duration": 1497,
+      "timestamp": "2025-06-14T15:57:13.772Z",
+      "duration": 1507,
       "errors": [],
       "warnings": []
     }
   ],
   "typeSafety": {
     "totalFiles": 39,
-    "totalErrors": 157,
+    "totalErrors": 6,
     "totalWarnings": 0,
     "coverage": 56,
-    "lastCheck": "2025-06-14T15:46:02.449Z",
+    "lastCheck": "2025-06-14T15:57:15.045Z",
     "criticalIssues": [
-      "Option 'customConditions' can only be used when 'moduleResolution' is set to 'node16', 'nodenext', or 'bundler'. (Line undefined)",
       "[object Object] (Line undefined)",
-      "Composite projects may not disable declaration emit. (Line undefined)",
-      "Cannot find module 'jest' or its corresponding type declarations. (Line 1)",
-      "Unused '@ts-expect-error' directive. (Line 1)"
+      "File '/Users/andy/SolariHub v4.1/node_modules/@types/jest/index.d.ts' is not a module. (Line 1)",
+      "Cannot redeclare block-scoped variable 'join'. (Line 2)",
+      "Cannot redeclare block-scoped variable 'join'. (Line 1)",
+      "Cannot find module '@playwright/test' or its corresponding type declarations. (Line 1)"
     ]
   },
   "coverage": {
@@ -58,14 +58,14 @@
       "total": 1200,
       "covered": 1020
     },
-    "lastRun": "2025-06-14T15:46:02.449Z"
+    "lastRun": "2025-06-14T15:57:15.045Z"
   },
   "moduleStatuses": [
     {
       "name": "backend",
       "type": "app",
       "status": "needs-attention",
-      "lastModified": "2025-06-14T15:46:02.603Z",
+      "lastModified": "2025-06-14T15:57:15.096Z",
       "exports": 2,
       "imports": 14,
       "dependencies": [
@@ -85,50 +85,38 @@
         "./api/middleware/auth.middleware"
       ],
       "issues": [
-        "Option 'customConditions' can only be used when 'moduleResolution' is set to 'node16', 'nodenext', or 'bundler'. (Line undefined)",
         "[object Object] (Line undefined)",
         "[object Object] (Line undefined)",
-        "[object Object] (Line undefined)",
-        "Composite projects may not disable declaration emit. (Line undefined)"
+        "[object Object] (Line undefined)"
       ]
     },
     {
       "name": "frontend",
       "type": "app",
-      "status": "broken",
-      "lastModified": "2025-06-14T15:46:02.603Z",
+      "status": "needs-attention",
+      "lastModified": "2025-06-14T15:57:15.096Z",
       "exports": 0,
       "imports": 3,
       "dependencies": ["react", "react-dom/client", "./app/app"],
       "issues": [
-        "Option 'customConditions' can only be used when 'moduleResolution' is set to 'node16', 'nodenext', or 'bundler'. (Line undefined)",
         "[object Object] (Line undefined)",
         "[object Object] (Line undefined)",
         "[object Object] (Line undefined)",
-        "Composite projects may not disable declaration emit. (Line undefined)",
-        "Cannot find module 'react' or its corresponding type declarations. (Line 1)",
-        "Cannot find module 'react-dom/client' or its corresponding type declarations. (Line 2)",
-        "Module './app/app' was resolved to '/Users/andy/SolariHub v4.1/apps/frontend/src/app/app.tsx', but '--jsx' is not set. (Line 3)",
-        "Cannot find name 'document'. Do you need to change your target library? Try changing the 'lib' compiler option to include 'dom'. (Line 5)",
-        "Cannot find name 'HTMLElement'. (Line 5)",
-        "Cannot use JSX unless the '--jsx' flag is provided. (Line 8)",
-        "Cannot use JSX unless the '--jsx' flag is provided. (Line 9)"
+        "Cannot find name 'document'. Do you need to change your target library? Try changing the 'lib' compiler option to include 'dom'. (Line 5)"
       ]
     },
     {
       "name": "frontend-e2e",
       "type": "app",
       "status": "needs-attention",
-      "lastModified": "2025-06-14T15:46:02.603Z",
+      "lastModified": "2025-06-14T15:57:15.096Z",
       "exports": 0,
       "imports": 1,
       "dependencies": ["@playwright/test"],
       "issues": [
-        "Option 'customConditions' can only be used when 'moduleResolution' is set to 'node16', 'nodenext', or 'bundler'. (Line undefined)",
         "[object Object] (Line undefined)",
         "[object Object] (Line undefined)",
         "[object Object] (Line undefined)",
-        "Composite projects may not disable declaration emit. (Line undefined)",
         "Cannot find module '@playwright/test' or its corresponding type declarations. (Line 1)"
       ]
     },
@@ -136,87 +124,77 @@
       "name": "types",
       "type": "lib",
       "status": "needs-attention",
-      "lastModified": "2025-06-14T15:46:02.603Z",
+      "lastModified": "2025-06-14T15:57:15.096Z",
       "exports": 0,
       "imports": 0,
       "dependencies": [],
       "issues": [
-        "Option 'customConditions' can only be used when 'moduleResolution' is set to 'node16', 'nodenext', or 'bundler'. (Line undefined)",
         "[object Object] (Line undefined)",
         "[object Object] (Line undefined)",
-        "[object Object] (Line undefined)",
-        "Composite projects may not disable declaration emit. (Line undefined)"
+        "[object Object] (Line undefined)"
       ]
     },
     {
       "name": "backend",
       "type": "app",
       "status": "needs-attention",
-      "lastModified": "2025-06-14T15:46:02.603Z",
+      "lastModified": "2025-06-14T15:57:15.096Z",
       "exports": 0,
       "imports": 5,
       "dependencies": ["pg", "mongoose", "redis", "./environment", "../utils/logger"],
       "issues": [
-        "Option 'customConditions' can only be used when 'moduleResolution' is set to 'node16', 'nodenext', or 'bundler'. (Line undefined)",
         "[object Object] (Line undefined)",
         "[object Object] (Line undefined)",
-        "[object Object] (Line undefined)",
-        "Composite projects may not disable declaration emit. (Line undefined)"
+        "[object Object] (Line undefined)"
       ]
     },
     {
       "name": "backend",
       "type": "app",
       "status": "needs-attention",
-      "lastModified": "2025-06-14T15:46:02.603Z",
+      "lastModified": "2025-06-14T15:57:15.096Z",
       "exports": 1,
       "imports": 2,
       "dependencies": ["dotenv", "joi"],
       "issues": [
-        "Option 'customConditions' can only be used when 'moduleResolution' is set to 'node16', 'nodenext', or 'bundler'. (Line undefined)",
         "[object Object] (Line undefined)",
         "[object Object] (Line undefined)",
-        "[object Object] (Line undefined)",
-        "Composite projects may not disable declaration emit. (Line undefined)"
+        "[object Object] (Line undefined)"
       ]
     },
     {
       "name": "backend",
       "type": "app",
       "status": "needs-attention",
-      "lastModified": "2025-06-14T15:46:02.603Z",
+      "lastModified": "2025-06-14T15:57:15.096Z",
       "exports": 1,
       "imports": 4,
       "dependencies": ["pg", "../services/database.service", "../utils/errors", "../utils/logger"],
       "issues": [
-        "Option 'customConditions' can only be used when 'moduleResolution' is set to 'node16', 'nodenext', or 'bundler'. (Line undefined)",
         "[object Object] (Line undefined)",
         "[object Object] (Line undefined)",
-        "[object Object] (Line undefined)",
-        "Composite projects may not disable declaration emit. (Line undefined)"
+        "[object Object] (Line undefined)"
       ]
     },
     {
       "name": "backend",
       "type": "app",
       "status": "needs-attention",
-      "lastModified": "2025-06-14T15:46:02.603Z",
+      "lastModified": "2025-06-14T15:57:15.096Z",
       "exports": 6,
       "imports": 4,
       "dependencies": ["bcryptjs", "./base.model", "../config/environment", "../utils/errors"],
       "issues": [
-        "Option 'customConditions' can only be used when 'moduleResolution' is set to 'node16', 'nodenext', or 'bundler'. (Line undefined)",
         "[object Object] (Line undefined)",
         "[object Object] (Line undefined)",
-        "[object Object] (Line undefined)",
-        "Composite projects may not disable declaration emit. (Line undefined)"
+        "[object Object] (Line undefined)"
       ]
     },
     {
       "name": "backend",
       "type": "app",
       "status": "needs-attention",
-      "lastModified": "2025-06-14T15:46:02.603Z",
+      "lastModified": "2025-06-14T15:57:15.096Z",
       "exports": 5,
       "imports": 7,
       "dependencies": [
@@ -229,312 +207,156 @@
         "../utils/logger"
       ],
       "issues": [
-        "Option 'customConditions' can only be used when 'moduleResolution' is set to 'node16', 'nodenext', or 'bundler'. (Line undefined)",
         "[object Object] (Line undefined)",
         "[object Object] (Line undefined)",
-        "[object Object] (Line undefined)",
-        "Composite projects may not disable declaration emit. (Line undefined)"
+        "[object Object] (Line undefined)"
       ]
     },
     {
       "name": "backend",
       "type": "app",
       "status": "needs-attention",
-      "lastModified": "2025-06-14T15:46:02.603Z",
+      "lastModified": "2025-06-14T15:57:15.096Z",
       "exports": 1,
       "imports": 3,
       "dependencies": ["../config/database", "../utils/logger", "../utils/errors"],
       "issues": [
-        "Option 'customConditions' can only be used when 'moduleResolution' is set to 'node16', 'nodenext', or 'bundler'. (Line undefined)",
         "[object Object] (Line undefined)",
         "[object Object] (Line undefined)",
-        "[object Object] (Line undefined)",
-        "Composite projects may not disable declaration emit. (Line undefined)"
+        "[object Object] (Line undefined)"
       ]
     },
     {
       "name": "backend",
       "type": "app",
       "status": "needs-attention",
-      "lastModified": "2025-06-14T15:46:02.603Z",
+      "lastModified": "2025-06-14T15:57:15.096Z",
       "exports": 1,
       "imports": 3,
       "dependencies": ["../models/user.model", "../utils/errors", "../utils/logger"],
       "issues": [
-        "Option 'customConditions' can only be used when 'moduleResolution' is set to 'node16', 'nodenext', or 'bundler'. (Line undefined)",
         "[object Object] (Line undefined)",
         "[object Object] (Line undefined)",
-        "[object Object] (Line undefined)",
-        "Composite projects may not disable declaration emit. (Line undefined)"
+        "[object Object] (Line undefined)"
       ]
     },
     {
       "name": "backend",
       "type": "app",
       "status": "needs-attention",
-      "lastModified": "2025-06-14T15:46:02.603Z",
+      "lastModified": "2025-06-14T15:57:15.096Z",
       "exports": 9,
       "imports": 2,
       "dependencies": ["express", "./logger"],
       "issues": [
-        "Option 'customConditions' can only be used when 'moduleResolution' is set to 'node16', 'nodenext', or 'bundler'. (Line undefined)",
         "[object Object] (Line undefined)",
         "[object Object] (Line undefined)",
-        "[object Object] (Line undefined)",
-        "Composite projects may not disable declaration emit. (Line undefined)"
+        "[object Object] (Line undefined)"
       ]
     },
     {
       "name": "backend",
       "type": "app",
       "status": "needs-attention",
-      "lastModified": "2025-06-14T15:46:02.603Z",
+      "lastModified": "2025-06-14T15:57:15.096Z",
       "exports": 1,
       "imports": 2,
       "dependencies": ["winston", "../config/environment"],
       "issues": [
-        "Option 'customConditions' can only be used when 'moduleResolution' is set to 'node16', 'nodenext', or 'bundler'. (Line undefined)",
         "[object Object] (Line undefined)",
         "[object Object] (Line undefined)",
-        "[object Object] (Line undefined)",
-        "Composite projects may not disable declaration emit. (Line undefined)"
+        "[object Object] (Line undefined)"
       ]
     },
     {
       "name": "backend",
       "type": "app",
       "status": "needs-attention",
-      "lastModified": "2025-06-14T15:46:02.603Z",
+      "lastModified": "2025-06-14T15:57:15.096Z",
       "exports": 1,
       "imports": 3,
       "dependencies": ["joi", "express", "./errors"],
       "issues": [
-        "Option 'customConditions' can only be used when 'moduleResolution' is set to 'node16', 'nodenext', or 'bundler'. (Line undefined)",
         "[object Object] (Line undefined)",
         "[object Object] (Line undefined)",
-        "[object Object] (Line undefined)",
-        "Composite projects may not disable declaration emit. (Line undefined)"
+        "[object Object] (Line undefined)"
       ]
     },
     {
       "name": "frontend",
       "type": "app",
-      "status": "broken",
-      "lastModified": "2025-06-14T15:46:02.603Z",
+      "status": "needs-attention",
+      "lastModified": "2025-06-14T15:57:15.096Z",
       "exports": 0,
       "imports": 2,
       "dependencies": ["@testing-library/react", "./app"],
       "issues": [
-        "Option 'customConditions' can only be used when 'moduleResolution' is set to 'node16', 'nodenext', or 'bundler'. (Line undefined)",
         "[object Object] (Line undefined)",
         "[object Object] (Line undefined)",
-        "[object Object] (Line undefined)",
-        "Composite projects may not disable declaration emit. (Line undefined)",
-        "Cannot find module '@testing-library/react' or its corresponding type declarations. (Line 1)",
-        "Module './app' was resolved to '/Users/andy/SolariHub v4.1/apps/frontend/src/app/app.tsx', but '--jsx' is not set. (Line 3)",
-        "Cannot find name 'describe'. Do you need to install type definitions for a test runner? Try `npm i --save-dev @types/jest` or `npm i --save-dev @types/mocha`. (Line 5)",
-        "Cannot find name 'it'. Do you need to install type definitions for a test runner? Try `npm i --save-dev @types/jest` or `npm i --save-dev @types/mocha`. (Line 6)",
-        "Cannot use JSX unless the '--jsx' flag is provided. (Line 7)",
-        "Cannot find name 'expect'. (Line 8)",
-        "Cannot find name 'it'. Do you need to install type definitions for a test runner? Try `npm i --save-dev @types/jest` or `npm i --save-dev @types/mocha`. (Line 11)",
-        "Cannot use JSX unless the '--jsx' flag is provided. (Line 12)",
-        "Cannot find name 'expect'. (Line 13)"
+        "[object Object] (Line undefined)"
       ]
     },
     {
       "name": "frontend",
       "type": "app",
       "status": "needs-attention",
-      "lastModified": "2025-06-14T15:46:02.603Z",
+      "lastModified": "2025-06-14T15:57:15.096Z",
       "exports": 2,
       "imports": 1,
       "dependencies": ["./nx-welcome"],
       "issues": [
-        "Option 'customConditions' can only be used when 'moduleResolution' is set to 'node16', 'nodenext', or 'bundler'. (Line undefined)",
         "[object Object] (Line undefined)",
         "[object Object] (Line undefined)",
-        "[object Object] (Line undefined)",
-        "Composite projects may not disable declaration emit. (Line undefined)",
-        "Module './nx-welcome' was resolved to '/Users/andy/SolariHub v4.1/apps/frontend/src/app/nx-welcome.tsx', but '--jsx' is not set. (Line 1)",
-        "Cannot use JSX unless the '--jsx' flag is provided. (Line 5)",
-        "Cannot use JSX unless the '--jsx' flag is provided. (Line 6)"
+        "[object Object] (Line undefined)"
       ]
     },
     {
       "name": "frontend",
       "type": "app",
-      "status": "broken",
-      "lastModified": "2025-06-14T15:46:02.603Z",
+      "status": "needs-attention",
+      "lastModified": "2025-06-14T15:57:15.096Z",
       "exports": 2,
       "imports": 0,
       "dependencies": [],
       "issues": [
-        "Option 'customConditions' can only be used when 'moduleResolution' is set to 'node16', 'nodenext', or 'bundler'. (Line undefined)",
         "[object Object] (Line undefined)",
         "[object Object] (Line undefined)",
-        "[object Object] (Line undefined)",
-        "Composite projects may not disable declaration emit. (Line undefined)",
-        "Cannot use JSX unless the '--jsx' flag is provided. (Line 10)",
-        "Cannot use JSX unless the '--jsx' flag is provided. (Line 11)",
-        "Cannot use JSX unless the '--jsx' flag is provided. (Line 430)",
-        "Cannot use JSX unless the '--jsx' flag is provided. (Line 431)",
-        "Cannot use JSX unless the '--jsx' flag is provided. (Line 432)",
-        "Cannot use JSX unless the '--jsx' flag is provided. (Line 433)",
-        "Cannot use JSX unless the '--jsx' flag is provided. (Line 434)",
-        "Cannot use JSX unless the '--jsx' flag is provided. (Line 439)",
-        "Cannot use JSX unless the '--jsx' flag is provided. (Line 440)",
-        "Cannot use JSX unless the '--jsx' flag is provided. (Line 441)",
-        "Cannot use JSX unless the '--jsx' flag is provided. (Line 442)",
-        "Cannot use JSX unless the '--jsx' flag is provided. (Line 448)",
-        "Cannot use JSX unless the '--jsx' flag is provided. (Line 455)",
-        "Cannot use JSX unless the '--jsx' flag is provided. (Line 457)",
-        "Cannot use JSX unless the '--jsx' flag is provided. (Line 459)",
-        "Cannot use JSX unless the '--jsx' flag is provided. (Line 460)",
-        "Cannot use JSX unless the '--jsx' flag is provided. (Line 466)",
-        "Cannot use JSX unless the '--jsx' flag is provided. (Line 471)",
-        "Cannot use JSX unless the '--jsx' flag is provided. (Line 472)",
-        "Cannot use JSX unless the '--jsx' flag is provided. (Line 473)",
-        "Cannot use JSX unless the '--jsx' flag is provided. (Line 474)",
-        "Cannot use JSX unless the '--jsx' flag is provided. (Line 475)",
-        "Cannot use JSX unless the '--jsx' flag is provided. (Line 481)",
-        "Cannot use JSX unless the '--jsx' flag is provided. (Line 487)",
-        "Cannot use JSX unless the '--jsx' flag is provided. (Line 494)",
-        "Cannot use JSX unless the '--jsx' flag is provided. (Line 496)",
-        "Cannot use JSX unless the '--jsx' flag is provided. (Line 498)",
-        "Cannot use JSX unless the '--jsx' flag is provided. (Line 504)",
-        "Cannot use JSX unless the '--jsx' flag is provided. (Line 512)",
-        "Cannot use JSX unless the '--jsx' flag is provided. (Line 518)",
-        "Cannot use JSX unless the '--jsx' flag is provided. (Line 524)",
-        "Cannot use JSX unless the '--jsx' flag is provided. (Line 531)",
-        "Cannot use JSX unless the '--jsx' flag is provided. (Line 533)",
-        "Cannot use JSX unless the '--jsx' flag is provided. (Line 535)",
-        "Cannot use JSX unless the '--jsx' flag is provided. (Line 541)",
-        "Cannot use JSX unless the '--jsx' flag is provided. (Line 549)",
-        "Cannot use JSX unless the '--jsx' flag is provided. (Line 555)",
-        "Cannot use JSX unless the '--jsx' flag is provided. (Line 561)",
-        "Cannot use JSX unless the '--jsx' flag is provided. (Line 562)",
-        "Cannot use JSX unless the '--jsx' flag is provided. (Line 564)",
-        "Cannot use JSX unless the '--jsx' flag is provided. (Line 566)",
-        "Cannot use JSX unless the '--jsx' flag is provided. (Line 568)",
-        "Cannot use JSX unless the '--jsx' flag is provided. (Line 574)",
-        "Cannot use JSX unless the '--jsx' flag is provided. (Line 582)",
-        "Cannot use JSX unless the '--jsx' flag is provided. (Line 588)",
-        "Cannot use JSX unless the '--jsx' flag is provided. (Line 594)",
-        "Cannot use JSX unless the '--jsx' flag is provided. (Line 601)",
-        "Cannot use JSX unless the '--jsx' flag is provided. (Line 603)",
-        "Cannot use JSX unless the '--jsx' flag is provided. (Line 605)",
-        "Cannot use JSX unless the '--jsx' flag is provided. (Line 611)",
-        "Cannot use JSX unless the '--jsx' flag is provided. (Line 620)",
-        "Cannot use JSX unless the '--jsx' flag is provided. (Line 627)",
-        "Cannot use JSX unless the '--jsx' flag is provided. (Line 633)",
-        "Cannot use JSX unless the '--jsx' flag is provided. (Line 635)",
-        "Cannot use JSX unless the '--jsx' flag is provided. (Line 637)",
-        "Cannot use JSX unless the '--jsx' flag is provided. (Line 641)",
-        "Cannot use JSX unless the '--jsx' flag is provided. (Line 642)",
-        "Cannot use JSX unless the '--jsx' flag is provided. (Line 649)",
-        "Cannot use JSX unless the '--jsx' flag is provided. (Line 655)",
-        "Cannot use JSX unless the '--jsx' flag is provided. (Line 656)",
-        "Cannot use JSX unless the '--jsx' flag is provided. (Line 658)",
-        "Cannot use JSX unless the '--jsx' flag is provided. (Line 660)",
-        "Cannot use JSX unless the '--jsx' flag is provided. (Line 663)",
-        "Cannot use JSX unless the '--jsx' flag is provided. (Line 670)",
-        "Cannot use JSX unless the '--jsx' flag is provided. (Line 676)",
-        "Cannot use JSX unless the '--jsx' flag is provided. (Line 677)",
-        "Cannot use JSX unless the '--jsx' flag is provided. (Line 678)",
-        "Cannot use JSX unless the '--jsx' flag is provided. (Line 679)",
-        "Cannot use JSX unless the '--jsx' flag is provided. (Line 680)",
-        "Cannot use JSX unless the '--jsx' flag is provided. (Line 681)",
-        "Cannot use JSX unless the '--jsx' flag is provided. (Line 682)",
-        "Cannot use JSX unless the '--jsx' flag is provided. (Line 683)",
-        "Cannot use JSX unless the '--jsx' flag is provided. (Line 684)",
-        "Cannot use JSX unless the '--jsx' flag is provided. (Line 685)",
-        "Cannot use JSX unless the '--jsx' flag is provided. (Line 686)",
-        "Cannot use JSX unless the '--jsx' flag is provided. (Line 687)",
-        "Cannot use JSX unless the '--jsx' flag is provided. (Line 690)",
-        "Cannot use JSX unless the '--jsx' flag is provided. (Line 692)",
-        "Cannot use JSX unless the '--jsx' flag is provided. (Line 695)",
-        "Cannot use JSX unless the '--jsx' flag is provided. (Line 696)",
-        "Cannot use JSX unless the '--jsx' flag is provided. (Line 697)",
-        "Cannot use JSX unless the '--jsx' flag is provided. (Line 705)",
-        "Cannot use JSX unless the '--jsx' flag is provided. (Line 709)",
-        "Cannot use JSX unless the '--jsx' flag is provided. (Line 714)",
-        "Cannot use JSX unless the '--jsx' flag is provided. (Line 716)",
-        "Cannot use JSX unless the '--jsx' flag is provided. (Line 719)",
-        "Cannot use JSX unless the '--jsx' flag is provided. (Line 721)",
-        "Cannot use JSX unless the '--jsx' flag is provided. (Line 728)",
-        "Cannot use JSX unless the '--jsx' flag is provided. (Line 729)",
-        "Cannot use JSX unless the '--jsx' flag is provided. (Line 730)",
-        "Cannot use JSX unless the '--jsx' flag is provided. (Line 731)",
-        "Cannot use JSX unless the '--jsx' flag is provided. (Line 732)",
-        "Cannot use JSX unless the '--jsx' flag is provided. (Line 733)",
-        "Cannot use JSX unless the '--jsx' flag is provided. (Line 739)",
-        "Cannot use JSX unless the '--jsx' flag is provided. (Line 748)",
-        "Cannot use JSX unless the '--jsx' flag is provided. (Line 749)",
-        "Cannot use JSX unless the '--jsx' flag is provided. (Line 751)",
-        "Cannot use JSX unless the '--jsx' flag is provided. (Line 753)",
-        "Cannot use JSX unless the '--jsx' flag is provided. (Line 755)",
-        "Cannot use JSX unless the '--jsx' flag is provided. (Line 760)",
-        "Cannot use JSX unless the '--jsx' flag is provided. (Line 761)",
-        "Cannot use JSX unless the '--jsx' flag is provided. (Line 762)",
-        "Cannot use JSX unless the '--jsx' flag is provided. (Line 768)",
-        "Cannot use JSX unless the '--jsx' flag is provided. (Line 777)",
-        "Cannot use JSX unless the '--jsx' flag is provided. (Line 779)",
-        "Cannot use JSX unless the '--jsx' flag is provided. (Line 780)",
-        "Cannot use JSX unless the '--jsx' flag is provided. (Line 781)",
-        "Cannot use JSX unless the '--jsx' flag is provided. (Line 787)",
-        "Cannot use JSX unless the '--jsx' flag is provided. (Line 796)",
-        "Cannot use JSX unless the '--jsx' flag is provided. (Line 798)",
-        "Cannot use JSX unless the '--jsx' flag is provided. (Line 799)",
-        "Cannot use JSX unless the '--jsx' flag is provided. (Line 800)",
-        "Cannot use JSX unless the '--jsx' flag is provided. (Line 806)",
-        "Cannot use JSX unless the '--jsx' flag is provided. (Line 815)",
-        "Cannot use JSX unless the '--jsx' flag is provided. (Line 816)",
-        "Cannot use JSX unless the '--jsx' flag is provided. (Line 818)",
-        "Cannot use JSX unless the '--jsx' flag is provided. (Line 824)",
-        "Cannot use JSX unless the '--jsx' flag is provided. (Line 826)",
-        "Cannot use JSX unless the '--jsx' flag is provided. (Line 832)"
+        "[object Object] (Line undefined)"
       ]
     },
     {
       "name": "types",
       "type": "lib",
       "status": "needs-attention",
-      "lastModified": "2025-06-14T15:46:02.603Z",
+      "lastModified": "2025-06-14T15:57:15.096Z",
       "exports": 0,
       "imports": 1,
       "dependencies": ["./types.js"],
       "issues": [
-        "Option 'customConditions' can only be used when 'moduleResolution' is set to 'node16', 'nodenext', or 'bundler'. (Line undefined)",
         "[object Object] (Line undefined)",
         "[object Object] (Line undefined)",
-        "[object Object] (Line undefined)",
-        "Composite projects may not disable declaration emit. (Line undefined)",
-        "Cannot find name 'describe'. Do you need to install type definitions for a test runner? Try `npm i --save-dev @types/jest` or `npm i --save-dev @types/mocha`. (Line 3)",
-        "Cannot find name 'it'. Do you need to install type definitions for a test runner? Try `npm i --save-dev @types/jest` or `npm i --save-dev @types/mocha`. (Line 4)",
-        "Cannot find name 'expect'. (Line 5)"
+        "[object Object] (Line undefined)"
       ]
     },
     {
       "name": "types",
       "type": "lib",
       "status": "needs-attention",
-      "lastModified": "2025-06-14T15:46:02.603Z",
+      "lastModified": "2025-06-14T15:57:15.096Z",
       "exports": 1,
       "imports": 0,
       "dependencies": [],
       "issues": [
-        "Option 'customConditions' can only be used when 'moduleResolution' is set to 'node16', 'nodenext', or 'bundler'. (Line undefined)",
         "[object Object] (Line undefined)",
         "[object Object] (Line undefined)",
-        "[object Object] (Line undefined)",
-        "Composite projects may not disable declaration emit. (Line undefined)"
+        "[object Object] (Line undefined)"
       ]
     },
     {
       "name": "backend",
       "type": "app",
       "status": "needs-attention",
-      "lastModified": "2025-06-14T15:46:02.603Z",
+      "lastModified": "2025-06-14T15:57:15.096Z",
       "exports": 0,
       "imports": 5,
       "dependencies": [
@@ -545,34 +367,30 @@
         "../../utils/logger"
       ],
       "issues": [
-        "Option 'customConditions' can only be used when 'moduleResolution' is set to 'node16', 'nodenext', or 'bundler'. (Line undefined)",
         "[object Object] (Line undefined)",
         "[object Object] (Line undefined)",
-        "[object Object] (Line undefined)",
-        "Composite projects may not disable declaration emit. (Line undefined)"
+        "[object Object] (Line undefined)"
       ]
     },
     {
       "name": "backend",
       "type": "app",
       "status": "needs-attention",
-      "lastModified": "2025-06-14T15:46:02.603Z",
+      "lastModified": "2025-06-14T15:57:15.096Z",
       "exports": 1,
       "imports": 3,
       "dependencies": ["express", "./auth.controller", "../middleware/auth.middleware"],
       "issues": [
-        "Option 'customConditions' can only be used when 'moduleResolution' is set to 'node16', 'nodenext', or 'bundler'. (Line undefined)",
         "[object Object] (Line undefined)",
         "[object Object] (Line undefined)",
-        "[object Object] (Line undefined)",
-        "Composite projects may not disable declaration emit. (Line undefined)"
+        "[object Object] (Line undefined)"
       ]
     },
     {
       "name": "backend",
       "type": "app",
       "status": "needs-attention",
-      "lastModified": "2025-06-14T15:46:02.603Z",
+      "lastModified": "2025-06-14T15:57:15.096Z",
       "exports": 0,
       "imports": 6,
       "dependencies": [
@@ -584,34 +402,30 @@
         "../../utils/logger"
       ],
       "issues": [
-        "Option 'customConditions' can only be used when 'moduleResolution' is set to 'node16', 'nodenext', or 'bundler'. (Line undefined)",
         "[object Object] (Line undefined)",
         "[object Object] (Line undefined)",
-        "[object Object] (Line undefined)",
-        "Composite projects may not disable declaration emit. (Line undefined)"
+        "[object Object] (Line undefined)"
       ]
     },
     {
       "name": "backend",
       "type": "app",
       "status": "needs-attention",
-      "lastModified": "2025-06-14T15:46:02.603Z",
+      "lastModified": "2025-06-14T15:57:15.096Z",
       "exports": 1,
       "imports": 3,
       "dependencies": ["express", "./health.controller", "../middleware/auth.middleware"],
       "issues": [
-        "Option 'customConditions' can only be used when 'moduleResolution' is set to 'node16', 'nodenext', or 'bundler'. (Line undefined)",
         "[object Object] (Line undefined)",
         "[object Object] (Line undefined)",
-        "[object Object] (Line undefined)",
-        "Composite projects may not disable declaration emit. (Line undefined)"
+        "[object Object] (Line undefined)"
       ]
     },
     {
       "name": "backend",
       "type": "app",
       "status": "needs-attention",
-      "lastModified": "2025-06-14T15:46:02.603Z",
+      "lastModified": "2025-06-14T15:57:15.096Z",
       "exports": 0,
       "imports": 5,
       "dependencies": [
@@ -622,18 +436,16 @@
         "../../utils/logger"
       ],
       "issues": [
-        "Option 'customConditions' can only be used when 'moduleResolution' is set to 'node16', 'nodenext', or 'bundler'. (Line undefined)",
         "[object Object] (Line undefined)",
         "[object Object] (Line undefined)",
-        "[object Object] (Line undefined)",
-        "Composite projects may not disable declaration emit. (Line undefined)"
+        "[object Object] (Line undefined)"
       ]
     },
     {
       "name": "backend",
       "type": "app",
       "status": "needs-attention",
-      "lastModified": "2025-06-14T15:46:02.603Z",
+      "lastModified": "2025-06-14T15:57:15.096Z",
       "exports": 0,
       "imports": 5,
       "dependencies": [
@@ -644,27 +456,23 @@
         "../../utils/logger"
       ],
       "issues": [
-        "Option 'customConditions' can only be used when 'moduleResolution' is set to 'node16', 'nodenext', or 'bundler'. (Line undefined)",
         "[object Object] (Line undefined)",
         "[object Object] (Line undefined)",
-        "[object Object] (Line undefined)",
-        "Composite projects may not disable declaration emit. (Line undefined)"
+        "[object Object] (Line undefined)"
       ]
     },
     {
       "name": "backend",
       "type": "app",
       "status": "needs-attention",
-      "lastModified": "2025-06-14T15:46:02.603Z",
+      "lastModified": "2025-06-14T15:57:15.096Z",
       "exports": 1,
       "imports": 3,
       "dependencies": ["express", "./users.controller", "../middleware/auth.middleware"],
       "issues": [
-        "Option 'customConditions' can only be used when 'moduleResolution' is set to 'node16', 'nodenext', or 'bundler'. (Line undefined)",
         "[object Object] (Line undefined)",
         "[object Object] (Line undefined)",
-        "[object Object] (Line undefined)",
-        "Composite projects may not disable declaration emit. (Line undefined)"
+        "[object Object] (Line undefined)"
       ]
     }
   ],
@@ -672,15 +480,15 @@
     {
       "type": "build",
       "message": "Backend build completed successfully",
-      "timestamp": "2025-06-14T15:46:02.603Z",
+      "timestamp": "2025-06-14T15:57:15.096Z",
       "status": "success"
     },
     {
       "type": "type-check",
       "message": "Type analysis updated",
-      "timestamp": "2025-06-14T15:46:02.603Z",
+      "timestamp": "2025-06-14T15:57:15.096Z",
       "status": "info"
     }
   ],
-  "healthScore": 40
+  "healthScore": 70
 }

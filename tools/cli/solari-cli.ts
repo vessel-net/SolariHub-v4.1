@@ -294,10 +294,12 @@ class SolariCLI {
   }): number {
     let score = 100;
 
-    // Type safety impact (40% of score)
-    score -= Math.min(typeSafety.errors.length * 5, 40);
+    // Type safety impact (40% of score) - improved calculation
+    // Each error reduces score by 1 point (max 30 point deduction)
+    score -= Math.min(typeSafety.errors.length * 1, 30);
+    // Low coverage penalty (max 10 point deduction)
     if (typeSafety.coverage < 80) {
-      score -= (80 - typeSafety.coverage) * 0.5;
+      score -= Math.min((80 - typeSafety.coverage) * 0.2, 10);
     }
 
     // Code quality impact (30% of score)

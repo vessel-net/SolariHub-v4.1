@@ -1,10 +1,8 @@
 /// <reference types='vitest' />
-// @ts-expect-error TS(2305): Module '"vite"' has no exported member 'defineConf... Remove this comment to see the full error message
 import { defineConfig } from 'vite';
 import react from '@vitejs/plugin-react';
 
 export default defineConfig(() => ({
-  // @ts-expect-error TS(2304): Cannot find name '__dirname'.
   root: __dirname,
   cacheDir: '../node_modules/.vite/web',
   server: {

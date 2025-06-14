@@ -68,20 +68,21 @@ export class TsMorphAnalyzer {
       tsConfigFilePath: join(workspaceRoot, 'tsconfig.base.json'),
       skipAddingFilesFromTsConfig: false,
       skipFileDependencyResolution: true,
-      skipLoadingLibFiles: false, // FIXED: Load standard libraries
+      skipLoadingLibFiles: false,
       compilerOptions: {
         target: 99, // ES2022
         module: 99, // ESNext
-        moduleResolution: 2, // Node
-        lib: ['ES2022', 'DOM', 'DOM.Iterable'], // FIXED: Add standard libraries
+        moduleResolution: 100, // bundler - fixes customConditions error
+        lib: ['ES2022', 'DOM', 'DOM.Iterable'],
         allowJs: true,
-        declaration: false,
+        declaration: true, // Enable to fix composite project error
         noEmitOnError: false,
         skipLibCheck: true,
         esModuleInterop: true,
         allowSyntheticDefaultImports: true,
-        strict: false, // Disable strict mode to reduce noise
+        strict: false,
         noImplicitAny: false,
+        jsx: 4, // react-jsx - fixes JSX errors
       },
     });
 
