@@ -1,46 +1,61 @@
 services:
-  # SolariHub Backend API Service (Docker)
+  # SolariHub Backend API Service (Node.js)
   - type: web
-    name: solarihub-backend-api
-    runtime: docker
-    dockerfilePath: ./deployment/docker/Dockerfile.backend
+    name: solarihub-backend
+    runtime: node
     plan: starter
-    region: frankfurt
+    region: oregon
+    buildCommand: npm install && npm run build
+    startCommand: npm start
     buildFilter:
       paths:
         - apps/backend/**
-        - libs/**
-        - deployment/**
         - package*.json
         - nx.json
-        - tsconfig.base.json
-    domains:
-      - api.app.solarihub.net
+        - tsconfig*.json
+    healthCheckPath: /api/health/ping
+    autoDeploy: true
     envVars:
       - key: NODE_ENV
         value: production
       - key: PORT
-        value: 4000
-      - key: FRONTEND_URL
-        value: https://app.solarihub.net
-      - key: FROM_EMAIL
-        value: no-reply@solarihub.net
-      - key: ENODE_CLIENT_SECRET
-        sync: false
+        value: 10000
       - key: JWT_SECRET
+        generateValue: true
+      - key: JWT_EXPIRES_IN
+        value: "15m"
+      - key: JWT_REFRESH_EXPIRES_IN
+        value: "7d"
+      - key: BCRYPT_ROUNDS
+        value: "12"
+      - key: RATE_LIMIT_WINDOW_MS
+        value: "900000"
+      - key: RATE_LIMIT_MAX_REQUESTS
+        value: "100"
+      - key: CORS_ORIGIN
+        value: "*"
+      - key: LOG_LEVEL
+        value: "info"
+      - key: MAX_REQUEST_SIZE
+        value: "10mb"
+      - key: POSTGRES_HOST
+        sync: false
+      - key: POSTGRES_PORT
+        value: "5432"
+      - key: POSTGRES_DB
+        sync: false
+      - key: POSTGRES_USER
+        sync: false
+      - key: POSTGRES_PASSWORD
         sync: false
       - key: MONGODB_URI
         sync: false
-      - key: PINATA_JWT
+      - key: REDIS_HOST
         sync: false
-      - key: RECAPTCHA_SECRET_KEY
+      - key: REDIS_PORT
+        value: "6379"
+      - key: REDIS_PASSWORD
         sync: false
-      - key: SENDGRID_API_KEY
-        sync: false
-      - key: SENTRY_DSN
-        sync: false
-    healthCheckPath: /api
-    autoDeploy: true
 
   # SolariHub Frontend Application (Docker)
   - type: web
@@ -75,4 +90,13 @@ services:
       - key: VITE_SENTRY_DSN
         sync: false
     healthCheckPath: /
-    autoDeploy: true 
+    autoDeploy: true
+
+databases:
+  - name: solarihub-postgres
+    databaseName: solarihub
+    user: solarihub_user
+    plan: starter
+
+  - name: solarihub-redis
+    plan: starter 
