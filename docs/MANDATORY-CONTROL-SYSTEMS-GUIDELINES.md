@@ -118,6 +118,39 @@ node scripts/verify-deployment.js
 # 🔥 Container starts without errors
 ```
 
+### **8. Local Deployment Testing**
+```bash
+# Comprehensive deployment testing suite
+node scripts/test-deployment.js
+
+# Quick prerequisite and build testing
+node scripts/test-deployment.js --quick
+
+# Test alternative simplified Docker approach
+node scripts/test-deployment.js --simple
+
+# TESTING CAPABILITIES:
+# 🔍 Prerequisites validation (Docker, built files, runtime deps)
+# 📦 Dependency extraction verification with critical modules
+# 🐳 Local Docker build testing with detailed output
+# 📋 Container dependency accessibility validation
+# 🚀 Container startup verification with timeout handling
+# 🧹 Automatic cleanup of test artifacts
+```
+
+### **9. Emergency Deployment Procedures**
+```bash
+# Switch to simplified Dockerfile for dependency issues
+# Update render.yaml: dockerfilePath: ./Dockerfile.simple
+
+# EMERGENCY DOCKERFILE FEATURES:
+# 🛡️ Single-stage build (no multi-stage complexity)
+# 📦 Explicit dependency installation with exact versions
+# 🔍 Built-in CORS module verification
+# ✅ Direct approach bypassing dependency extraction
+# 🚀 Comprehensive verification at each build step
+```
+
 ### **7. Runtime Dependency Extraction**
 ```bash
 # Extract production dependencies from webpack bundle
