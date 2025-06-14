@@ -1,0 +1,142 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SolariMonitor Dashboard</title>
+    <style>
+        body { font-family: Arial, sans-serif; margin: 0; padding: 20px; background: #f5f5f5; }
+        .dashboard { max-width: 1200px; margin: 0 auto; }
+        .header { text-align: center; margin-bottom: 30px; }
+        .health-score { font-size: 3em; font-weight: bold; color: #ef4444; }
+        .cards { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 20px; }
+        .card { background: white; padding: 20px; border-radius: 8px; box-shadow: 0 2px 4px rgba(0,0,0,0.1); }
+        .card h3 { margin: 0 0 15px 0; color: #333; }
+        .status-good { color: #22c55e; }
+        .status-warning { color: #f59e0b; }
+        .status-error { color: #ef4444; }
+        .module-list { list-style: none; padding: 0; }
+        .module-item { padding: 8px; margin: 4px 0; background: #f9f9f9; border-radius: 4px; }
+        .activity-list { list-style: none; padding: 0; max-height: 300px; overflow-y: auto; }
+        .activity-item { padding: 8px; margin: 4px 0; border-left: 4px solid #ddd; padding-left: 12px; }
+        .activity-success { border-left-color: #22c55e; }
+        .activity-error { border-left-color: #ef4444; }
+        .activity-warning { border-left-color: #f59e0b; }
+        .activity-info { border-left-color: #3b82f6; }
+    </style>
+</head>
+<body>
+    <div class="dashboard">
+        <div class="header">
+            <h1>🌟 SolariMonitor Dashboard</h1>
+            <div class="health-score">40%</div>
+            <p>Overall System Health</p>
+            <small>Last updated: 6/14/2025, 4:46:01 PM</small>
+        </div>
+
+        <div class="cards">
+            <div class="card">
+                <h3>📊 Type Safety</h3>
+                <p>Files: <strong>39</strong></p>
+                <p>Errors: <span class="status-error">157</span></p>
+                <p>Warnings: <span class="status-good">0</span></p>
+                <p>Coverage: <strong>56%</strong></p>
+            </div>
+
+            <div class="card">
+                <h3>🔨 Build Status</h3>
+                
+                    <p>backend: <span class="status-good">success</span></p>
+                
+                    <p>frontend: <span class="status-good">success</span></p>
+                
+                    <p>types: <span class="status-good">success</span></p>
+                
+            </div>
+
+            <div class="card">
+                <h3>📈 Test Coverage</h3>
+                <p>Overall: <strong>85%</strong></p>
+                <p>Lines: 850/1000</p>
+                <p>Functions: 170/200</p>
+                <p>Branches: 120/150</p>
+            </div>
+
+            <div class="card">
+                <h3>📦 Modules</h3>
+                <ul class="module-list">
+                    
+                        <li class="module-item">
+                            <strong>backend</strong> (app)
+                            <span class="status-error">needs-attention</span>
+                        </li>
+                    
+                        <li class="module-item">
+                            <strong>frontend</strong> (app)
+                            <span class="status-error">broken</span>
+                        </li>
+                    
+                        <li class="module-item">
+                            <strong>frontend-e2e</strong> (app)
+                            <span class="status-error">needs-attention</span>
+                        </li>
+                    
+                        <li class="module-item">
+                            <strong>types</strong> (lib)
+                            <span class="status-error">needs-attention</span>
+                        </li>
+                    
+                        <li class="module-item">
+                            <strong>backend</strong> (app)
+                            <span class="status-error">needs-attention</span>
+                        </li>
+                    
+                        <li class="module-item">
+                            <strong>backend</strong> (app)
+                            <span class="status-error">needs-attention</span>
+                        </li>
+                    
+                        <li class="module-item">
+                            <strong>backend</strong> (app)
+                            <span class="status-error">needs-attention</span>
+                        </li>
+                    
+                        <li class="module-item">
+                            <strong>backend</strong> (app)
+                            <span class="status-error">needs-attention</span>
+                        </li>
+                    
+                        <li class="module-item">
+                            <strong>backend</strong> (app)
+                            <span class="status-error">needs-attention</span>
+                        </li>
+                    
+                        <li class="module-item">
+                            <strong>backend</strong> (app)
+                            <span class="status-error">needs-attention</span>
+                        </li>
+                    
+                </ul>
+            </div>
+
+            <div class="card">
+                <h3>🔄 Recent Activity</h3>
+                <ul class="activity-list">
+                    
+                        <li class="activity-item activity-success">
+                            <strong>build:</strong> Backend build completed successfully
+                            <br><small>6/14/2025, 4:46:02 PM</small>
+                        </li>
+                    
+                        <li class="activity-item activity-info">
+                            <strong>type-check:</strong> Type analysis updated
+                            <br><small>6/14/2025, 4:46:02 PM</small>
+                        </li>
+                    
+                </ul>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

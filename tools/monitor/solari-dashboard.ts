@@ -215,10 +215,18 @@ export class SolariDashboard {
         const moduleName = this.extractModuleName(file.fileName);
         const moduleType = this.determineModuleType(file.fileName);
 
+        // Determine module status more intelligently
+        let status: 'ready' | 'needs-attention' | 'broken' | 'unknown' = 'ready';
+        if (file.errors.length > 10) {
+          status = 'broken';
+        } else if (file.errors.length > 0 || file.complexity > 20) {
+          status = 'needs-attention';
+        }
+
         modules.push({
           name: moduleName,
           type: moduleType,
-          status: file.errors.length > 0 ? 'broken' : 'ready',
+          status,
           lastModified: new Date().toISOString(),
           exports: file.exports.length,
           imports: file.imports.length,

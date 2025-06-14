@@ -1,0 +1,1872 @@
+{
+  "timestamp": "2025-06-14T15:45:52.541Z",
+  "summary": {
+    "totalFiles": 39,
+    "totalErrors": 157,
+    "totalWarnings": 0,
+    "typeCoverage": 18,
+    "averageComplexity": 8.179487179487179
+  },
+  "typeSafety": {
+    "errors": [
+      "Option 'customConditions' can only be used when 'moduleResolution' is set to 'node16', 'nodenext', or 'bundler'. (Line undefined)",
+      "[object Object] (Line undefined)",
+      "Composite projects may not disable declaration emit. (Line undefined)",
+      "Cannot find module 'jest' or its corresponding type declarations. (Line 1)",
+      "Unused '@ts-expect-error' directive. (Line 1)",
+      "Unused '@ts-expect-error' directive. (Line 6)",
+      "Unused '@ts-expect-error' directive. (Line 9)",
+      "Unused '@ts-expect-error' directive. (Line 13)",
+      "Unused '@ts-expect-error' directive. (Line 7)",
+      "Unused '@ts-expect-error' directive. (Line 11)",
+      "Unused '@ts-expect-error' directive. (Line 15)",
+      "Cannot find type definition file for 'vitest'. (Line 1)",
+      "Cannot find module '@vitejs/plugin-react' or its corresponding type declarations. (Line 4)",
+      "Cannot find module '@playwright/test' or its corresponding type declarations. (Line 1)",
+      "Cannot find module '@nx/playwright/preset' or its corresponding type declarations. (Line 2)",
+      "Cannot find module 'vite' or its corresponding type declarations. (Line 1)",
+      "Cannot find module 'react' or its corresponding type declarations. (Line 1)",
+      "Cannot find module 'react-dom/client' or its corresponding type declarations. (Line 2)",
+      "Module './app/app' was resolved to '/Users/andy/SolariHub v4.1/apps/frontend/src/app/app.tsx', but '--jsx' is not set. (Line 3)",
+      "Cannot find name 'document'. Do you need to change your target library? Try changing the 'lib' compiler option to include 'dom'. (Line 5)",
+      "Cannot find name 'HTMLElement'. (Line 5)",
+      "Cannot use JSX unless the '--jsx' flag is provided. (Line 8)",
+      "Cannot use JSX unless the '--jsx' flag is provided. (Line 9)",
+      "Cannot find module '@testing-library/react' or its corresponding type declarations. (Line 1)",
+      "Module './app' was resolved to '/Users/andy/SolariHub v4.1/apps/frontend/src/app/app.tsx', but '--jsx' is not set. (Line 3)",
+      "Cannot find name 'describe'. Do you need to install type definitions for a test runner? Try `npm i --save-dev @types/jest` or `npm i --save-dev @types/mocha`. (Line 5)",
+      "Cannot find name 'it'. Do you need to install type definitions for a test runner? Try `npm i --save-dev @types/jest` or `npm i --save-dev @types/mocha`. (Line 6)",
+      "Cannot use JSX unless the '--jsx' flag is provided. (Line 7)",
+      "Cannot find name 'expect'. (Line 8)",
+      "Cannot find name 'it'. Do you need to install type definitions for a test runner? Try `npm i --save-dev @types/jest` or `npm i --save-dev @types/mocha`. (Line 11)",
+      "Cannot use JSX unless the '--jsx' flag is provided. (Line 12)",
+      "Cannot find name 'expect'. (Line 13)",
+      "Module './nx-welcome' was resolved to '/Users/andy/SolariHub v4.1/apps/frontend/src/app/nx-welcome.tsx', but '--jsx' is not set. (Line 1)",
+      "Cannot use JSX unless the '--jsx' flag is provided. (Line 5)",
+      "Cannot use JSX unless the '--jsx' flag is provided. (Line 6)",
+      "Cannot use JSX unless the '--jsx' flag is provided. (Line 10)",
+      "Cannot use JSX unless the '--jsx' flag is provided. (Line 11)",
+      "Cannot use JSX unless the '--jsx' flag is provided. (Line 430)",
+      "Cannot use JSX unless the '--jsx' flag is provided. (Line 431)",
+      "Cannot use JSX unless the '--jsx' flag is provided. (Line 432)",
+      "Cannot use JSX unless the '--jsx' flag is provided. (Line 433)",
+      "Cannot use JSX unless the '--jsx' flag is provided. (Line 434)",
+      "Cannot use JSX unless the '--jsx' flag is provided. (Line 439)",
+      "Cannot use JSX unless the '--jsx' flag is provided. (Line 440)",
+      "Cannot use JSX unless the '--jsx' flag is provided. (Line 441)",
+      "Cannot use JSX unless the '--jsx' flag is provided. (Line 442)",
+      "Cannot use JSX unless the '--jsx' flag is provided. (Line 448)",
+      "Cannot use JSX unless the '--jsx' flag is provided. (Line 455)",
+      "Cannot use JSX unless the '--jsx' flag is provided. (Line 457)",
+      "Cannot use JSX unless the '--jsx' flag is provided. (Line 459)",
+      "Cannot use JSX unless the '--jsx' flag is provided. (Line 460)",
+      "Cannot use JSX unless the '--jsx' flag is provided. (Line 466)",
+      "Cannot use JSX unless the '--jsx' flag is provided. (Line 471)",
+      "Cannot use JSX unless the '--jsx' flag is provided. (Line 472)",
+      "Cannot use JSX unless the '--jsx' flag is provided. (Line 473)",
+      "Cannot use JSX unless the '--jsx' flag is provided. (Line 474)",
+      "Cannot use JSX unless the '--jsx' flag is provided. (Line 475)",
+      "Cannot use JSX unless the '--jsx' flag is provided. (Line 481)",
+      "Cannot use JSX unless the '--jsx' flag is provided. (Line 487)",
+      "Cannot use JSX unless the '--jsx' flag is provided. (Line 494)",
+      "Cannot use JSX unless the '--jsx' flag is provided. (Line 496)",
+      "Cannot use JSX unless the '--jsx' flag is provided. (Line 498)",
+      "Cannot use JSX unless the '--jsx' flag is provided. (Line 504)",
+      "Cannot use JSX unless the '--jsx' flag is provided. (Line 512)",
+      "Cannot use JSX unless the '--jsx' flag is provided. (Line 518)",
+      "Cannot use JSX unless the '--jsx' flag is provided. (Line 524)",
+      "Cannot use JSX unless the '--jsx' flag is provided. (Line 531)",
+      "Cannot use JSX unless the '--jsx' flag is provided. (Line 533)",
+      "Cannot use JSX unless the '--jsx' flag is provided. (Line 535)",
+      "Cannot use JSX unless the '--jsx' flag is provided. (Line 541)",
+      "Cannot use JSX unless the '--jsx' flag is provided. (Line 549)",
+      "Cannot use JSX unless the '--jsx' flag is provided. (Line 555)",
+      "Cannot use JSX unless the '--jsx' flag is provided. (Line 561)",
+      "Cannot use JSX unless the '--jsx' flag is provided. (Line 562)",
+      "Cannot use JSX unless the '--jsx' flag is provided. (Line 564)",
+      "Cannot use JSX unless the '--jsx' flag is provided. (Line 566)",
+      "Cannot use JSX unless the '--jsx' flag is provided. (Line 568)",
+      "Cannot use JSX unless the '--jsx' flag is provided. (Line 574)",
+      "Cannot use JSX unless the '--jsx' flag is provided. (Line 582)",
+      "Cannot use JSX unless the '--jsx' flag is provided. (Line 588)",
+      "Cannot use JSX unless the '--jsx' flag is provided. (Line 594)",
+      "Cannot use JSX unless the '--jsx' flag is provided. (Line 601)",
+      "Cannot use JSX unless the '--jsx' flag is provided. (Line 603)",
+      "Cannot use JSX unless the '--jsx' flag is provided. (Line 605)",
+      "Cannot use JSX unless the '--jsx' flag is provided. (Line 611)",
+      "Cannot use JSX unless the '--jsx' flag is provided. (Line 620)",
+      "Cannot use JSX unless the '--jsx' flag is provided. (Line 627)",
+      "Cannot use JSX unless the '--jsx' flag is provided. (Line 633)",
+      "Cannot use JSX unless the '--jsx' flag is provided. (Line 635)",
+      "Cannot use JSX unless the '--jsx' flag is provided. (Line 637)",
+      "Cannot use JSX unless the '--jsx' flag is provided. (Line 641)",
+      "Cannot use JSX unless the '--jsx' flag is provided. (Line 642)",
+      "Cannot use JSX unless the '--jsx' flag is provided. (Line 649)",
+      "Cannot use JSX unless the '--jsx' flag is provided. (Line 655)",
+      "Cannot use JSX unless the '--jsx' flag is provided. (Line 656)",
+      "Cannot use JSX unless the '--jsx' flag is provided. (Line 658)",
+      "Cannot use JSX unless the '--jsx' flag is provided. (Line 660)",
+      "Cannot use JSX unless the '--jsx' flag is provided. (Line 663)",
+      "Cannot use JSX unless the '--jsx' flag is provided. (Line 670)",
+      "Cannot use JSX unless the '--jsx' flag is provided. (Line 676)",
+      "Cannot use JSX unless the '--jsx' flag is provided. (Line 677)",
+      "Cannot use JSX unless the '--jsx' flag is provided. (Line 678)",
+      "Cannot use JSX unless the '--jsx' flag is provided. (Line 679)",
+      "Cannot use JSX unless the '--jsx' flag is provided. (Line 680)",
+      "Cannot use JSX unless the '--jsx' flag is provided. (Line 681)",
+      "Cannot use JSX unless the '--jsx' flag is provided. (Line 682)",
+      "Cannot use JSX unless the '--jsx' flag is provided. (Line 683)",
+      "Cannot use JSX unless the '--jsx' flag is provided. (Line 684)",
+      "Cannot use JSX unless the '--jsx' flag is provided. (Line 685)",
+      "Cannot use JSX unless the '--jsx' flag is provided. (Line 686)",
+      "Cannot use JSX unless the '--jsx' flag is provided. (Line 687)",
+      "Cannot use JSX unless the '--jsx' flag is provided. (Line 690)",
+      "Cannot use JSX unless the '--jsx' flag is provided. (Line 692)",
+      "Cannot use JSX unless the '--jsx' flag is provided. (Line 695)",
+      "Cannot use JSX unless the '--jsx' flag is provided. (Line 696)",
+      "Cannot use JSX unless the '--jsx' flag is provided. (Line 697)",
+      "Cannot use JSX unless the '--jsx' flag is provided. (Line 705)",
+      "Cannot use JSX unless the '--jsx' flag is provided. (Line 709)",
+      "Cannot use JSX unless the '--jsx' flag is provided. (Line 714)",
+      "Cannot use JSX unless the '--jsx' flag is provided. (Line 716)",
+      "Cannot use JSX unless the '--jsx' flag is provided. (Line 719)",
+      "Cannot use JSX unless the '--jsx' flag is provided. (Line 721)",
+      "Cannot use JSX unless the '--jsx' flag is provided. (Line 728)",
+      "Cannot use JSX unless the '--jsx' flag is provided. (Line 729)",
+      "Cannot use JSX unless the '--jsx' flag is provided. (Line 730)",
+      "Cannot use JSX unless the '--jsx' flag is provided. (Line 731)",
+      "Cannot use JSX unless the '--jsx' flag is provided. (Line 732)",
+      "Cannot use JSX unless the '--jsx' flag is provided. (Line 733)",
+      "Cannot use JSX unless the '--jsx' flag is provided. (Line 739)",
+      "Cannot use JSX unless the '--jsx' flag is provided. (Line 748)",
+      "Cannot use JSX unless the '--jsx' flag is provided. (Line 749)",
+      "Cannot use JSX unless the '--jsx' flag is provided. (Line 751)",
+      "Cannot use JSX unless the '--jsx' flag is provided. (Line 753)",
+      "Cannot use JSX unless the '--jsx' flag is provided. (Line 755)",
+      "Cannot use JSX unless the '--jsx' flag is provided. (Line 760)",
+      "Cannot use JSX unless the '--jsx' flag is provided. (Line 761)",
+      "Cannot use JSX unless the '--jsx' flag is provided. (Line 762)",
+      "Cannot use JSX unless the '--jsx' flag is provided. (Line 768)",
+      "Cannot use JSX unless the '--jsx' flag is provided. (Line 777)",
+      "Cannot use JSX unless the '--jsx' flag is provided. (Line 779)",
+      "Cannot use JSX unless the '--jsx' flag is provided. (Line 780)",
+      "Cannot use JSX unless the '--jsx' flag is provided. (Line 781)",
+      "Cannot use JSX unless the '--jsx' flag is provided. (Line 787)",
+      "Cannot use JSX unless the '--jsx' flag is provided. (Line 796)",
+      "Cannot use JSX unless the '--jsx' flag is provided. (Line 798)",
+      "Cannot use JSX unless the '--jsx' flag is provided. (Line 799)",
+      "Cannot use JSX unless the '--jsx' flag is provided. (Line 800)",
+      "Cannot use JSX unless the '--jsx' flag is provided. (Line 806)",
+      "Cannot use JSX unless the '--jsx' flag is provided. (Line 815)",
+      "Cannot use JSX unless the '--jsx' flag is provided. (Line 816)",
+      "Cannot use JSX unless the '--jsx' flag is provided. (Line 818)",
+      "Cannot use JSX unless the '--jsx' flag is provided. (Line 824)",
+      "Cannot use JSX unless the '--jsx' flag is provided. (Line 826)",
+      "Cannot use JSX unless the '--jsx' flag is provided. (Line 832)",
+      "Cannot find name 'describe'. Do you need to install type definitions for a test runner? Try `npm i --save-dev @types/jest` or `npm i --save-dev @types/mocha`. (Line 3)",
+      "Cannot find name 'it'. Do you need to install type definitions for a test runner? Try `npm i --save-dev @types/jest` or `npm i --save-dev @types/mocha`. (Line 4)",
+      "Cannot find name 'expect'. (Line 5)"
+    ],
+    "warnings": [],
+    "totalFiles": 39,
+    "typedFiles": 7,
+    "coverage": 18,
+    "timestamp": "2025-06-14T15:45:52.485Z"
+  },
+  "fileAnalyses": [
+    {
+      "fileName": "/Users/andy/SolariHub v4.1/jest.config.ts",
+      "relativePath": "jest.config.ts",
+      "exports": ["default"],
+      "imports": ["jest", "@nx/jest"],
+      "functions": [],
+      "classes": [],
+      "interfaces": [],
+      "types": [],
+      "errors": [
+        "Option 'customConditions' can only be used when 'moduleResolution' is set to 'node16', 'nodenext', or 'bundler'. (Line undefined)",
+        "[object Object] (Line undefined)",
+        "[object Object] (Line undefined)",
+        "[object Object] (Line undefined)",
+        "Composite projects may not disable declaration emit. (Line undefined)",
+        "Cannot find module 'jest' or its corresponding type declarations. (Line 1)"
+      ],
+      "warnings": [],
+      "complexity": 1,
+      "dependencies": ["jest", "@nx/jest"]
+    },
+    {
+      "fileName": "/Users/andy/SolariHub v4.1/vitest.workspace.ts",
+      "relativePath": "vitest.workspace.ts",
+      "exports": ["default"],
+      "imports": [],
+      "functions": [],
+      "classes": [],
+      "interfaces": [],
+      "types": [],
+      "errors": [
+        "Option 'customConditions' can only be used when 'moduleResolution' is set to 'node16', 'nodenext', or 'bundler'. (Line undefined)",
+        "[object Object] (Line undefined)",
+        "[object Object] (Line undefined)",
+        "[object Object] (Line undefined)",
+        "Composite projects may not disable declaration emit. (Line undefined)"
+      ],
+      "warnings": [],
+      "complexity": 1,
+      "dependencies": []
+    },
+    {
+      "fileName": "/Users/andy/SolariHub v4.1/apps/backend/jest.config.ts",
+      "relativePath": "apps/backend/jest.config.ts",
+      "exports": ["default"],
+      "imports": [],
+      "functions": [],
+      "classes": [],
+      "interfaces": [],
+      "types": [],
+      "errors": [
+        "Option 'customConditions' can only be used when 'moduleResolution' is set to 'node16', 'nodenext', or 'bundler'. (Line undefined)",
+        "[object Object] (Line undefined)",
+        "[object Object] (Line undefined)",
+        "[object Object] (Line undefined)",
+        "Composite projects may not disable declaration emit. (Line undefined)"
+      ],
+      "warnings": [],
+      "complexity": 1,
+      "dependencies": []
+    },
+    {
+      "fileName": "/Users/andy/SolariHub v4.1/apps/backend/webpack.config.ts",
+      "relativePath": "apps/backend/webpack.config.ts",
+      "exports": [],
+      "imports": [],
+      "functions": [],
+      "classes": [],
+      "interfaces": [],
+      "types": [],
+      "errors": [
+        "Option 'customConditions' can only be used when 'moduleResolution' is set to 'node16', 'nodenext', or 'bundler'. (Line undefined)",
+        "[object Object] (Line undefined)",
+        "[object Object] (Line undefined)",
+        "[object Object] (Line undefined)",
+        "Composite projects may not disable declaration emit. (Line undefined)",
+        "Unused '@ts-expect-error' directive. (Line 1)",
+        "Unused '@ts-expect-error' directive. (Line 6)",
+        "Unused '@ts-expect-error' directive. (Line 9)"
+      ],
+      "warnings": [],
+      "complexity": 1,
+      "dependencies": []
+    },
+    {
+      "fileName": "/Users/andy/SolariHub v4.1/apps/frontend/postcss.config.ts",
+      "relativePath": "apps/frontend/postcss.config.ts",
+      "exports": [],
+      "imports": [],
+      "functions": [],
+      "classes": [],
+      "interfaces": [],
+      "types": [],
+      "errors": [
+        "Option 'customConditions' can only be used when 'moduleResolution' is set to 'node16', 'nodenext', or 'bundler'. (Line undefined)",
+        "[object Object] (Line undefined)",
+        "[object Object] (Line undefined)",
+        "[object Object] (Line undefined)",
+        "Composite projects may not disable declaration emit. (Line undefined)",
+        "Unused '@ts-expect-error' directive. (Line 9)",
+        "Unused '@ts-expect-error' directive. (Line 13)"
+      ],
+      "warnings": [],
+      "complexity": 1,
+      "dependencies": []
+    },
+    {
+      "fileName": "/Users/andy/SolariHub v4.1/apps/frontend/tailwind.config.ts",
+      "relativePath": "apps/frontend/tailwind.config.ts",
+      "exports": [],
+      "imports": [],
+      "functions": [],
+      "classes": [],
+      "interfaces": [],
+      "types": [],
+      "errors": [
+        "Option 'customConditions' can only be used when 'moduleResolution' is set to 'node16', 'nodenext', or 'bundler'. (Line undefined)",
+        "[object Object] (Line undefined)",
+        "[object Object] (Line undefined)",
+        "[object Object] (Line undefined)",
+        "Composite projects may not disable declaration emit. (Line undefined)",
+        "Unused '@ts-expect-error' directive. (Line 1)",
+        "Unused '@ts-expect-error' directive. (Line 7)",
+        "Unused '@ts-expect-error' directive. (Line 11)",
+        "Unused '@ts-expect-error' directive. (Line 15)"
+      ],
+      "warnings": [],
+      "complexity": 1,
+      "dependencies": []
+    },
+    {
+      "fileName": "/Users/andy/SolariHub v4.1/apps/frontend/vite.config.ts",
+      "relativePath": "apps/frontend/vite.config.ts",
+      "exports": ["default"],
+      "imports": ["vite", "@vitejs/plugin-react"],
+      "functions": [],
+      "classes": [],
+      "interfaces": [],
+      "types": [],
+      "errors": [
+        "Option 'customConditions' can only be used when 'moduleResolution' is set to 'node16', 'nodenext', or 'bundler'. (Line undefined)",
+        "[object Object] (Line undefined)",
+        "[object Object] (Line undefined)",
+        "[object Object] (Line undefined)",
+        "Composite projects may not disable declaration emit. (Line undefined)",
+        "Cannot find type definition file for 'vitest'. (Line 1)",
+        "Cannot find module '@vitejs/plugin-react' or its corresponding type declarations. (Line 4)",
+        "Unused '@ts-expect-error' directive. (Line 7)"
+      ],
+      "warnings": [],
+      "complexity": 1,
+      "dependencies": ["vite", "@vitejs/plugin-react"]
+    },
+    {
+      "fileName": "/Users/andy/SolariHub v4.1/apps/frontend-e2e/playwright.config.ts",
+      "relativePath": "apps/frontend-e2e/playwright.config.ts",
+      "exports": ["default"],
+      "imports": ["@playwright/test", "@nx/playwright/preset", "@nx/devkit"],
+      "functions": [],
+      "classes": [],
+      "interfaces": [],
+      "types": [],
+      "errors": [
+        "Option 'customConditions' can only be used when 'moduleResolution' is set to 'node16', 'nodenext', or 'bundler'. (Line undefined)",
+        "[object Object] (Line undefined)",
+        "[object Object] (Line undefined)",
+        "[object Object] (Line undefined)",
+        "Composite projects may not disable declaration emit. (Line undefined)",
+        "Cannot find module '@playwright/test' or its corresponding type declarations. (Line 1)",
+        "Cannot find module '@nx/playwright/preset' or its corresponding type declarations. (Line 2)"
+      ],
+      "warnings": [],
+      "complexity": 1,
+      "dependencies": ["@playwright/test", "@nx/playwright", "@nx/devkit"]
+    },
+    {
+      "fileName": "/Users/andy/SolariHub v4.1/libs/types/vite.config.ts",
+      "relativePath": "libs/types/vite.config.ts",
+      "exports": ["default"],
+      "imports": ["vite"],
+      "functions": [],
+      "classes": [],
+      "interfaces": [],
+      "types": [],
+      "errors": [
+        "Option 'customConditions' can only be used when 'moduleResolution' is set to 'node16', 'nodenext', or 'bundler'. (Line undefined)",
+        "[object Object] (Line undefined)",
+        "[object Object] (Line undefined)",
+        "[object Object] (Line undefined)",
+        "Composite projects may not disable declaration emit. (Line undefined)",
+        "Cannot find module 'vite' or its corresponding type declarations. (Line 1)"
+      ],
+      "warnings": [],
+      "complexity": 1,
+      "dependencies": ["vite"]
+    },
+    {
+      "fileName": "/Users/andy/SolariHub v4.1/tools/analyzers/ts-morph-analyzer.ts",
+      "relativePath": "tools/analyzers/ts-morph-analyzer.ts",
+      "exports": ["TsMorphAnalyzer", "FileAnalysis", "TypeSafetyReport", "DependencyGraph"],
+      "imports": ["ts-morph", "fs", "path"],
+      "functions": [],
+      "classes": ["TsMorphAnalyzer"],
+      "interfaces": ["FileAnalysis", "TypeSafetyReport", "DependencyGraph"],
+      "types": [],
+      "errors": [
+        "Option 'customConditions' can only be used when 'moduleResolution' is set to 'node16', 'nodenext', or 'bundler'. (Line undefined)",
+        "[object Object] (Line undefined)",
+        "[object Object] (Line undefined)",
+        "[object Object] (Line undefined)",
+        "Composite projects may not disable declaration emit. (Line undefined)"
+      ],
+      "warnings": [],
+      "complexity": 18,
+      "dependencies": ["ts-morph", "fs", "path"]
+    },
+    {
+      "fileName": "/Users/andy/SolariHub v4.1/tools/cli/solari-cli.ts",
+      "relativePath": "tools/cli/solari-cli.ts",
+      "exports": ["SolariCLI"],
+      "imports": [
+        "commander",
+        "../analyzers/ts-morph-analyzer",
+        "../watchers/chokidar-watcher",
+        "../monitor/solari-dashboard",
+        "child_process",
+        "fs",
+        "path"
+      ],
+      "functions": [],
+      "classes": ["SolariCLI"],
+      "interfaces": [],
+      "types": [],
+      "errors": [
+        "Option 'customConditions' can only be used when 'moduleResolution' is set to 'node16', 'nodenext', or 'bundler'. (Line undefined)",
+        "[object Object] (Line undefined)",
+        "[object Object] (Line undefined)",
+        "[object Object] (Line undefined)",
+        "Composite projects may not disable declaration emit. (Line undefined)"
+      ],
+      "warnings": [],
+      "complexity": 49,
+      "dependencies": ["commander", "child_process", "fs", "path"]
+    },
+    {
+      "fileName": "/Users/andy/SolariHub v4.1/tools/monitor/solari-dashboard.ts",
+      "relativePath": "tools/monitor/solari-dashboard.ts",
+      "exports": [
+        "SolariDashboard",
+        "BuildStatus",
+        "TypeSafetyReport",
+        "CoverageReport",
+        "ModuleStatus",
+        "DashboardData"
+      ],
+      "imports": ["fs", "path", "../watchers/chokidar-watcher", "../analyzers/ts-morph-analyzer"],
+      "functions": [],
+      "classes": ["SolariDashboard"],
+      "interfaces": [
+        "BuildStatus",
+        "TypeSafetyReport",
+        "CoverageReport",
+        "ModuleStatus",
+        "DashboardData"
+      ],
+      "types": [],
+      "errors": [
+        "Option 'customConditions' can only be used when 'moduleResolution' is set to 'node16', 'nodenext', or 'bundler'. (Line undefined)",
+        "[object Object] (Line undefined)",
+        "[object Object] (Line undefined)",
+        "[object Object] (Line undefined)",
+        "Composite projects may not disable declaration emit. (Line undefined)"
+      ],
+      "warnings": [],
+      "complexity": 26,
+      "dependencies": ["fs", "path"]
+    },
+    {
+      "fileName": "/Users/andy/SolariHub v4.1/tools/watchers/chokidar-watcher.ts",
+      "relativePath": "tools/watchers/chokidar-watcher.ts",
+      "exports": ["ChokidarWatcher", "WatcherConfig", "FileChangeEvent"],
+      "imports": ["chokidar", "../analyzers/ts-morph-analyzer"],
+      "functions": [],
+      "classes": ["ChokidarWatcher"],
+      "interfaces": ["WatcherConfig", "FileChangeEvent"],
+      "types": ["FileChangeEventType"],
+      "errors": [
+        "Option 'customConditions' can only be used when 'moduleResolution' is set to 'node16', 'nodenext', or 'bundler'. (Line undefined)",
+        "[object Object] (Line undefined)",
+        "[object Object] (Line undefined)",
+        "[object Object] (Line undefined)",
+        "Composite projects may not disable declaration emit. (Line undefined)"
+      ],
+      "warnings": [],
+      "complexity": 15,
+      "dependencies": ["chokidar"]
+    },
+    {
+      "fileName": "/Users/andy/SolariHub v4.1/apps/backend/src/main.ts",
+      "relativePath": "apps/backend/src/main.ts",
+      "exports": ["SolariHubServer", "default"],
+      "imports": [
+        "express",
+        "cors",
+        "helmet",
+        "compression",
+        "morgan",
+        "express-rate-limit",
+        "./config/environment",
+        "./services/database.service",
+        "./utils/logger",
+        "./utils/errors",
+        "./api/health/health.routes",
+        "./api/auth/auth.routes",
+        "./api/users/users.routes",
+        "./api/middleware/auth.middleware"
+      ],
+      "functions": [],
+      "classes": ["SolariHubServer"],
+      "interfaces": [],
+      "types": [],
+      "errors": [
+        "Option 'customConditions' can only be used when 'moduleResolution' is set to 'node16', 'nodenext', or 'bundler'. (Line undefined)",
+        "[object Object] (Line undefined)",
+        "[object Object] (Line undefined)",
+        "[object Object] (Line undefined)",
+        "Composite projects may not disable declaration emit. (Line undefined)"
+      ],
+      "warnings": [],
+      "complexity": 8,
+      "dependencies": ["express", "cors", "helmet", "compression", "morgan", "express-rate-limit"]
+    },
+    {
+      "fileName": "/Users/andy/SolariHub v4.1/apps/frontend/src/main.tsx",
+      "relativePath": "apps/frontend/src/main.tsx",
+      "exports": [],
+      "imports": ["react", "react-dom/client", "./app/app"],
+      "functions": [],
+      "classes": [],
+      "interfaces": [],
+      "types": [],
+      "errors": [
+        "Option 'customConditions' can only be used when 'moduleResolution' is set to 'node16', 'nodenext', or 'bundler'. (Line undefined)",
+        "[object Object] (Line undefined)",
+        "[object Object] (Line undefined)",
+        "[object Object] (Line undefined)",
+        "Composite projects may not disable declaration emit. (Line undefined)",
+        "Cannot find module 'react' or its corresponding type declarations. (Line 1)",
+        "Cannot find module 'react-dom/client' or its corresponding type declarations. (Line 2)",
+        "Module './app/app' was resolved to '/Users/andy/SolariHub v4.1/apps/frontend/src/app/app.tsx', but '--jsx' is not set. (Line 3)",
+        "Cannot find name 'document'. Do you need to change your target library? Try changing the 'lib' compiler option to include 'dom'. (Line 5)",
+        "Cannot find name 'HTMLElement'. (Line 5)",
+        "Cannot use JSX unless the '--jsx' flag is provided. (Line 8)",
+        "Cannot use JSX unless the '--jsx' flag is provided. (Line 9)"
+      ],
+      "warnings": [],
+      "complexity": 1,
+      "dependencies": ["react", "react-dom"]
+    },
+    {
+      "fileName": "/Users/andy/SolariHub v4.1/apps/frontend-e2e/src/example.spec.ts",
+      "relativePath": "apps/frontend-e2e/src/example.spec.ts",
+      "exports": [],
+      "imports": ["@playwright/test"],
+      "functions": [],
+      "classes": [],
+      "interfaces": [],
+      "types": [],
+      "errors": [
+        "Option 'customConditions' can only be used when 'moduleResolution' is set to 'node16', 'nodenext', or 'bundler'. (Line undefined)",
+        "[object Object] (Line undefined)",
+        "[object Object] (Line undefined)",
+        "[object Object] (Line undefined)",
+        "Composite projects may not disable declaration emit. (Line undefined)",
+        "Cannot find module '@playwright/test' or its corresponding type declarations. (Line 1)"
+      ],
+      "warnings": [],
+      "complexity": 1,
+      "dependencies": ["@playwright/test"]
+    },
+    {
+      "fileName": "/Users/andy/SolariHub v4.1/libs/types/src/index.ts",
+      "relativePath": "libs/types/src/index.ts",
+      "exports": [],
+      "imports": [],
+      "functions": [],
+      "classes": [],
+      "interfaces": [],
+      "types": [],
+      "errors": [
+        "Option 'customConditions' can only be used when 'moduleResolution' is set to 'node16', 'nodenext', or 'bundler'. (Line undefined)",
+        "[object Object] (Line undefined)",
+        "[object Object] (Line undefined)",
+        "[object Object] (Line undefined)",
+        "Composite projects may not disable declaration emit. (Line undefined)"
+      ],
+      "warnings": [],
+      "complexity": 1,
+      "dependencies": []
+    },
+    {
+      "fileName": "/Users/andy/SolariHub v4.1/apps/backend/src/config/database.ts",
+      "relativePath": "apps/backend/src/config/database.ts",
+      "exports": [],
+      "imports": ["pg", "mongoose", "redis", "./environment", "../utils/logger"],
+      "functions": [],
+      "classes": [],
+      "interfaces": [],
+      "types": [],
+      "errors": [
+        "Option 'customConditions' can only be used when 'moduleResolution' is set to 'node16', 'nodenext', or 'bundler'. (Line undefined)",
+        "[object Object] (Line undefined)",
+        "[object Object] (Line undefined)",
+        "[object Object] (Line undefined)",
+        "Composite projects may not disable declaration emit. (Line undefined)"
+      ],
+      "warnings": [],
+      "complexity": 10,
+      "dependencies": ["pg", "mongoose", "redis"]
+    },
+    {
+      "fileName": "/Users/andy/SolariHub v4.1/apps/backend/src/config/environment.ts",
+      "relativePath": "apps/backend/src/config/environment.ts",
+      "exports": ["default"],
+      "imports": ["dotenv", "joi"],
+      "functions": [],
+      "classes": [],
+      "interfaces": [],
+      "types": [],
+      "errors": [
+        "Option 'customConditions' can only be used when 'moduleResolution' is set to 'node16', 'nodenext', or 'bundler'. (Line undefined)",
+        "[object Object] (Line undefined)",
+        "[object Object] (Line undefined)",
+        "[object Object] (Line undefined)",
+        "Composite projects may not disable declaration emit. (Line undefined)"
+      ],
+      "warnings": [],
+      "complexity": 2,
+      "dependencies": ["dotenv", "joi"]
+    },
+    {
+      "fileName": "/Users/andy/SolariHub v4.1/apps/backend/src/models/base.model.ts",
+      "relativePath": "apps/backend/src/models/base.model.ts",
+      "exports": ["BaseModel"],
+      "imports": ["pg", "../services/database.service", "../utils/errors", "../utils/logger"],
+      "functions": [],
+      "classes": ["BaseModel"],
+      "interfaces": [],
+      "types": [],
+      "errors": [
+        "Option 'customConditions' can only be used when 'moduleResolution' is set to 'node16', 'nodenext', or 'bundler'. (Line undefined)",
+        "[object Object] (Line undefined)",
+        "[object Object] (Line undefined)",
+        "[object Object] (Line undefined)",
+        "Composite projects may not disable declaration emit. (Line undefined)"
+      ],
+      "warnings": [],
+      "complexity": 6,
+      "dependencies": ["pg"]
+    },
+    {
+      "fileName": "/Users/andy/SolariHub v4.1/apps/backend/src/models/user.model.ts",
+      "relativePath": "apps/backend/src/models/user.model.ts",
+      "exports": [
+        "UserModel",
+        "User",
+        "UserProfile",
+        "CreateUserData",
+        "UpdateUserData",
+        "UserWithProfile"
+      ],
+      "imports": ["bcryptjs", "./base.model", "../config/environment", "../utils/errors"],
+      "functions": [],
+      "classes": ["UserModel"],
+      "interfaces": ["User", "UserProfile", "CreateUserData", "UpdateUserData", "UserWithProfile"],
+      "types": ["UserRole", "KYCStatus"],
+      "errors": [
+        "Option 'customConditions' can only be used when 'moduleResolution' is set to 'node16', 'nodenext', or 'bundler'. (Line undefined)",
+        "[object Object] (Line undefined)",
+        "[object Object] (Line undefined)",
+        "[object Object] (Line undefined)",
+        "Composite projects may not disable declaration emit. (Line undefined)"
+      ],
+      "warnings": [],
+      "complexity": 19,
+      "dependencies": ["bcryptjs"]
+    },
+    {
+      "fileName": "/Users/andy/SolariHub v4.1/apps/backend/src/services/auth.service.ts",
+      "relativePath": "apps/backend/src/services/auth.service.ts",
+      "exports": ["AuthService", "LoginCredentials", "TokenPayload", "AuthTokens", "AuthResponse"],
+      "imports": [
+        "jsonwebtoken",
+        "../models/user.model",
+        "./user.service",
+        "../config/database",
+        "../config/environment",
+        "../utils/errors",
+        "../utils/logger"
+      ],
+      "functions": [],
+      "classes": ["AuthService"],
+      "interfaces": ["LoginCredentials", "TokenPayload", "AuthTokens", "AuthResponse"],
+      "types": [],
+      "errors": [
+        "Option 'customConditions' can only be used when 'moduleResolution' is set to 'node16', 'nodenext', or 'bundler'. (Line undefined)",
+        "[object Object] (Line undefined)",
+        "[object Object] (Line undefined)",
+        "[object Object] (Line undefined)",
+        "Composite projects may not disable declaration emit. (Line undefined)"
+      ],
+      "warnings": [],
+      "complexity": 28,
+      "dependencies": ["jsonwebtoken"]
+    },
+    {
+      "fileName": "/Users/andy/SolariHub v4.1/apps/backend/src/services/database.service.ts",
+      "relativePath": "apps/backend/src/services/database.service.ts",
+      "exports": ["DatabaseService"],
+      "imports": ["../config/database", "../utils/logger", "../utils/errors"],
+      "functions": [],
+      "classes": ["DatabaseService"],
+      "interfaces": [],
+      "types": [],
+      "errors": [
+        "Option 'customConditions' can only be used when 'moduleResolution' is set to 'node16', 'nodenext', or 'bundler'. (Line undefined)",
+        "[object Object] (Line undefined)",
+        "[object Object] (Line undefined)",
+        "[object Object] (Line undefined)",
+        "Composite projects may not disable declaration emit. (Line undefined)"
+      ],
+      "warnings": [],
+      "complexity": 6,
+      "dependencies": []
+    },
+    {
+      "fileName": "/Users/andy/SolariHub v4.1/apps/backend/src/services/user.service.ts",
+      "relativePath": "apps/backend/src/services/user.service.ts",
+      "exports": ["UserService"],
+      "imports": ["../models/user.model", "../utils/errors", "../utils/logger"],
+      "functions": [],
+      "classes": ["UserService"],
+      "interfaces": [],
+      "types": [],
+      "errors": [
+        "Option 'customConditions' can only be used when 'moduleResolution' is set to 'node16', 'nodenext', or 'bundler'. (Line undefined)",
+        "[object Object] (Line undefined)",
+        "[object Object] (Line undefined)",
+        "[object Object] (Line undefined)",
+        "Composite projects may not disable declaration emit. (Line undefined)"
+      ],
+      "warnings": [],
+      "complexity": 28,
+      "dependencies": []
+    },
+    {
+      "fileName": "/Users/andy/SolariHub v4.1/apps/backend/src/utils/errors.ts",
+      "relativePath": "apps/backend/src/utils/errors.ts",
+      "exports": [
+        "AppError",
+        "ValidationError",
+        "AuthenticationError",
+        "AuthorizationError",
+        "NotFoundError",
+        "ConflictError",
+        "RateLimitError",
+        "DatabaseError",
+        "ExternalServiceError"
+      ],
+      "imports": ["express", "./logger"],
+      "functions": [],
+      "classes": [
+        "AppError",
+        "ValidationError",
+        "AuthenticationError",
+        "AuthorizationError",
+        "NotFoundError",
+        "ConflictError",
+        "RateLimitError",
+        "DatabaseError",
+        "ExternalServiceError"
+      ],
+      "interfaces": ["ErrorResponse"],
+      "types": [],
+      "errors": [
+        "Option 'customConditions' can only be used when 'moduleResolution' is set to 'node16', 'nodenext', or 'bundler'. (Line undefined)",
+        "[object Object] (Line undefined)",
+        "[object Object] (Line undefined)",
+        "[object Object] (Line undefined)",
+        "Composite projects may not disable declaration emit. (Line undefined)"
+      ],
+      "warnings": [],
+      "complexity": 17,
+      "dependencies": ["express"]
+    },
+    {
+      "fileName": "/Users/andy/SolariHub v4.1/apps/backend/src/utils/logger.ts",
+      "relativePath": "apps/backend/src/utils/logger.ts",
+      "exports": ["default"],
+      "imports": ["winston", "../config/environment"],
+      "functions": [],
+      "classes": [],
+      "interfaces": [],
+      "types": [],
+      "errors": [
+        "Option 'customConditions' can only be used when 'moduleResolution' is set to 'node16', 'nodenext', or 'bundler'. (Line undefined)",
+        "[object Object] (Line undefined)",
+        "[object Object] (Line undefined)",
+        "[object Object] (Line undefined)",
+        "Composite projects may not disable declaration emit. (Line undefined)"
+      ],
+      "warnings": [],
+      "complexity": 8,
+      "dependencies": ["winston"]
+    },
+    {
+      "fileName": "/Users/andy/SolariHub v4.1/apps/backend/src/utils/validator.ts",
+      "relativePath": "apps/backend/src/utils/validator.ts",
+      "exports": ["default"],
+      "imports": ["joi", "express", "./errors"],
+      "functions": [],
+      "classes": [],
+      "interfaces": [],
+      "types": [],
+      "errors": [
+        "Option 'customConditions' can only be used when 'moduleResolution' is set to 'node16', 'nodenext', or 'bundler'. (Line undefined)",
+        "[object Object] (Line undefined)",
+        "[object Object] (Line undefined)",
+        "[object Object] (Line undefined)",
+        "Composite projects may not disable declaration emit. (Line undefined)"
+      ],
+      "warnings": [],
+      "complexity": 10,
+      "dependencies": ["joi", "express"]
+    },
+    {
+      "fileName": "/Users/andy/SolariHub v4.1/apps/frontend/src/app/app.spec.tsx",
+      "relativePath": "apps/frontend/src/app/app.spec.tsx",
+      "exports": [],
+      "imports": ["@testing-library/react", "./app"],
+      "functions": [],
+      "classes": [],
+      "interfaces": [],
+      "types": [],
+      "errors": [
+        "Option 'customConditions' can only be used when 'moduleResolution' is set to 'node16', 'nodenext', or 'bundler'. (Line undefined)",
+        "[object Object] (Line undefined)",
+        "[object Object] (Line undefined)",
+        "[object Object] (Line undefined)",
+        "Composite projects may not disable declaration emit. (Line undefined)",
+        "Cannot find module '@testing-library/react' or its corresponding type declarations. (Line 1)",
+        "Module './app' was resolved to '/Users/andy/SolariHub v4.1/apps/frontend/src/app/app.tsx', but '--jsx' is not set. (Line 3)",
+        "Cannot find name 'describe'. Do you need to install type definitions for a test runner? Try `npm i --save-dev @types/jest` or `npm i --save-dev @types/mocha`. (Line 5)",
+        "Cannot find name 'it'. Do you need to install type definitions for a test runner? Try `npm i --save-dev @types/jest` or `npm i --save-dev @types/mocha`. (Line 6)",
+        "Cannot use JSX unless the '--jsx' flag is provided. (Line 7)",
+        "Cannot find name 'expect'. (Line 8)",
+        "Cannot find name 'it'. Do you need to install type definitions for a test runner? Try `npm i --save-dev @types/jest` or `npm i --save-dev @types/mocha`. (Line 11)",
+        "Cannot use JSX unless the '--jsx' flag is provided. (Line 12)",
+        "Cannot find name 'expect'. (Line 13)"
+      ],
+      "warnings": [],
+      "complexity": 1,
+      "dependencies": ["@testing-library/react"]
+    },
+    {
+      "fileName": "/Users/andy/SolariHub v4.1/apps/frontend/src/app/app.tsx",
+      "relativePath": "apps/frontend/src/app/app.tsx",
+      "exports": ["default", "App"],
+      "imports": ["./nx-welcome"],
+      "functions": ["App"],
+      "classes": [],
+      "interfaces": [],
+      "types": [],
+      "errors": [
+        "Option 'customConditions' can only be used when 'moduleResolution' is set to 'node16', 'nodenext', or 'bundler'. (Line undefined)",
+        "[object Object] (Line undefined)",
+        "[object Object] (Line undefined)",
+        "[object Object] (Line undefined)",
+        "Composite projects may not disable declaration emit. (Line undefined)",
+        "Module './nx-welcome' was resolved to '/Users/andy/SolariHub v4.1/apps/frontend/src/app/nx-welcome.tsx', but '--jsx' is not set. (Line 1)",
+        "Cannot use JSX unless the '--jsx' flag is provided. (Line 5)",
+        "Cannot use JSX unless the '--jsx' flag is provided. (Line 6)"
+      ],
+      "warnings": [],
+      "complexity": 1,
+      "dependencies": []
+    },
+    {
+      "fileName": "/Users/andy/SolariHub v4.1/apps/frontend/src/app/nx-welcome.tsx",
+      "relativePath": "apps/frontend/src/app/nx-welcome.tsx",
+      "exports": ["default", "NxWelcome"],
+      "imports": [],
+      "functions": ["NxWelcome"],
+      "classes": [],
+      "interfaces": [],
+      "types": [],
+      "errors": [
+        "Option 'customConditions' can only be used when 'moduleResolution' is set to 'node16', 'nodenext', or 'bundler'. (Line undefined)",
+        "[object Object] (Line undefined)",
+        "[object Object] (Line undefined)",
+        "[object Object] (Line undefined)",
+        "Composite projects may not disable declaration emit. (Line undefined)",
+        "Cannot use JSX unless the '--jsx' flag is provided. (Line 10)",
+        "Cannot use JSX unless the '--jsx' flag is provided. (Line 11)",
+        "Cannot use JSX unless the '--jsx' flag is provided. (Line 430)",
+        "Cannot use JSX unless the '--jsx' flag is provided. (Line 431)",
+        "Cannot use JSX unless the '--jsx' flag is provided. (Line 432)",
+        "Cannot use JSX unless the '--jsx' flag is provided. (Line 433)",
+        "Cannot use JSX unless the '--jsx' flag is provided. (Line 434)",
+        "Cannot use JSX unless the '--jsx' flag is provided. (Line 439)",
+        "Cannot use JSX unless the '--jsx' flag is provided. (Line 440)",
+        "Cannot use JSX unless the '--jsx' flag is provided. (Line 441)",
+        "Cannot use JSX unless the '--jsx' flag is provided. (Line 442)",
+        "Cannot use JSX unless the '--jsx' flag is provided. (Line 448)",
+        "Cannot use JSX unless the '--jsx' flag is provided. (Line 455)",
+        "Cannot use JSX unless the '--jsx' flag is provided. (Line 457)",
+        "Cannot use JSX unless the '--jsx' flag is provided. (Line 459)",
+        "Cannot use JSX unless the '--jsx' flag is provided. (Line 460)",
+        "Cannot use JSX unless the '--jsx' flag is provided. (Line 466)",
+        "Cannot use JSX unless the '--jsx' flag is provided. (Line 471)",
+        "Cannot use JSX unless the '--jsx' flag is provided. (Line 472)",
+        "Cannot use JSX unless the '--jsx' flag is provided. (Line 473)",
+        "Cannot use JSX unless the '--jsx' flag is provided. (Line 474)",
+        "Cannot use JSX unless the '--jsx' flag is provided. (Line 475)",
+        "Cannot use JSX unless the '--jsx' flag is provided. (Line 481)",
+        "Cannot use JSX unless the '--jsx' flag is provided. (Line 487)",
+        "Cannot use JSX unless the '--jsx' flag is provided. (Line 494)",
+        "Cannot use JSX unless the '--jsx' flag is provided. (Line 496)",
+        "Cannot use JSX unless the '--jsx' flag is provided. (Line 498)",
+        "Cannot use JSX unless the '--jsx' flag is provided. (Line 504)",
+        "Cannot use JSX unless the '--jsx' flag is provided. (Line 512)",
+        "Cannot use JSX unless the '--jsx' flag is provided. (Line 518)",
+        "Cannot use JSX unless the '--jsx' flag is provided. (Line 524)",
+        "Cannot use JSX unless the '--jsx' flag is provided. (Line 531)",
+        "Cannot use JSX unless the '--jsx' flag is provided. (Line 533)",
+        "Cannot use JSX unless the '--jsx' flag is provided. (Line 535)",
+        "Cannot use JSX unless the '--jsx' flag is provided. (Line 541)",
+        "Cannot use JSX unless the '--jsx' flag is provided. (Line 549)",
+        "Cannot use JSX unless the '--jsx' flag is provided. (Line 555)",
+        "Cannot use JSX unless the '--jsx' flag is provided. (Line 561)",
+        "Cannot use JSX unless the '--jsx' flag is provided. (Line 562)",
+        "Cannot use JSX unless the '--jsx' flag is provided. (Line 564)",
+        "Cannot use JSX unless the '--jsx' flag is provided. (Line 566)",
+        "Cannot use JSX unless the '--jsx' flag is provided. (Line 568)",
+        "Cannot use JSX unless the '--jsx' flag is provided. (Line 574)",
+        "Cannot use JSX unless the '--jsx' flag is provided. (Line 582)",
+        "Cannot use JSX unless the '--jsx' flag is provided. (Line 588)",
+        "Cannot use JSX unless the '--jsx' flag is provided. (Line 594)",
+        "Cannot use JSX unless the '--jsx' flag is provided. (Line 601)",
+        "Cannot use JSX unless the '--jsx' flag is provided. (Line 603)",
+        "Cannot use JSX unless the '--jsx' flag is provided. (Line 605)",
+        "Cannot use JSX unless the '--jsx' flag is provided. (Line 611)",
+        "Cannot use JSX unless the '--jsx' flag is provided. (Line 620)",
+        "Cannot use JSX unless the '--jsx' flag is provided. (Line 627)",
+        "Cannot use JSX unless the '--jsx' flag is provided. (Line 633)",
+        "Cannot use JSX unless the '--jsx' flag is provided. (Line 635)",
+        "Cannot use JSX unless the '--jsx' flag is provided. (Line 637)",
+        "Cannot use JSX unless the '--jsx' flag is provided. (Line 641)",
+        "Cannot use JSX unless the '--jsx' flag is provided. (Line 642)",
+        "Cannot use JSX unless the '--jsx' flag is provided. (Line 649)",
+        "Cannot use JSX unless the '--jsx' flag is provided. (Line 655)",
+        "Cannot use JSX unless the '--jsx' flag is provided. (Line 656)",
+        "Cannot use JSX unless the '--jsx' flag is provided. (Line 658)",
+        "Cannot use JSX unless the '--jsx' flag is provided. (Line 660)",
+        "Cannot use JSX unless the '--jsx' flag is provided. (Line 663)",
+        "Cannot use JSX unless the '--jsx' flag is provided. (Line 670)",
+        "Cannot use JSX unless the '--jsx' flag is provided. (Line 676)",
+        "Cannot use JSX unless the '--jsx' flag is provided. (Line 677)",
+        "Cannot use JSX unless the '--jsx' flag is provided. (Line 678)",
+        "Cannot use JSX unless the '--jsx' flag is provided. (Line 679)",
+        "Cannot use JSX unless the '--jsx' flag is provided. (Line 680)",
+        "Cannot use JSX unless the '--jsx' flag is provided. (Line 681)",
+        "Cannot use JSX unless the '--jsx' flag is provided. (Line 682)",
+        "Cannot use JSX unless the '--jsx' flag is provided. (Line 683)",
+        "Cannot use JSX unless the '--jsx' flag is provided. (Line 684)",
+        "Cannot use JSX unless the '--jsx' flag is provided. (Line 685)",
+        "Cannot use JSX unless the '--jsx' flag is provided. (Line 686)",
+        "Cannot use JSX unless the '--jsx' flag is provided. (Line 687)",
+        "Cannot use JSX unless the '--jsx' flag is provided. (Line 690)",
+        "Cannot use JSX unless the '--jsx' flag is provided. (Line 692)",
+        "Cannot use JSX unless the '--jsx' flag is provided. (Line 695)",
+        "Cannot use JSX unless the '--jsx' flag is provided. (Line 696)",
+        "Cannot use JSX unless the '--jsx' flag is provided. (Line 697)",
+        "Cannot use JSX unless the '--jsx' flag is provided. (Line 705)",
+        "Cannot use JSX unless the '--jsx' flag is provided. (Line 709)",
+        "Cannot use JSX unless the '--jsx' flag is provided. (Line 714)",
+        "Cannot use JSX unless the '--jsx' flag is provided. (Line 716)",
+        "Cannot use JSX unless the '--jsx' flag is provided. (Line 719)",
+        "Cannot use JSX unless the '--jsx' flag is provided. (Line 721)",
+        "Cannot use JSX unless the '--jsx' flag is provided. (Line 728)",
+        "Cannot use JSX unless the '--jsx' flag is provided. (Line 729)",
+        "Cannot use JSX unless the '--jsx' flag is provided. (Line 730)",
+        "Cannot use JSX unless the '--jsx' flag is provided. (Line 731)",
+        "Cannot use JSX unless the '--jsx' flag is provided. (Line 732)",
+        "Cannot use JSX unless the '--jsx' flag is provided. (Line 733)",
+        "Cannot use JSX unless the '--jsx' flag is provided. (Line 739)",
+        "Cannot use JSX unless the '--jsx' flag is provided. (Line 748)",
+        "Cannot use JSX unless the '--jsx' flag is provided. (Line 749)",
+        "Cannot use JSX unless the '--jsx' flag is provided. (Line 751)",
+        "Cannot use JSX unless the '--jsx' flag is provided. (Line 753)",
+        "Cannot use JSX unless the '--jsx' flag is provided. (Line 755)",
+        "Cannot use JSX unless the '--jsx' flag is provided. (Line 760)",
+        "Cannot use JSX unless the '--jsx' flag is provided. (Line 761)",
+        "Cannot use JSX unless the '--jsx' flag is provided. (Line 762)",
+        "Cannot use JSX unless the '--jsx' flag is provided. (Line 768)",
+        "Cannot use JSX unless the '--jsx' flag is provided. (Line 777)",
+        "Cannot use JSX unless the '--jsx' flag is provided. (Line 779)",
+        "Cannot use JSX unless the '--jsx' flag is provided. (Line 780)",
+        "Cannot use JSX unless the '--jsx' flag is provided. (Line 781)",
+        "Cannot use JSX unless the '--jsx' flag is provided. (Line 787)",
+        "Cannot use JSX unless the '--jsx' flag is provided. (Line 796)",
+        "Cannot use JSX unless the '--jsx' flag is provided. (Line 798)",
+        "Cannot use JSX unless the '--jsx' flag is provided. (Line 799)",
+        "Cannot use JSX unless the '--jsx' flag is provided. (Line 800)",
+        "Cannot use JSX unless the '--jsx' flag is provided. (Line 806)",
+        "Cannot use JSX unless the '--jsx' flag is provided. (Line 815)",
+        "Cannot use JSX unless the '--jsx' flag is provided. (Line 816)",
+        "Cannot use JSX unless the '--jsx' flag is provided. (Line 818)",
+        "Cannot use JSX unless the '--jsx' flag is provided. (Line 824)",
+        "Cannot use JSX unless the '--jsx' flag is provided. (Line 826)",
+        "Cannot use JSX unless the '--jsx' flag is provided. (Line 832)"
+      ],
+      "warnings": [],
+      "complexity": 1,
+      "dependencies": []
+    },
+    {
+      "fileName": "/Users/andy/SolariHub v4.1/libs/types/src/lib/types.spec.ts",
+      "relativePath": "libs/types/src/lib/types.spec.ts",
+      "exports": [],
+      "imports": ["./types.js"],
+      "functions": [],
+      "classes": [],
+      "interfaces": [],
+      "types": [],
+      "errors": [
+        "Option 'customConditions' can only be used when 'moduleResolution' is set to 'node16', 'nodenext', or 'bundler'. (Line undefined)",
+        "[object Object] (Line undefined)",
+        "[object Object] (Line undefined)",
+        "[object Object] (Line undefined)",
+        "Composite projects may not disable declaration emit. (Line undefined)",
+        "Cannot find name 'describe'. Do you need to install type definitions for a test runner? Try `npm i --save-dev @types/jest` or `npm i --save-dev @types/mocha`. (Line 3)",
+        "Cannot find name 'it'. Do you need to install type definitions for a test runner? Try `npm i --save-dev @types/jest` or `npm i --save-dev @types/mocha`. (Line 4)",
+        "Cannot find name 'expect'. (Line 5)"
+      ],
+      "warnings": [],
+      "complexity": 1,
+      "dependencies": []
+    },
+    {
+      "fileName": "/Users/andy/SolariHub v4.1/libs/types/src/lib/types.ts",
+      "relativePath": "libs/types/src/lib/types.ts",
+      "exports": ["types"],
+      "imports": [],
+      "functions": ["types"],
+      "classes": [],
+      "interfaces": [],
+      "types": [],
+      "errors": [
+        "Option 'customConditions' can only be used when 'moduleResolution' is set to 'node16', 'nodenext', or 'bundler'. (Line undefined)",
+        "[object Object] (Line undefined)",
+        "[object Object] (Line undefined)",
+        "[object Object] (Line undefined)",
+        "Composite projects may not disable declaration emit. (Line undefined)"
+      ],
+      "warnings": [],
+      "complexity": 1,
+      "dependencies": []
+    },
+    {
+      "fileName": "/Users/andy/SolariHub v4.1/apps/backend/src/api/auth/auth.controller.ts",
+      "relativePath": "apps/backend/src/api/auth/auth.controller.ts",
+      "exports": [],
+      "imports": [
+        "express",
+        "../../services/auth.service",
+        "../../models/user.model",
+        "../../utils/errors",
+        "../../utils/logger"
+      ],
+      "functions": [],
+      "classes": [],
+      "interfaces": [],
+      "types": [],
+      "errors": [
+        "Option 'customConditions' can only be used when 'moduleResolution' is set to 'node16', 'nodenext', or 'bundler'. (Line undefined)",
+        "[object Object] (Line undefined)",
+        "[object Object] (Line undefined)",
+        "[object Object] (Line undefined)",
+        "Composite projects may not disable declaration emit. (Line undefined)"
+      ],
+      "warnings": [],
+      "complexity": 7,
+      "dependencies": ["express"]
+    },
+    {
+      "fileName": "/Users/andy/SolariHub v4.1/apps/backend/src/api/auth/auth.routes.ts",
+      "relativePath": "apps/backend/src/api/auth/auth.routes.ts",
+      "exports": ["default"],
+      "imports": ["express", "./auth.controller", "../middleware/auth.middleware"],
+      "functions": [],
+      "classes": [],
+      "interfaces": [],
+      "types": [],
+      "errors": [
+        "Option 'customConditions' can only be used when 'moduleResolution' is set to 'node16', 'nodenext', or 'bundler'. (Line undefined)",
+        "[object Object] (Line undefined)",
+        "[object Object] (Line undefined)",
+        "[object Object] (Line undefined)",
+        "Composite projects may not disable declaration emit. (Line undefined)"
+      ],
+      "warnings": [],
+      "complexity": 1,
+      "dependencies": ["express"]
+    },
+    {
+      "fileName": "/Users/andy/SolariHub v4.1/apps/backend/src/api/health/health.controller.ts",
+      "relativePath": "apps/backend/src/api/health/health.controller.ts",
+      "exports": [],
+      "imports": [
+        "express",
+        "../../services/database.service",
+        "../../services/user.service",
+        "../../config/environment",
+        "../../utils/errors",
+        "../../utils/logger"
+      ],
+      "functions": [],
+      "classes": [],
+      "interfaces": ["HealthStatus"],
+      "types": [],
+      "errors": [
+        "Option 'customConditions' can only be used when 'moduleResolution' is set to 'node16', 'nodenext', or 'bundler'. (Line undefined)",
+        "[object Object] (Line undefined)",
+        "[object Object] (Line undefined)",
+        "[object Object] (Line undefined)",
+        "Composite projects may not disable declaration emit. (Line undefined)"
+      ],
+      "warnings": [],
+      "complexity": 12,
+      "dependencies": ["express"]
+    },
+    {
+      "fileName": "/Users/andy/SolariHub v4.1/apps/backend/src/api/health/health.routes.ts",
+      "relativePath": "apps/backend/src/api/health/health.routes.ts",
+      "exports": ["default"],
+      "imports": ["express", "./health.controller", "../middleware/auth.middleware"],
+      "functions": [],
+      "classes": [],
+      "interfaces": [],
+      "types": [],
+      "errors": [
+        "Option 'customConditions' can only be used when 'moduleResolution' is set to 'node16', 'nodenext', or 'bundler'. (Line undefined)",
+        "[object Object] (Line undefined)",
+        "[object Object] (Line undefined)",
+        "[object Object] (Line undefined)",
+        "Composite projects may not disable declaration emit. (Line undefined)"
+      ],
+      "warnings": [],
+      "complexity": 1,
+      "dependencies": ["express"]
+    },
+    {
+      "fileName": "/Users/andy/SolariHub v4.1/apps/backend/src/api/middleware/auth.middleware.ts",
+      "relativePath": "apps/backend/src/api/middleware/auth.middleware.ts",
+      "exports": [],
+      "imports": [
+        "express",
+        "../../services/auth.service",
+        "../../services/user.service",
+        "../../utils/errors",
+        "../../utils/logger"
+      ],
+      "functions": [],
+      "classes": [],
+      "interfaces": [],
+      "types": [],
+      "errors": [
+        "Option 'customConditions' can only be used when 'moduleResolution' is set to 'node16', 'nodenext', or 'bundler'. (Line undefined)",
+        "[object Object] (Line undefined)",
+        "[object Object] (Line undefined)",
+        "[object Object] (Line undefined)",
+        "Composite projects may not disable declaration emit. (Line undefined)"
+      ],
+      "warnings": [],
+      "complexity": 23,
+      "dependencies": ["express"]
+    },
+    {
+      "fileName": "/Users/andy/SolariHub v4.1/apps/backend/src/api/users/users.controller.ts",
+      "relativePath": "apps/backend/src/api/users/users.controller.ts",
+      "exports": [],
+      "imports": [
+        "express",
+        "../../services/user.service",
+        "../../models/user.model",
+        "../../utils/errors",
+        "../../utils/logger"
+      ],
+      "functions": [],
+      "classes": [],
+      "interfaces": [],
+      "types": [],
+      "errors": [
+        "Option 'customConditions' can only be used when 'moduleResolution' is set to 'node16', 'nodenext', or 'bundler'. (Line undefined)",
+        "[object Object] (Line undefined)",
+        "[object Object] (Line undefined)",
+        "[object Object] (Line undefined)",
+        "Composite projects may not disable declaration emit. (Line undefined)"
+      ],
+      "warnings": [],
+      "complexity": 7,
+      "dependencies": ["express"]
+    },
+    {
+      "fileName": "/Users/andy/SolariHub v4.1/apps/backend/src/api/users/users.routes.ts",
+      "relativePath": "apps/backend/src/api/users/users.routes.ts",
+      "exports": ["default"],
+      "imports": ["express", "./users.controller", "../middleware/auth.middleware"],
+      "functions": [],
+      "classes": [],
+      "interfaces": [],
+      "types": [],
+      "errors": [
+        "Option 'customConditions' can only be used when 'moduleResolution' is set to 'node16', 'nodenext', or 'bundler'. (Line undefined)",
+        "[object Object] (Line undefined)",
+        "[object Object] (Line undefined)",
+        "[object Object] (Line undefined)",
+        "Composite projects may not disable declaration emit. (Line undefined)"
+      ],
+      "warnings": [],
+      "complexity": 1,
+      "dependencies": ["express"]
+    }
+  ],
+  "dependencyGraph": {
+    "nodes": [
+      {
+        "id": "jest.config.ts",
+        "label": "jest.config.ts",
+        "type": "file",
+        "size": 1
+      },
+      {
+        "id": "jest",
+        "label": "jest",
+        "type": "external",
+        "size": 1
+      },
+      {
+        "id": "@nx/jest",
+        "label": "@nx/jest",
+        "type": "external",
+        "size": 1
+      },
+      {
+        "id": "vitest.workspace.ts",
+        "label": "vitest.workspace.ts",
+        "type": "file",
+        "size": 1
+      },
+      {
+        "id": "apps/backend/jest.config.ts",
+        "label": "jest.config.ts",
+        "type": "file",
+        "size": 1
+      },
+      {
+        "id": "apps/backend/webpack.config.ts",
+        "label": "webpack.config.ts",
+        "type": "file",
+        "size": 1
+      },
+      {
+        "id": "apps/frontend/postcss.config.ts",
+        "label": "postcss.config.ts",
+        "type": "file",
+        "size": 1
+      },
+      {
+        "id": "apps/frontend/tailwind.config.ts",
+        "label": "tailwind.config.ts",
+        "type": "file",
+        "size": 1
+      },
+      {
+        "id": "apps/frontend/vite.config.ts",
+        "label": "vite.config.ts",
+        "type": "file",
+        "size": 1
+      },
+      {
+        "id": "vite",
+        "label": "vite",
+        "type": "external",
+        "size": 1
+      },
+      {
+        "id": "@vitejs/plugin-react",
+        "label": "@vitejs/plugin-react",
+        "type": "external",
+        "size": 1
+      },
+      {
+        "id": "apps/frontend-e2e/playwright.config.ts",
+        "label": "playwright.config.ts",
+        "type": "file",
+        "size": 1
+      },
+      {
+        "id": "@playwright/test",
+        "label": "@playwright/test",
+        "type": "external",
+        "size": 1
+      },
+      {
+        "id": "@nx/playwright",
+        "label": "@nx/playwright",
+        "type": "external",
+        "size": 1
+      },
+      {
+        "id": "@nx/devkit",
+        "label": "@nx/devkit",
+        "type": "external",
+        "size": 1
+      },
+      {
+        "id": "libs/types/vite.config.ts",
+        "label": "vite.config.ts",
+        "type": "file",
+        "size": 1
+      },
+      {
+        "id": "tools/analyzers/ts-morph-analyzer.ts",
+        "label": "ts-morph-analyzer.ts",
+        "type": "file",
+        "size": 18
+      },
+      {
+        "id": "ts-morph",
+        "label": "ts-morph",
+        "type": "external",
+        "size": 1
+      },
+      {
+        "id": "fs",
+        "label": "fs",
+        "type": "external",
+        "size": 1
+      },
+      {
+        "id": "path",
+        "label": "path",
+        "type": "external",
+        "size": 1
+      },
+      {
+        "id": "tools/cli/solari-cli.ts",
+        "label": "solari-cli.ts",
+        "type": "file",
+        "size": 49
+      },
+      {
+        "id": "commander",
+        "label": "commander",
+        "type": "external",
+        "size": 1
+      },
+      {
+        "id": "child_process",
+        "label": "child_process",
+        "type": "external",
+        "size": 1
+      },
+      {
+        "id": "tools/monitor/solari-dashboard.ts",
+        "label": "solari-dashboard.ts",
+        "type": "file",
+        "size": 26
+      },
+      {
+        "id": "tools/watchers/chokidar-watcher.ts",
+        "label": "chokidar-watcher.ts",
+        "type": "file",
+        "size": 15
+      },
+      {
+        "id": "chokidar",
+        "label": "chokidar",
+        "type": "external",
+        "size": 1
+      },
+      {
+        "id": "apps/backend/src/main.ts",
+        "label": "main.ts",
+        "type": "file",
+        "size": 8
+      },
+      {
+        "id": "express",
+        "label": "express",
+        "type": "external",
+        "size": 1
+      },
+      {
+        "id": "cors",
+        "label": "cors",
+        "type": "external",
+        "size": 1
+      },
+      {
+        "id": "helmet",
+        "label": "helmet",
+        "type": "external",
+        "size": 1
+      },
+      {
+        "id": "compression",
+        "label": "compression",
+        "type": "external",
+        "size": 1
+      },
+      {
+        "id": "morgan",
+        "label": "morgan",
+        "type": "external",
+        "size": 1
+      },
+      {
+        "id": "express-rate-limit",
+        "label": "express-rate-limit",
+        "type": "external",
+        "size": 1
+      },
+      {
+        "id": "apps/frontend/src/main.tsx",
+        "label": "main.tsx",
+        "type": "file",
+        "size": 1
+      },
+      {
+        "id": "react",
+        "label": "react",
+        "type": "external",
+        "size": 1
+      },
+      {
+        "id": "react-dom",
+        "label": "react-dom",
+        "type": "external",
+        "size": 1
+      },
+      {
+        "id": "apps/frontend-e2e/src/example.spec.ts",
+        "label": "example.spec.ts",
+        "type": "file",
+        "size": 1
+      },
+      {
+        "id": "libs/types/src/index.ts",
+        "label": "index.ts",
+        "type": "file",
+        "size": 1
+      },
+      {
+        "id": "apps/backend/src/config/database.ts",
+        "label": "database.ts",
+        "type": "file",
+        "size": 10
+      },
+      {
+        "id": "pg",
+        "label": "pg",
+        "type": "external",
+        "size": 1
+      },
+      {
+        "id": "mongoose",
+        "label": "mongoose",
+        "type": "external",
+        "size": 1
+      },
+      {
+        "id": "redis",
+        "label": "redis",
+        "type": "external",
+        "size": 1
+      },
+      {
+        "id": "apps/backend/src/config/environment.ts",
+        "label": "environment.ts",
+        "type": "file",
+        "size": 2
+      },
+      {
+        "id": "dotenv",
+        "label": "dotenv",
+        "type": "external",
+        "size": 1
+      },
+      {
+        "id": "joi",
+        "label": "joi",
+        "type": "external",
+        "size": 1
+      },
+      {
+        "id": "apps/backend/src/models/base.model.ts",
+        "label": "base.model.ts",
+        "type": "file",
+        "size": 6
+      },
+      {
+        "id": "apps/backend/src/models/user.model.ts",
+        "label": "user.model.ts",
+        "type": "file",
+        "size": 19
+      },
+      {
+        "id": "bcryptjs",
+        "label": "bcryptjs",
+        "type": "external",
+        "size": 1
+      },
+      {
+        "id": "apps/backend/src/services/auth.service.ts",
+        "label": "auth.service.ts",
+        "type": "file",
+        "size": 28
+      },
+      {
+        "id": "jsonwebtoken",
+        "label": "jsonwebtoken",
+        "type": "external",
+        "size": 1
+      },
+      {
+        "id": "apps/backend/src/services/database.service.ts",
+        "label": "database.service.ts",
+        "type": "file",
+        "size": 6
+      },
+      {
+        "id": "apps/backend/src/services/user.service.ts",
+        "label": "user.service.ts",
+        "type": "file",
+        "size": 28
+      },
+      {
+        "id": "apps/backend/src/utils/errors.ts",
+        "label": "errors.ts",
+        "type": "file",
+        "size": 17
+      },
+      {
+        "id": "apps/backend/src/utils/logger.ts",
+        "label": "logger.ts",
+        "type": "file",
+        "size": 8
+      },
+      {
+        "id": "winston",
+        "label": "winston",
+        "type": "external",
+        "size": 1
+      },
+      {
+        "id": "apps/backend/src/utils/validator.ts",
+        "label": "validator.ts",
+        "type": "file",
+        "size": 10
+      },
+      {
+        "id": "apps/frontend/src/app/app.spec.tsx",
+        "label": "app.spec.tsx",
+        "type": "file",
+        "size": 1
+      },
+      {
+        "id": "@testing-library/react",
+        "label": "@testing-library/react",
+        "type": "external",
+        "size": 1
+      },
+      {
+        "id": "apps/frontend/src/app/app.tsx",
+        "label": "app.tsx",
+        "type": "file",
+        "size": 1
+      },
+      {
+        "id": "apps/frontend/src/app/nx-welcome.tsx",
+        "label": "nx-welcome.tsx",
+        "type": "file",
+        "size": 1
+      },
+      {
+        "id": "libs/types/src/lib/types.spec.ts",
+        "label": "types.spec.ts",
+        "type": "file",
+        "size": 1
+      },
+      {
+        "id": "libs/types/src/lib/types.ts",
+        "label": "types.ts",
+        "type": "file",
+        "size": 1
+      },
+      {
+        "id": "apps/backend/src/api/auth/auth.controller.ts",
+        "label": "auth.controller.ts",
+        "type": "file",
+        "size": 7
+      },
+      {
+        "id": "apps/backend/src/api/auth/auth.routes.ts",
+        "label": "auth.routes.ts",
+        "type": "file",
+        "size": 1
+      },
+      {
+        "id": "apps/backend/src/api/health/health.controller.ts",
+        "label": "health.controller.ts",
+        "type": "file",
+        "size": 12
+      },
+      {
+        "id": "apps/backend/src/api/health/health.routes.ts",
+        "label": "health.routes.ts",
+        "type": "file",
+        "size": 1
+      },
+      {
+        "id": "apps/backend/src/api/middleware/auth.middleware.ts",
+        "label": "auth.middleware.ts",
+        "type": "file",
+        "size": 23
+      },
+      {
+        "id": "apps/backend/src/api/users/users.controller.ts",
+        "label": "users.controller.ts",
+        "type": "file",
+        "size": 7
+      },
+      {
+        "id": "apps/backend/src/api/users/users.routes.ts",
+        "label": "users.routes.ts",
+        "type": "file",
+        "size": 1
+      }
+    ],
+    "edges": [
+      {
+        "source": "jest.config.ts",
+        "target": "jest",
+        "type": "dependency"
+      },
+      {
+        "source": "jest.config.ts",
+        "target": "@nx/jest",
+        "type": "dependency"
+      },
+      {
+        "source": "apps/frontend/vite.config.ts",
+        "target": "vite",
+        "type": "dependency"
+      },
+      {
+        "source": "apps/frontend/vite.config.ts",
+        "target": "@vitejs/plugin-react",
+        "type": "dependency"
+      },
+      {
+        "source": "apps/frontend-e2e/playwright.config.ts",
+        "target": "@playwright/test",
+        "type": "dependency"
+      },
+      {
+        "source": "apps/frontend-e2e/playwright.config.ts",
+        "target": "@nx/playwright",
+        "type": "dependency"
+      },
+      {
+        "source": "apps/frontend-e2e/playwright.config.ts",
+        "target": "@nx/devkit",
+        "type": "dependency"
+      },
+      {
+        "source": "libs/types/vite.config.ts",
+        "target": "vite",
+        "type": "dependency"
+      },
+      {
+        "source": "tools/analyzers/ts-morph-analyzer.ts",
+        "target": "ts-morph",
+        "type": "dependency"
+      },
+      {
+        "source": "tools/analyzers/ts-morph-analyzer.ts",
+        "target": "fs",
+        "type": "dependency"
+      },
+      {
+        "source": "tools/analyzers/ts-morph-analyzer.ts",
+        "target": "path",
+        "type": "dependency"
+      },
+      {
+        "source": "tools/cli/solari-cli.ts",
+        "target": "commander",
+        "type": "dependency"
+      },
+      {
+        "source": "tools/cli/solari-cli.ts",
+        "target": "child_process",
+        "type": "dependency"
+      },
+      {
+        "source": "tools/cli/solari-cli.ts",
+        "target": "fs",
+        "type": "dependency"
+      },
+      {
+        "source": "tools/cli/solari-cli.ts",
+        "target": "path",
+        "type": "dependency"
+      },
+      {
+        "source": "tools/monitor/solari-dashboard.ts",
+        "target": "fs",
+        "type": "dependency"
+      },
+      {
+        "source": "tools/monitor/solari-dashboard.ts",
+        "target": "path",
+        "type": "dependency"
+      },
+      {
+        "source": "tools/watchers/chokidar-watcher.ts",
+        "target": "chokidar",
+        "type": "dependency"
+      },
+      {
+        "source": "apps/backend/src/main.ts",
+        "target": "express",
+        "type": "dependency"
+      },
+      {
+        "source": "apps/backend/src/main.ts",
+        "target": "cors",
+        "type": "dependency"
+      },
+      {
+        "source": "apps/backend/src/main.ts",
+        "target": "helmet",
+        "type": "dependency"
+      },
+      {
+        "source": "apps/backend/src/main.ts",
+        "target": "compression",
+        "type": "dependency"
+      },
+      {
+        "source": "apps/backend/src/main.ts",
+        "target": "morgan",
+        "type": "dependency"
+      },
+      {
+        "source": "apps/backend/src/main.ts",
+        "target": "express-rate-limit",
+        "type": "dependency"
+      },
+      {
+        "source": "apps/frontend/src/main.tsx",
+        "target": "react",
+        "type": "dependency"
+      },
+      {
+        "source": "apps/frontend/src/main.tsx",
+        "target": "react-dom",
+        "type": "dependency"
+      },
+      {
+        "source": "apps/frontend-e2e/src/example.spec.ts",
+        "target": "@playwright/test",
+        "type": "dependency"
+      },
+      {
+        "source": "apps/backend/src/config/database.ts",
+        "target": "pg",
+        "type": "dependency"
+      },
+      {
+        "source": "apps/backend/src/config/database.ts",
+        "target": "mongoose",
+        "type": "dependency"
+      },
+      {
+        "source": "apps/backend/src/config/database.ts",
+        "target": "redis",
+        "type": "dependency"
+      },
+      {
+        "source": "apps/backend/src/config/environment.ts",
+        "target": "dotenv",
+        "type": "dependency"
+      },
+      {
+        "source": "apps/backend/src/config/environment.ts",
+        "target": "joi",
+        "type": "dependency"
+      },
+      {
+        "source": "apps/backend/src/models/base.model.ts",
+        "target": "pg",
+        "type": "dependency"
+      },
+      {
+        "source": "apps/backend/src/models/user.model.ts",
+        "target": "bcryptjs",
+        "type": "dependency"
+      },
+      {
+        "source": "apps/backend/src/services/auth.service.ts",
+        "target": "jsonwebtoken",
+        "type": "dependency"
+      },
+      {
+        "source": "apps/backend/src/utils/errors.ts",
+        "target": "express",
+        "type": "dependency"
+      },
+      {
+        "source": "apps/backend/src/utils/logger.ts",
+        "target": "winston",
+        "type": "dependency"
+      },
+      {
+        "source": "apps/backend/src/utils/validator.ts",
+        "target": "joi",
+        "type": "dependency"
+      },
+      {
+        "source": "apps/backend/src/utils/validator.ts",
+        "target": "express",
+        "type": "dependency"
+      },
+      {
+        "source": "apps/frontend/src/app/app.spec.tsx",
+        "target": "@testing-library/react",
+        "type": "dependency"
+      },
+      {
+        "source": "apps/backend/src/api/auth/auth.controller.ts",
+        "target": "express",
+        "type": "dependency"
+      },
+      {
+        "source": "apps/backend/src/api/auth/auth.routes.ts",
+        "target": "express",
+        "type": "dependency"
+      },
+      {
+        "source": "apps/backend/src/api/health/health.controller.ts",
+        "target": "express",
+        "type": "dependency"
+      },
+      {
+        "source": "apps/backend/src/api/health/health.routes.ts",
+        "target": "express",
+        "type": "dependency"
+      },
+      {
+        "source": "apps/backend/src/api/middleware/auth.middleware.ts",
+        "target": "express",
+        "type": "dependency"
+      },
+      {
+        "source": "apps/backend/src/api/users/users.controller.ts",
+        "target": "express",
+        "type": "dependency"
+      },
+      {
+        "source": "apps/backend/src/api/users/users.routes.ts",
+        "target": "express",
+        "type": "dependency"
+      }
+    ]
+  },
+  "recommendations": [
+    "Improve type coverage by adding more TypeScript interfaces and type annotations",
+    "Fix 157 TypeScript errors for better type safety",
+    "Consider refactoring 10 files with high complexity"
+  ]
+}

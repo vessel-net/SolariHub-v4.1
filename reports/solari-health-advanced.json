@@ -1,0 +1,45 @@
+{
+  "timestamp": "2025-06-14T15:35:26.418Z",
+  "healthScore": 29,
+  "buildStatuses": [
+    {
+      "project": "backend",
+      "status": "success",
+      "timestamp": "2025-06-14T15:35:27.321Z"
+    },
+    {
+      "project": "frontend",
+      "status": "success",
+      "timestamp": "2025-06-14T15:35:27.321Z"
+    }
+  ],
+  "eslintStatus": {
+    "installed": true,
+    "configured": true,
+    "working": true
+  },
+  "prettierStatus": {
+    "installed": true,
+    "configured": true
+  },
+  "huskyStatus": {
+    "installed": true,
+    "configured": true
+  },
+  "dependencies": {
+    "missing": [],
+    "outdated": []
+  },
+  "typeSafety": {
+    "totalFiles": 39,
+    "errors": 893,
+    "warnings": 0,
+    "coverage": 18
+  },
+  "codeQuality": {
+    "dependencyNodes": 69,
+    "dependencyEdges": 47,
+    "externalDependencies": 30
+  },
+  "monitoringActive": true
+}
